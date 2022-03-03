@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: claclou <claclou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 12:03:50 by clbouche          #+#    #+#             */
-/*   Updated: 2022/03/02 17:02:19 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/03/03 13:45:42 by claclou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,24 +73,47 @@ namespace	ft {
 		/* --------------------------- ALIAS --------------------------- */	
 		/* ------------------------------------------------------------- */
 
+			//first template parameter (T)
 			typedef	T			value_type;
+
+			//second template parameter (alloc)
 			typedef	Alloc		allocator_type;
+
+			//reference to an element in the vector (default : value_type&)
 			typedef	typename 	allocator_type::reference						reference;
+
+			//constant reference to an element in the vector (default : const value_type&)
 			typedef	typename	allocator_type::const_reference					const_reference;
+
+			//pointer to an element in the vector (default : value_type*)
 			typedef	typename	allocator_type::pointer							pointer;
+
+			//constant pointer to an element in the vector (default :const value_type*)
 			typedef	typename	allocator_type::const_pointer					const_pointer;
+
+			//random access iterator to value_type (can read or modify any element stored)
 			typedef	typename	ft::random_access_iterator<value_type>			iterator;
+
+			//random access iterator to const value_type (can read element stored)
 			typedef	typename	ft::random_access_iterator< const value_type>	const_iterator;
+
+			//ft::reverse_iterator<iterator> (can read or modify any element in a reversed vector)
 			typedef	typename	ft::random_access_iterator<value_type>			reverse_iterator;
+
+			//ft::reverse_iterator<const_iterator> (can read any element in a reversed the vector)
 			typedef	typename	ft::random_access_iterator< const value_type>	const_reverse_iterator;
+			
 			//typedef	ptrdiff_t	difference_type;
+
+			
 			typedef	std::size_t			size_type;	
 
 		private:
-			allocator_type 		_alloc;
-			size_type			_size;
-			size_type			_capacity;
-
+			allocator_type 		_alloc; 
+			pointer				_vector; //pointer on an array of T values
+			size_type			_size; //number of T values stored in the vector
+			size_type			_capacity; //capacity allocated 
+			
 		public:
 		/* ------------------------------------------------------------- */
 		/* ---------------------- COPELIAN CLASS ----------------------- */	
@@ -98,18 +121,19 @@ namespace	ft {
 
 			explicit vector (const allocator_type& alloc = allocator_type()) : 
 				_size(0),
-				_capacity(0) {
-				(void)alloc;
+				_capacity(0),
+				_alloc(alloc) 
+			{
+				_vector = _alloc.allocate(_capacity);
 				std::cout << "ALOHA VECTOR - empty constructor" << std::endl;
-				
 			}
 
 			explicit vector (size_type n, const value_type& val = value_type(), 
 				const allocator_type& alloc = allocator_type()):
 				_size(n),
-				_alloc(alloc) {
-					
-				(void)alloc;
+				_alloc(alloc) 
+			{
+				_vector = _alloc.allocate(_capacity);
 				(void)val;
 				std::cout << "ALOHA VECTOR - n elments constructor" << std::endl;
 				}
