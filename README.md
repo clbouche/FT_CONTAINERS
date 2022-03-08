@@ -5,6 +5,9 @@
 - [Sujet](#Sujet)
 - [Notions de bases](#Notions-de-bases)
 - [Plan du projet](#Plan-du-projet)
+    - [Vector](#Vector)
+    - [Stack](#Stack)
+    - [Map](#Map)  
 - [Notes](#Notes)
 - [Ressources](#Ressources)
 
@@ -22,6 +25,11 @@
 
 ## Plan du projet
 
+### Vector
+
+### Stack
+
+### Map
 
 ---
 
