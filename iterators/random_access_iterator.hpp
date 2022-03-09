@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   random_access_iterator.hpp                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: claclou <claclou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 14:07:29 by clbouche          #+#    #+#             */
-/*   Updated: 2022/03/03 17:01:33 by claclou          ###   ########.fr       */
+/*   Updated: 2022/03/09 16:17:36 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,47 +27,45 @@ namespace ft {
 	* copy constructor:		Construct vector_iterator by copy ✅
 	* 
 	* - Comparaisons
-	* equality: 			Return bool ✅
-	* inequality:			Return bool
-	*
-	* - References
-	* .
-	* . 
-	*
-	* - Mutable
-	* .
+	* ==: Return bool ✅
+	* !=: Return bool ✅
+	* <: Return bool ✅
+	* >: Return bool ✅
+	* <=: Return bool ✅
+	* >=: Return bool ✅
 	*
 	* - Incrementation
-	* preincrement:         ✅
-	* postincrement:		✅
-	* . 
+	* Incrementat: ✅
+	* Preincrement: ✅
 	* 
 	* - Decrementation: 
-	* predecrement: 		✅
-	* postdecrement:		✅
+	* Decrement: ✅
+	* Predecrement: ✅
 	* . 
 	* 
 	* - Arithmetic 
-	* +:				
-	* -:
+	* +: ✅
+	* -: ✅
+	* *: ✅
+	* /: ✅
 	* 
-	* - < > <= >=  
 	* 
 	* - Assignment 
-	* +=:
-	* +-:
+	* +=: ✅
+	* +-: ✅
 	* 
 	* - Offset assignment operator
-	* - []:
+	* - []: ✅
 	* ------------------------------------------------------------- *
 	*/
 
-	/*
-	** Random-access iterators are iterators that can be used to access elements at an arbitrary offset 
-	** position relative to the element they point to, offering the same functionality as pointers.
-	** 
-	** Random-access iterators are the most complete iterators in terms of functionality
-	*/
+	/**
+	 * @brief Random-access iterators are iterators that can be used to access
+	 * elements at an arbitrary offset position relative to the element 
+	 * they point to, offering the same functionality as pointers.
+	 * 
+	 * Random-access iterators are the most complete iterators in terms of functionality.
+	 */
    
 	template < typename T >
 	class	random_access_iterator : public ft::iterator<ft::random_access_iterator_tag, T> {
@@ -85,7 +83,7 @@ namespace ft {
 			typedef typename ft::iterator<ft::random_access_iterator_tag, T>::iterator_category     iterator_category;
 
 
-		private: 
+		protected: 
 			pointer	_ptr;
 		
 		public:
@@ -94,22 +92,22 @@ namespace ft {
 		/* ------------------------------------------------------------- */
 		
 		/*
-		** Default constructor : point on null 
+		 * Default constructor : point on null 
 		*/
 		random_access_iterator(void) : _ptr(0) {}
 
 		/*
-		** Pointer constructor : point to the element passed in argument.
+		 * Pointer constructor : point to the element passed in argument.
 		*/
 		random_access_iterator(pointer elem) : _ptr(elem) {}
 
 		/*
-		** Copy constructor : copy the pointer who point to the element.
+		 * Copy constructor : copy the pointer who point to the element.
 		*/
 		random_access_iterator(const random_access_iterator& other) : _ptr(other._ptr) {}
 	
 		/*
-		** Assignation constructor : give a random access iterator who is a copy
+		 * Assignation constructor : give a random access iterator who is a copy
 		*/
 		random_access_iterator &operator=(const random_access_iterator& other) {
 			if (this == &other)
@@ -119,7 +117,7 @@ namespace ft {
 		}
 
 		/*
-		** Default destructor
+		 * Default destructor
 		*/
 		~random_access_iterator() {}
 		
@@ -127,9 +125,10 @@ namespace ft {
 		/* ------------------------- GETTERS --------------------------- */	
 		/* ------------------------------------------------------------- */
 
-		/*
-		**	Getter ptr : return	the iterator.
-		*/
+		/**
+		 * @brief Convert a reverse iterator in an iterator
+		 * @return the iterator
+		 */
 		pointer	base() const
 		{
 			return (this->_ptr);
@@ -139,26 +138,34 @@ namespace ft {
 		/* ------------------------ OPERATORS -------------------------- */	
 		/* ------------------------------------------------------------- */
 
-		/*
-		** Return the rvalue (value where point the pointer).
-		*/
-		reference operator*(void) const { return (*_ptr); }
+		/**
+		 * @brief Dereference the rvalue
+		 * @return The rvalue (value where point the pointer)
+		 */
+		reference operator*(void) const { 
+			return (*_ptr); 
+		}
 
-		/*
-		** Return the lvalue (the pointer to the element).
+		/**
+		 * @brief Give the pointer to the lvalue
+		 * @return The lvalue (the pointer to the element)
 		*/
-		pointer operator->(void) { return &(this->operator*()); }
+		pointer operator->(void) { 
+			return &(this->operator*());
+		}
 		
-		/*
-		** Preincrement: point to the next element in memory.
+		/**
+		 * @brief Increment the pointer to the next element in memory
+		 * @return A reference to the next value
 		*/
 		random_access_iterator& operator++(void) {
 			_ptr++;
 			return (*this);
 		}
 		
-		/*
-		** Postincrement: point to the next element in memory.
+		/**
+		 * @brief Preincrement the pointer to the next element in memory
+		 * @return A reference to the current element
 		*/
 		random_access_iterator operator++(int)
 		{
@@ -167,17 +174,19 @@ namespace ft {
 			return (rtn);
 		}
 
-		/*
-		** Predecrement: point to the previous element in memory.
+		/**
+		 * @brief Decrement the pointer to the previous element in memory
+		 * @return A reference to the next value
 		*/
 		random_access_iterator& operator--(void)
 		{
 			_ptr--;
 			return (*this);
 		}
-
-		/*
-		** Postdecrement: point to the previous element in memory.
+		
+		/**
+		 * @brief Predecrement the pointer to the next element in memory
+		 * @return A reference to the current element
 		*/
 		random_access_iterator operator--(int)
 		{
@@ -186,73 +195,157 @@ namespace ft {
 			return (rtn);
 		}
 
-		/*
-		** Addition (a + n): random access iterator where the element is pointed at this + "n" in memory.
+		/**
+		 * @brief Addition (a + n): random access iterator at this + "n" in memory.
+		 * 
+		 * @param n the number of element to skip
+		 * @return random access iterator who point to this + n 
 		*/
-		random_access_iterator operator+(difference_type n) const { return (_ptr + n); }
+		random_access_iterator operator+(difference_type n) const { 
+			return (_ptr + n); 
+		}
+		
+		// /**
+		//  * @brief Addition 
+		//  * 
+		//  * @param rhs iterator 
+		//  * @return random_access_iterator who point to this + rhs
+		//  */
+		// random_access_iterator operator+(random_access_iterator &rhs) const { return (_ptr + rhs); }
 
-		/*
-		** Addition (a + b): random access iterator where ... i don't know.
-		*/
-		random_access_iterator operator+(random_access_iterator &rhs) const { return (_ptr + rhs); }
 
-		/*
-		** Substration: random access iterator where the element is pointed at this - "n" in memory.
-		*/
-		random_access_iterator operator-(difference_type n) const { return (_ptr - n); }
+		/**
+		 * @brief Subtraction (a - n): random access iterator at this + 'n' in memory
+		 * 
+		 * @param n the number of element to skip
+		 * @return random_access_iterator who point to this + n
+		 */
+		random_access_iterator operator-(difference_type n) const { 
+			return (_ptr - n);
+		}
 
+		/**
+		 * @brief Access to the random access iterator this + n
+		 * 
+		 * @param n the number of element to skip
+		 * @return reference to the new value
+		 */
+		random_access_iterator&	operator+=(difference_type n) {
+			_ptr += n;
+			return (*this);
+		}
 
-		// operator+= 
+		/**
+		 * @brief Access to the random access iterator this - n
+		 * 
+		 * @param n the number of element to skip 
+		 * @return reference to the new value
+		 */
+		random_access_iterator&	operator-=(difference_type n) {
+			_ptr -= n
+			return (*this);
+		} 
 
-		//operator-= 
+		/**
+		 * @brief Access to a member of the container
+		 * 
+		 * @param n index of the element 
+		 * @return reference to the n element of the container 
+		 * @return undefined if the reference returned is out of container's range.
+		 */
+		reference	operator[](difference_type n) const {
+			return *(*this + n);
+		 }
 
-		bool	operator==() { }
-
-		//operator!=
 	};
+
+	/**
+	 * @brief Check equality between lhs & rhs.
+	 * 
+	 * @param lhs 
+	 * @param rhs 
+	 * @return true if equal
+	 * @return false otherwise
+	 */
+	template<typename T_L, typename T_R>
+	inline bool	operator==(const ft::random_access_iterator<T_L> lhs,
+		const ft::random_access_iterator<T_R> rhs) {
+			return(lhs.base() == rhs.base());
+		}
+
+	/**
+	 * @brief Check the inequality between lhs & rhs
+	 * 
+	 * @param lhs 
+	 * @param rhs 
+	 * @return true if inequal
+	 * @return false otherwise
+	 */
+	template<typename T_L, typename T_R>
+	inline bool	operator!=(const ft::random_access_iterator<T_L> lhs, 
+		const ft::random_access_iterator<T_R> rhs) {
+			return !(lhs.base() == rhs.base());
+		}
+
+	/**
+	 * @brief Check the inferiority between lhs & rhs
+	 * 
+	 * @param lhs 
+	 * @param rhs 
+	 * @return true if lhs is lower than rhs
+	 * @return false otherwise
+	 */
+	template<typename T_L, typename T_R>
+	inline bool	operator<(const ft::random_access_iterator<T_L> lhs, 
+		const ft::random_access_iterator<T_R> rhs) {
+			return (lhs.base() < rhs.base());
+		}
+
+	/**
+	 * @brief Check the superiority between lhs & rhs
+	 * 
+	 * @param lhs 
+	 * @param rhs 
+	 * @return true if lhs is higher than rhs
+	 * @return false otherwise
+	 */
+	template<typename T_L, typename T_R>
+	inline bool	operator>(const ft::random_access_iterator<T_L> lhs, 
+		const ft::random_access_iterator<T_R> rhs){
+			return (lhs.base() < rhs.base());
+		}
+
+	template<typename T_L, typename T_R>
+	inline bool	operator<=(const ft::random_access_iterator<T_L> lhs,
+		const ft::random_access_iterator<T_R> rhs) {
+			return (lhs.base() <= rhs.base());
+		}
+
+	template<typename T_L, typename T_R>
+	inline bool	operator>=(const ft::random_access_iterator<T_L> lhs,
+		const ft::random_access_iterator<T_R> rhs) {
+			return (lhs.base() >= rhs.base());
+		}
 
 	/*
 	** Addition (n + a): random access iterator where the element is pointed at this + "n" in memory. 
 	*/
-	template <typename T> 
-	ft::random_access_iterator<T> operator+(
-	typename ft::random_access_iterator<T>::difference_type n,
-	typename ft::random_access_iterator<T>& rai)
-	{
-		return (&(*rai) + n);
-	}
+	template<typename T>
+    typename ft::random_access_iterator<T>::difference_type
+    operator+(const ft::random_access_iterator<T> lhs,
+              const ft::random_access_iterator<T> rhs) {
+        return (lhs.base() + rhs.base());
+    }
 
 	/*
-	** Soustraction (n + a): random access iterator where the element is pointed at this - "n" in memory. 
+	** Substraction (n + a): random access iterator where the element is pointed at this - "n" in memory. 
 	*/
 	template<typename T>
     typename ft::random_access_iterator<T>::difference_type
     operator-(const ft::random_access_iterator<T> lhs,
-              const ft::random_access_iterator<T> rhs)
-    {
+              const ft::random_access_iterator<T> rhs) {
         return (lhs.base() - rhs.base());
     }
-
-	/*
-    ** Equality: check if the pointer of "lhs" is equal than "rhs" in the memory. 
-    */
-    template<typename T_L, typename T_R>
-    inline bool operator==(const ft::random_access_iterator<T_L> lhs,
-              const ft::random_access_iterator<T_R> rhs)
-    {
-        return (lhs.base() == rhs.base());
-    }
-
-    /* 
-	** Soustraction: 
-	*/ 
-    // template<typename T_L, typename T_R>
-    // typename ft::random_access_iterator<T_L>::difference_type
-    // operator-(const ft::random_access_iterator<T_L> lhs,
-    //           const ft::random_access_iterator<T_R> rhs)
-    // {
-    //     return (lhs.base() - rhs.base());
-    // }
 }
 
 #endif
