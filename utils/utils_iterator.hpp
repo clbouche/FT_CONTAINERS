@@ -6,12 +6,14 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 15:37:43 by clbouche          #+#    #+#             */
-/*   Updated: 2022/03/02 15:39:58 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/03/10 15:41:39 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef UTILS_ITERATOR_HPP
 # define UTILS_ITERATOR_HPP
+
+#include <cstddef>
 
 namespace ft {
 	

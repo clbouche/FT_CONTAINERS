@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 14:07:29 by clbouche          #+#    #+#             */
-/*   Updated: 2022/03/09 16:17:36 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/03/10 15:43:35 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,48 +17,6 @@
 
 namespace ft {
 	
-	/*
-	* ------------------- FT::RANDOM_ACCESS_ITERATOR -------------------- *
-	*
-	* - Coplien form:
-	* constructor:			Construct vector_iterator ✅
-	* destructor:			Destruct vector_iterator ✅
-	* operator=: 			Assign vector_iterator ✅
-	* copy constructor:		Construct vector_iterator by copy ✅
-	* 
-	* - Comparaisons
-	* ==: Return bool ✅
-	* !=: Return bool ✅
-	* <: Return bool ✅
-	* >: Return bool ✅
-	* <=: Return bool ✅
-	* >=: Return bool ✅
-	*
-	* - Incrementation
-	* Incrementat: ✅
-	* Preincrement: ✅
-	* 
-	* - Decrementation: 
-	* Decrement: ✅
-	* Predecrement: ✅
-	* . 
-	* 
-	* - Arithmetic 
-	* +: ✅
-	* -: ✅
-	* *: ✅
-	* /: ✅
-	* 
-	* 
-	* - Assignment 
-	* +=: ✅
-	* +-: ✅
-	* 
-	* - Offset assignment operator
-	* - []: ✅
-	* ------------------------------------------------------------- *
-	*/
-
 	/**
 	 * @brief Random-access iterators are iterators that can be used to access
 	 * elements at an arbitrary offset position relative to the element 
@@ -143,7 +101,7 @@ namespace ft {
 		 * @return The rvalue (value where point the pointer)
 		 */
 		reference operator*(void) const { 
-			return (*_ptr); 
+			return (*this->_ptr); 
 		}
 
 		/**
@@ -242,7 +200,7 @@ namespace ft {
 		 * @return reference to the new value
 		 */
 		random_access_iterator&	operator-=(difference_type n) {
-			_ptr -= n
+			_ptr -= n;
 			return (*this);
 		} 
 
@@ -314,13 +272,29 @@ namespace ft {
 		const ft::random_access_iterator<T_R> rhs){
 			return (lhs.base() < rhs.base());
 		}
-
+	
+	/**
+	 * @brief Check if lhs is inferior or equal to rhs
+	 * 
+	 * @param lhs 
+	 * @param rhs 
+	 * @return true if lhs is inferior or equal to rhs
+	 * @return false otherwise
+	 */
 	template<typename T_L, typename T_R>
 	inline bool	operator<=(const ft::random_access_iterator<T_L> lhs,
 		const ft::random_access_iterator<T_R> rhs) {
 			return (lhs.base() <= rhs.base());
 		}
 
+	/**
+	 * @brief Check if lhs is superior or equal to rhs
+	 * 
+	 * @param lhs 
+	 * @param rhs 
+	 * @return true if lhs is superior or equal to rhs
+	 * @return false otherwise
+	 */
 	template<typename T_L, typename T_R>
 	inline bool	operator>=(const ft::random_access_iterator<T_L> lhs,
 		const ft::random_access_iterator<T_R> rhs) {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vector.hpp                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: claclou <claclou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 12:03:50 by clbouche          #+#    #+#             */
-/*   Updated: 2022/03/03 13:45:42 by claclou          ###   ########.fr       */
+/*   Updated: 2022/03/10 15:39:31 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <cstddef>
 #include "../iterators/random_access_iterator.hpp"
 #include "../utils/utils_iterator.hpp"
+#include "../iterators/reverse_iterator.hpp"
 
 namespace	ft {
 
@@ -98,10 +99,10 @@ namespace	ft {
 			typedef	typename	ft::random_access_iterator< const value_type>	const_iterator;
 
 			//ft::reverse_iterator<iterator> (can read or modify any element in a reversed vector)
-			typedef	typename	ft::random_access_iterator<value_type>			reverse_iterator;
+			typedef	typename	ft::reverse_iterator<iterator>			reverse_iterator;
 
 			//ft::reverse_iterator<const_iterator> (can read any element in a reversed the vector)
-			typedef	typename	ft::random_access_iterator< const value_type>	const_reverse_iterator;
+			typedef	typename	ft::reverse_iterator<const_iterator>	const_reverse_iterator;
 			
 			//typedef	ptrdiff_t	difference_type;
 
