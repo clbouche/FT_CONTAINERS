@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 12:03:50 by clbouche          #+#    #+#             */
-/*   Updated: 2022/03/10 15:39:31 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/03/14 16:54:40 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include <iostream>
 #include <memory>
 #include <cstddef>
+#include <iostream>
 #include "../iterators/random_access_iterator.hpp"
 #include "../utils/utils_iterator.hpp"
 #include "../iterators/reverse_iterator.hpp"
@@ -26,7 +27,10 @@ namespace	ft {
     * ------------------------ FT::VECTOR ------------------------- *
     *
     * - Coplien form:
-    * constructor:        	Construct vector
+    * constructor:        	Construct vector 
+	* 					- default constructor ✅ 
+	*					- fill constructor
+	*					- range constructor
     * destructor:         	Destruct vector
     * operator=:            Assign vector
     *
@@ -111,34 +115,63 @@ namespace	ft {
 
 		private:
 			allocator_type 		_alloc; 
-			pointer				_vector; //pointer on an array of T values
-			size_type			_size; //number of T values stored in the vector
-			size_type			_capacity; //capacity allocated 
+
+			//pointer on an array of T values
+			pointer				_vector; 
+
+			//number of T values stored in the vector
+			pointer				_size;
+
+			//capacity allocated  
+			pointer				_capacity;
 			
 		public:
 		/* ------------------------------------------------------------- */
 		/* ---------------------- COPELIAN CLASS ----------------------- */	
 		/* ------------------------------------------------------------- */
 
+			/**
+			 * @brief Construct a new empty vector object. 
+			 * 
+			 * @param alloc Allocator object. The container keeps and uses
+			 *				an internal copy of this allocator.
+			 */
 			explicit vector (const allocator_type& alloc = allocator_type()) : 
+				_alloc(alloc),
+				_vector(0),
 				_size(0),
-				_capacity(0),
-				_alloc(alloc) 
-			{
-				_vector = _alloc.allocate(_capacity);
+				_capacity(0) {
 				std::cout << "ALOHA VECTOR - empty constructor" << std::endl;
 			}
 
+			/**
+			 * @brief Construct a new vector object with elements.
+			 * 
+			 * @param n numbers of elements.
+			 * @param val (optionnal) value to fill the container with.
+			 */
 			explicit vector (size_type n, const value_type& val = value_type(), 
-				const allocator_type& alloc = allocator_type()):
-				_size(n),
-				_alloc(alloc) 
+				const allocator_type& alloc = allocator_type(), 
+				typename ft::enable_if<ft::is_integral<value_type>::value>::type* = 0)
+				: _alloc(alloc)
 			{
-				_vector = _alloc.allocate(_capacity);
-				(void)val;
-				std::cout << "ALOHA VECTOR - n elments constructor" << std::endl;
-				}
+				std::cout << "ALOHA VECTOR -" << n << " elements constructor" << std::endl;
+				_vector = _alloc.allocate(n);
+				_size = _vector;
+				_capacity = _vector + n;
+				while(n--)
+				{
+					_alloc.construct(_size, val);
+					_size++;
+				}	
+			}
 			
+			/**
+			 * @brief Construct a new vector object with as many elements as the interval between first and last.
+			 * 
+			 * @param first InputIterator to the initial position in a range.
+			 * @param last InputIterator to the final position of a range.
+			 */
 			template <class InputIterator>
          	vector (InputIterator first, InputIterator last, 
 				const allocator_type& alloc = allocator_type()) 
@@ -146,6 +179,7 @@ namespace	ft {
 					
 					(void)first;
 					(void)last;
+					(void)alloc;
 					std::cout << "ALOHA VECTOR - range contructor " << std::endl;
 				}
 			

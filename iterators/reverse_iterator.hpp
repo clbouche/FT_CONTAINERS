@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 10:55:01 by clbouche          #+#    #+#             */
-/*   Updated: 2022/03/10 15:46:52 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/03/14 10:28:26 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define REVERSE_ITERATOR_HPP
 
 #include "../utils/utils_iterator.hpp"
+#include "iterator_traits.hpp"
 #include "random_access_iterator.hpp"
 
 namespace ft {
@@ -28,29 +29,31 @@ namespace ft {
 	 */
 
 	template <typename _Iterator>
-	class	reverse_iterator: public ft::iterator<typename ft::iterator iterators_traits<_Iterator>::iterator_category, 
-								typename ft::iterator_traits<_Iterator::value_type,
-								typename ft::iterator_traits<_Iterator::difference_type,
-								typename ft::iterator_traits<_Iterator::pointer,
-								typename ft::iterator_traits<_Iterator::reference>  
+	class	reverse_iterator
+	: public ft::iterator<typename ft::iterator_traits<_Iterator>::iterator_category, 
+				typename ft::iterator_traits<_Iterator>::value_type>
 	{
-		protected:
-			Iterator _current;
+	
 		public:
-		
 		/* ------------------------------------------------------------- */
 		/* --------------------------- ALIAS --------------------------- */	
 		/* ------------------------------------------------------------- */
 		
-			typedef Iterator	iterator_type;
+			typedef _Iterator	iterator_type;
 			typedef typename	ft::iterator_traits<_Iterator>::iterator_category	iterator_category;
 			typedef typename	ft::iterator_traits<_Iterator>::value_type			value_type;
-			typedef typename	ft::iterator_traits<_Iterator>::difference_type		value_type;
+			typedef typename	ft::iterator_traits<_Iterator>::difference_type		difference_type;
 			typedef typename	ft::iterator_traits<_Iterator>::pointer				pointer;
 			typedef typename	ft::iterator_traits<_Iterator>::reference			reference;
 			
+		/* ------------------------------------------------------------- */
+		/* ---------------------- PRIVATE MEMBERS ---------------------- */	
+		/* ------------------------------------------------------------- */
+		protected:
+			iterator_type _current;
 
-		
+
+		public:
 		/* ------------------------------------------------------------- */
 		/* ----------------------- CONSTRUCTORS ------------------------ */	
 		/* ------------------------------------------------------------- */
