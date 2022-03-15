@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 15:37:43 by clbouche          #+#    #+#             */
-/*   Updated: 2022/03/14 16:50:14 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/03/15 11:20:54 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,45 +58,41 @@ namespace ft {
 
 namespace ft {
 	
-	template <typename T, bool is_int>
-	struct	is_integral {
+	template <typename T, bool is_integral>
+	struct	is_int {
 		typedef T 			type;
-		static const bool	value = is_int;
+		static const bool	value = is_integral;
 	};
 
-	template<> struct is_integral : public is_integral<bool, false> {};
+	template<typename> struct is_integral_t : public is_int<bool, false> {};
 
-	template<> struct is_integral<bool> : public is_integral<bool, true> {};
+	template<> struct is_integral_t<bool> : public is_int<bool, true> {};
 
-	template<> struct is_integral<char> : public is_integral<char, true> {};
+	template<> struct is_integral_t<char> : public is_int<char, true> {};
 
-	template<> struct is_integral<char16_t> : public is_integral<char16_t, true> {};
+	template<> struct is_integral_t<wchar_t> : public is_int<wchar_t, true> {};
 
-	template<> struct is_integral<char32_t> : public is_integral<char32_t, true> {};
+	template<> struct is_integral_t<signed char> : public is_int<signed char, true> {};
 
-	template<> struct is_integral<wchar_t> : public is_integral<wchar_t, true> {};
+	template<> struct is_integral_t<short int> : public is_int<short int, true> {};
 
-	template<> struct is_integral<signed char> : public is_integral<signed char, true> {};
+	template<> struct is_integral_t<int> : public is_int<int, true> {};
 
-	template<> struct is_integral<short int> : public is_integral<short int, true> {};
+	template<> struct is_integral_t<long int> : public is_int<long int, true> {};
 
-	template<> struct is_integral<int> : public is_integral<int, true> {};
+	template<> struct is_integral_t<long long int> : public is_int<long long int, true> {};
 
-	template<> struct is_integral<long int> : public is_integral<long int, true> {};
+	template<> struct is_integral_t<unsigned char> : public is_int<unsigned char, true> {};
 
-	template<> struct is_integral<long long int> : public is_integral<long long int, true> {};
+	template<> struct is_integral_t<unsigned short int> : public is_int<unsigned short int, true> {};
 
-	template<> struct is_integral<unsigned char> : public is_integral<unsigned char, true> {};
+	template<> struct is_integral_t<unsigned int> : public is_int<unsigned int, true> {};
 
-	template<> struct is_integral<unsigned short int> : public is_integral<unsigned short int, true> {};
+	template<> struct is_integral_t<unsigned long int> : public is_int<unsigned long int, true> {};
 
-	template<> struct is_integral<unsigned int> : public is_integral<unsigned int, true> {};
+	template<> struct is_integral_t<unsigned long long int> : public is_int<unsigned long long int, true> {};
 
-	template<> struct is_integral<unsigned long int> : public is_integral<unsigned long int, true> {};
-
-	template<> struct is_integral<unsigned long long int> : public is_integral<unsigned long long int, true> {};
-
-	template <class T> struct is_integral : public is_integral<T> {};
+	template <class T> struct is_integral : public is_integral_t<T> {};
 
 }
 

@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 12:03:50 by clbouche          #+#    #+#             */
-/*   Updated: 2022/03/14 16:54:40 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/03/15 16:32:47 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,22 @@
 
 namespace	ft {
 
-	/*
+	/**
     * ------------------------ FT::VECTOR ------------------------- *
     *
     * - Coplien form:
     * constructor:        	Construct vector 
-	* 					- default constructor ✅ 
-	*					- fill constructor
-	*					- range constructor
-    * destructor:         	Destruct vector
+	* 		- default constructor ✅
+	*		- fill constructor
+	*		- range constructor
+    * destructor:         	Destruct vector ✅ 
     * operator=:            Assign vector
     *
     * - Iterators:
-    * begin:                Return iterator to beginning
-    * end:                  Return iterator to end
-    * rbegin:               Return reverse iterator to reverse beginning
-    * rend:                 Return reverse iterator to reverse end
+    * begin:                Return iterator to beginning ✅
+    * end:                  Return iterator to end ✅
+    * rbegin:               Return reverse iterator to reverse beginning ✅
+    * rend:                 Return reverse iterator to reverse end ✅
     *
     * - Capacity:
     * size:                 Return size
@@ -53,9 +53,12 @@ namespace	ft {
     * at:                   Access element
     * front:                Access first element
     * back:                 Access last element
+	* display:				Access to all elements
     *
     * - Modifiers:
     * assign:               Assign vector content
+	*		- vector content with int
+	*		- vector content with iterator
     * push_back:            Add element at the end
     * pop_back:             Delete last element
     * insert:               Insert elements
@@ -85,45 +88,47 @@ namespace	ft {
 			typedef	Alloc		allocator_type;
 
 			//reference to an element in the vector (default : value_type&)
-			typedef	typename 	allocator_type::reference						reference;
+			typedef	typename 	allocator_type::reference									reference;
 
 			//constant reference to an element in the vector (default : const value_type&)
-			typedef	typename	allocator_type::const_reference					const_reference;
+			typedef	typename	allocator_type::const_reference								const_reference;
 
 			//pointer to an element in the vector (default : value_type*)
-			typedef	typename	allocator_type::pointer							pointer;
+			typedef	typename	allocator_type::pointer										pointer;
 
 			//constant pointer to an element in the vector (default :const value_type*)
-			typedef	typename	allocator_type::const_pointer					const_pointer;
+			typedef	typename	allocator_type::const_pointer								const_pointer;
 
 			//random access iterator to value_type (can read or modify any element stored)
-			typedef	typename	ft::random_access_iterator<value_type>			iterator;
+			typedef	typename	ft::random_access_iterator<value_type>						iterator;
 
 			//random access iterator to const value_type (can read element stored)
-			typedef	typename	ft::random_access_iterator< const value_type>	const_iterator;
+			typedef	typename	ft::random_access_iterator< const value_type>				const_iterator;
 
 			//ft::reverse_iterator<iterator> (can read or modify any element in a reversed vector)
-			typedef	typename	ft::reverse_iterator<iterator>			reverse_iterator;
+			typedef	typename	ft::reverse_iterator<iterator>								reverse_iterator;
 
 			//ft::reverse_iterator<const_iterator> (can read any element in a reversed the vector)
-			typedef	typename	ft::reverse_iterator<const_iterator>	const_reverse_iterator;
+			typedef	typename	ft::reverse_iterator<const_iterator>						const_reverse_iterator;
 			
-			//typedef	ptrdiff_t	difference_type;
-
-			
-			typedef	std::size_t			size_type;	
+			typedef	typename ft::iterator<random_access_iterator_tag, T>::difference_type	difference_type;
 
 		private:
+
+			//to use the same object 
 			allocator_type 		_alloc; 
 
-			//pointer on an array of T values
-			pointer				_vector; 
+			//pointer on the first value of my vector
+			pointer				_start; 
 
-			//number of T values stored in the vector
-			pointer				_size;
+			//pointer of the final value of my vector
+			pointer				_end;
 
+			//size of the vector
+			size_t				_size;
+			
 			//capacity allocated  
-			pointer				_capacity;
+			size_t				_capacity;
 			
 		public:
 		/* ------------------------------------------------------------- */
@@ -138,9 +143,10 @@ namespace	ft {
 			 */
 			explicit vector (const allocator_type& alloc = allocator_type()) : 
 				_alloc(alloc),
-				_vector(0),
-				_size(0),
-				_capacity(0) {
+				_start(0),
+				_end(0),
+				_capacity(0) 
+			{
 				std::cout << "ALOHA VECTOR - empty constructor" << std::endl;
 			}
 
@@ -149,20 +155,21 @@ namespace	ft {
 			 * 
 			 * @param n numbers of elements.
 			 * @param val (optionnal) value to fill the container with.
+			 *
+			 * @todo remplacer par la fonction assign une fois implementer 
+			 * assign(n, val);
 			 */
-			explicit vector (size_type n, const value_type& val = value_type(), 
-				const allocator_type& alloc = allocator_type(), 
-				typename ft::enable_if<ft::is_integral<value_type>::value>::type* = 0)
-				: _alloc(alloc)
+			explicit vector (size_t n, const value_type& val = value_type(), 
+				const allocator_type& alloc = allocator_type()) : _alloc(alloc)
 			{
-				std::cout << "ALOHA VECTOR -" << n << " elements constructor" << std::endl;
-				_vector = _alloc.allocate(n);
-				_size = _vector;
-				_capacity = _vector + n;
+				std::cout << "ALOHA VECTOR - " << n << " elements constructor" << std::endl;
+				_start = _alloc.allocate(n);
+				_end = _start;
+				// _capacity = _start + n;
 				while(n--)
 				{
-					_alloc.construct(_size, val);
-					_size++;
+					_alloc.construct(_end, val);
+					_end++;
 				}	
 			}
 			
@@ -171,70 +178,129 @@ namespace	ft {
 			 * 
 			 * @param first InputIterator to the initial position in a range.
 			 * @param last InputIterator to the final position of a range.
+			 *
+			 * @todo utiliser assign aussi mais pour les iterateurs.
 			 */
 			template <class InputIterator>
          	vector (InputIterator first, InputIterator last, 
-				const allocator_type& alloc = allocator_type()) 
+				const allocator_type& alloc = allocator_type(),
+				typename ft::enable_if< !ft::is_integral<InputIterator>::value, InputIterator>::type* = 0) 
+				: _alloc(alloc)
 				{
-					
-					(void)first;
-					(void)last;
-					(void)alloc;
 					std::cout << "ALOHA VECTOR - range contructor " << std::endl;
+					InputIterator tmp(first);
+					while(tmp++ != last)
+						_size++;
+
+					_capacity = _size;
+					_start = _alloc.allocate(_capacity);
+					for (int i = 0; first != last; ++first, ++i)
+						_alloc.construct(&_start[i], * first);
 				}
 			
+			/**
+			 * @brief Construct a new vector object
+			 * 
+			 * @param x another vector object of the same type
+			 *
+			 * @todo ben l'implementer mdr
+			 */
 			vector (const vector& x) {
 				(void)x;
 				std::cout << "ALOHA VECTOR - copy constructor" << std::endl;
 			}
 
-			~vector() { };
+			/**
+			 * @brief Assignation operator
+			 * 
+			 * @param other vector object
+			 * @return vector& - the new vector
+			 */
 			vector&	operator=(const vector &other) {
 				this->size = other.size;
 				return *this;
+			};
+			
+			/**
+			 * @brief Destroy the vector object
+			 *
+			 * @todo utiliser clear
+			 * @todo il faut desallouer la memoire
+			 * 
+			 */
+			~vector(void) { 
+				std::cout << "GOOD BYE VECTOR" << std::endl;
 			};
 
 		/* ------------------------------------------------------------- */
 		/* ------------------------- ITERATORS ------------------------- */
 		/* ------------------------------------------------------------- */
 
+		/**
+		 * @return an iterator pointing to the first element in the vector
+		 */
+		iterator 	begin() {
+			return _start; };
 
-		//iterator 	begin() {
-			//return iterator sur le debut; };
+		/**
+		 * @return an iterator pointing to the last element in the vector
+		 */
+		iterator	end() {
+			return _end; };
 
-		//iterator	end() {
-			//return iterator sur la fin; };
+		/**
+		 * @return an reverse_iterator pointing to the last element in the vector
+		 */
+		reverse_iterator	rbegin() { 
+			return (reverse_iterator(_end)); };
 
-		//reverse_iterator	rbegin() { 
-			//return iterator sur la fin; };
+		/**
+		 * @return an reverse_iterator pointing to the first element in the vector
+		 */
+		reverse_iterator	rend() {
+			return (reverse_iterator(_start)); };
 
-		//reverse_iterator	rend() {
-			//return iterator sur le debut); };
+		// /**
+		//  * @return a const_iterator pointing to the first element in the vector
+		//  */
+		// const_iterator	cbegin() {
+		// 	return const _start; };
 
-		//const_iterator	cbegin() {
-			//return const iterator sur le debut; };
-
-		//const_iterator	cend() {
-			//return const iterator sur la fin;};
+		// /**
+		//  * @return a const_iterator pointing to the last element in the vector
+		//  */
+		// const_iterator	cend() {
+		// 	return const _end;};
 			
-		//const_reverse_iterator	crbegin() {
-			//return const iterator sur la fin;};
+		// /**
+		//  * @return a const_reverse_iterator to the last element element in the vector
+		//  */
+		// const_reverse_iterator	crbegin() {
+		// 	return const (reverse_iterator(_end));};
 			
-		//const_reverse_iterator	crend() {
-			//return const iterator sur le debut;};
+		// /**
+		//  * @return a const_reverse_iterator pointing to the first element in the vector
+		//  */
+		// const_reverse_iterator	crend() {
+		// 	return const (reverse_iterator(_start)); };
 
 		/* ------------------------------------------------------------- */
 		/* ------------------------- CAPACITY -------------------------- */
 		/* ------------------------------------------------------------- */
 
-		//size_type	size() const { 
-			//return this->size; };
+		/**
+		 * @brief Number of actual objects in the vector (!= capacity)
+		 * 
+		 * @return size_t numbers of the element in the vector
+		 */
+		size_t	size() const { 
+			return (_end - _start); };
 
-		//size_type	max_size const {
+		//size_t	max_size const {
 			//return this->max_size; };
 			
-		//void	resize(size_type n, value_type val = value_type());
-		//size_type	capacity() const { 
+		//void	resize(size_t n, value_type val = value_type());
+		//size_t	capacity() const { 
 			// return capacity of the vector };
 			
 		//bool	empty() const {
@@ -242,7 +308,7 @@ namespace	ft {
 				//return (true);
 			//return (false)};
 
-		//void	reserve(size_type n) {
+		//void	reserve(size_t n) {
 			//	
 		//}
 
@@ -254,17 +320,17 @@ namespace	ft {
 		/* ---------------------- ELEMENT ACCESS ----------------------- */
 		/* ------------------------------------------------------------- */
 
-		// reference	operator[] (size_type n) {
+		// reference	operator[] (size_t n) {
 		//	
 		// }
-		//	const_reference	operator[] (size_type n) const {
+		//	const_reference	operator[] (size_t n) const {
 		//	
 		// }
 
-		// 	reference at (size_type n) {
+		// 	reference at (size_t n) {
 		//	
 		// }
-		// const_reference at (size_type n) const {
+		// const_reference at (size_t n) const {
 		//	
 		// }
 
@@ -293,44 +359,80 @@ namespace	ft {
 		/* ------------------------- MODIFIERS ------------------------- */	
 		/* ------------------------------------------------------------- */
 
-		//RANGE VERSION : new contents are elements constructed from each of 
-		//the elements in the range between first and last, in the same order.
+		/**
+		 * @brief new contents are elements constructed from each of the 
+		 * elements in the range between first and last, in the same order.
+		 * 
+		 * @param first input iterators to the first position
+		 * @param last input iterators to the final position
+		 */
+		template <class InputIterator>
+		void assign (InputIterator first, InputIterator last,
+			typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0) {
+			//   for (; first != last; first++, start++) {
+			// 	  _alloc.construct(_end, *first);
+			//   }
+		  }
 		
-		// template <class InputIterator>
-		// void assign (InputIterator first, InputIterator last) {
-			//   
-		//   }
-		
-
-		//FILL VERSION : new contents are n elements, each initialized to a copy of val.
-
-		// void assign (size_type n, const value_type& val) {
+		/**
+		 * @brief new contents are n elements, each initialized to a copy of val.
+		 * 
+		 * @param n numbers of elements in the vector
+		 * @param val value of each element in the vector
+		 */
+		void assign (size_t n, const value_type& val) {
 			
-		// }
+		}
 
-		// void push_back (const value_type& val) {
-			// 
-		// }
+		void push_back (const value_type& val) {
+			
+		}
 
 		// void pop_back () {
 			// 
 		// }
 
-		//SINGLE ELEMENT 
-		// iterator insert (iterator position, const value_type& val) {
-			// 
-		// }
+		/**
+		 * @brief the vector is extended by inserting a single element
+		 * 
+		 * @param position where the new element is inserted
+		 * @param val value to be copied (or moved) in the inserted element 
+		 * @return iterator that points to the first of the newly inserted element
+		 */
+		iterator insert (iterator position, const value_type& val) {
+			difference_type index = position - begin();
+			insert(position, 1, val);
+			return (&_start[index]);				
+		}
 		
 		//FILL VERSION
-		// void insert (iterator position, size_type n, const value_type& val) {
-			// 
-		// }
+		/**
+		 * @brief the vector is extended by inserting new elements
+		 * 
+		 * @param position where the new elements are inserted.
+		 * @param n number of element to insert.
+		 * @param val value to be copied (or moved) to the inserted elements
+		 */
+		void insert (iterator position, size_t n, const value_type& val) {
+			difference_type index = position - begin();
+			if (_size + n) > _capacity)
+		}
 
 		//RANGE VERSION
-		// template <class InputIterator>
-		// void insert (iterator position, InputIterator first, InputIterator last) {
-			// 
-		// }
+
+		/**
+		 * @brief the vector is extended by inserting a range of elements. 
+		 * Copies of the elements in the range [first, last] are inserted 
+		 * at position in the same order.
+		 * 
+		 * @param position where the new elements are inserted
+		 * @param first input iterator to the first element of the range
+		 * @param last input iterator to the final element of the range
+		 */
+		template <class InputIterator>
+		void insert (iterator position, InputIterator first, InputIterator last) {
+			
+		}
 
 		//POSITION
 		// iterator erase (iterator position) {

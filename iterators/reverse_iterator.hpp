@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 10:55:01 by clbouche          #+#    #+#             */
-/*   Updated: 2022/03/14 10:28:26 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/03/15 14:57:30 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,14 @@ namespace ft {
 		/* ----------------- MEMBERS OVERLOAD OPERATORS ---------------- */	
 		/* ------------------------------------------------------------- */
 
+		/**
+		 * @brief 
+		 * 
+		 * @return reference 
+		 *
+		 * @todo le dereferencement de reverse_iterator s'occupe de current--
+		 * je dois donc faire un tmp 
+		 */
 		reference	operator*() const {
 			return (*this->_current);
 		};
