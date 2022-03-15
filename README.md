@@ -96,6 +96,56 @@ tout le reste                | false          |
  
 Hourraaaaa ! On va pouvoir implémenter de notre vector maintenant, félicitations si vous etes arrivés jusque là. Allez, on a encore beaucoup de boulot. 
 
+Bon pour la suite, le processus est simple, on va commencer par finir l'implémentation des constructeurs, on va se rendre compte qu'il nous manque des fonctions pour pouvoir finir l'implémentation, donc on va implémenter ses fonctions jusqu'à avoir implémenter ce beau tableau de fonctions : 
+
+	/**
+    * ------------------------ FT::VECTOR ------------------------- *
+    *
+    * - Coplien form:
+    * constructor:        	Construct vector 
+	* 		- default constructor
+	*		- fill constructor
+	*		- range constructor
+    * destructor:         	Destruct vector
+    * operator=:            Assign vector
+    *
+    * - Iterators:
+    * begin:                Return iterator to beginning 
+    * end:                  Return iterator to end 
+    * rbegin:               Return reverse iterator to reverse beginning 
+    * rend:                 Return reverse iterator to reverse end 
+    *
+    * - Capacity:
+    * size:                 Return size
+    * max_size:             Return maximum size
+    * resize:               Change size
+    * capacity:             Return size of allocated storage capacity
+    * empty:                Test whether vector is empty
+    * reserve:              Request a change in capacity
+    *
+    * - Element access:
+    * operator[]:           Access element
+    * at:                   Access element
+    * front:                Access first element
+    * back:                 Access last element
+    *
+    * - Modifiers:
+    * assign:               Assign vector content
+	*		- vector content with int
+	*		- vector content with iterator
+    * push_back:            Add element at the end
+    * pop_back:             Delete last element
+    * insert:               Insert elements
+    * erase:                Erase elements
+    * swap:                 Swap content
+    * clear:                Clear content
+    *
+    * - Non-member function overloads:
+    * relational operators: Relational operators for vector
+    * swap:                 Exchange contents of two vectors
+    * ------------------------------------------------------------- *
+    */
+
 ### Stack
 
 ### Map
