@@ -146,6 +146,11 @@ Bon pour la suite, le processus est simple, on va commencer par finir l'impléme
     * ------------------------------------------------------------- *
     */
 
+Petit tips : 
+Avant de vous lancer dans l'implémentation des fonctions autres que les constructeurs une par une sans comprendre, je vous invite à vous balader dans [la doc des fonctions de vector](https://www.cplusplus.com/reference/vector/vector/). Vous comprendrez bien vite (normalement, si vous avez bien tout suivi jusqu'ici), que l'implementation d'insert et reserve est PRIMORDIALE.
+L'idée est donc de commencer par implémenter ses deux petits bébés pour que l'implémentation du reste soit plutot fluide. 
+
+
 ### Stack
 
 ### Map
