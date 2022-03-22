@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 12:03:50 by clbouche          #+#    #+#             */
-/*   Updated: 2022/03/15 16:32:47 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/03/22 15:47:38 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,12 +160,11 @@ namespace	ft {
 			 * assign(n, val);
 			 */
 			explicit vector (size_t n, const value_type& val = value_type(), 
-				const allocator_type& alloc = allocator_type()) : _alloc(alloc)
+				const allocator_type& alloc = allocator_type()) : _alloc(alloc), _capacity(n)
 			{
 				std::cout << "ALOHA VECTOR - " << n << " elements constructor" << std::endl;
 				_start = _alloc.allocate(n);
 				_end = _start;
-				// _capacity = _start + n;
 				while(n--)
 				{
 					_alloc.construct(_end, val);
@@ -296,21 +295,41 @@ namespace	ft {
 		size_t	size() const { 
 			return (_end - _start); };
 
-		//size_t	max_size const {
-			//return this->max_size; };
+		size_t	max_size() const {
+			return (_alloc.max_size()); };
 			
 		//void	resize(size_t n, value_type val = value_type());
-		//size_t	capacity() const { 
-			// return capacity of the vector };
+
+		size_t	capacity() const { 
+			return (this->_capacity);};
 			
 		//bool	empty() const {
 			//if (empty)
 				//return (true);
 			//return (false)};
 
-		//void	reserve(size_t n) {
-			//	
-		//}
+		/**
+		 * @brief Requests that the vector capacity be at least enough to contain n elements.
+		 *
+		 * 
+		 */
+		void	reserve(size_t n) {
+			if (n > this->max_size())
+				throw std::length_error("vector::reserve");
+			if (this->capacity() < n) {
+				const size_t old_size = this->size();
+				pointer		tmp = this->_alloc.allocate(n, this->_start);
+				for	(size_t i = 0; i < this->size(); i++) {
+					this->_alloc.construct(tmp + i, this->_start[i]);
+					this->_alloc.destroy(&(this->_start[i]));
+				}
+				this->_alloc.deallocate(this->_start, this->capacity());
+				this->_start = tmp;
+				this->_end = tmp + old_size;
+				this->_capacity = old_size + n;
+			}
+		}
+
 
 		//void	shrink_to_fit() {
 				
@@ -414,9 +433,40 @@ namespace	ft {
 		 * @param val value to be copied (or moved) to the inserted elements
 		 */
 		void insert (iterator position, size_t n, const value_type& val) {
-			difference_type index = position - begin();
-			if (_size + n) > _capacity)
+			//if n == 0
+			//	return ;
+			difference_type	index = position - begin();
+			pointer 		_newcurr;
+
+			reserve(n);
+			
 		}
+
+		// pointer 			_new_curr;
+		// 	size_type 			new_elems = n;
+		// 	size_type 			i = 0;
+
+		// 	_new_curr = alloc_obj.allocate(_size + n); //on rajout n size en plus car n x t vont etre add 
+		// 	iterator it = iterator(_curr);
+		// 	for (size_type j = 0; j < _size + new_elems; j++)
+		// 	{
+		// 		// on copie sauf si on arrive a l'iterateur
+		// 		if (it != position) // test...
+		// 			_new_curr[j] = _curr[i];
+		// 		else
+		// 		{
+		// 			i -= 1;
+		// 			for (;n > 0; n--)
+		// 				_new_curr[j++] = x;
+		// 			j -= 1;
+		// 		}
+		// 		it++;
+		// 		i++;
+		// 	}
+		// 	alloc_obj.deallocate(_curr, _capacity);
+		// 	_curr = _new_curr; // deallocate avant !!
+		// 	_size += new_elems;
+		// 	_capacity += new_elems; //revoir les calculs de cpacite 
 
 		//RANGE VERSION
 

@@ -20,13 +20,11 @@
 /*DELETE*/
 #include <iterator>
 
-
-void	testVector(void)
+void	testConstructors(void)
 {
-	/* ------------------------------------------------------------- */
-	/* -------------------------- VECTOR ---------------------------- */	
-	/* ------------------------------------------------------------- */
-	
+
+/*__________________________CONSTRUCTOR__________________________*/
+
 	std::cout << BLUE1 << "DEFAULT CONSTRUCTOR" << END << std::endl;
 	ft::vector<int>		my_default_vector1;
 	std::vector<int>	std_default_vector1;
@@ -61,5 +59,42 @@ void	testVector(void)
 	std::cout << BLUE1 << "RANGE CONSTRUCTOR" << END << std::endl;
 	ft::vector<int>		my_range_iterator(my_fill_vector3.begin() + 1, my_fill_vector3.end());
 	std::vector<int>	std_range_iterator;
+}
+
+void	testCapacity(void)
+{
+
+/*__________________________CAPACITY__________________________*/
+
+	ft::vector<int> 		my_vec(3, 8);
+	my_vec.reserve(46);
+	std::cout << my_vec.capacity() << std::endl;
+
+	ft::vector<int>::iterator it1;
+	for (it1 = my_vec.begin(); it1 != my_vec.end(); it1++)
+		std::cout << "my value is = " << *it1 << std::endl;
+
+	try
+	{
+		my_vec.reserve(my_vec.max_size() + 1);
+	}
+	catch (std::exception& e)
+	{
+		std::cout << e.what() << std::endl;
+	}
+
+}
+
+void	testVector(void)
+{
+	/* ------------------------------------------------------------- */
+	/* -------------------------- VECTOR ---------------------------- */	
+	/* ------------------------------------------------------------- */
+	
+	testConstructors();
 	std::cout << std::endl;
+
+	testCapacity();
+	std::cout << std::endl;
+
 }
