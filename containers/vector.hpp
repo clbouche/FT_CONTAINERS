@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 12:03:50 by clbouche          #+#    #+#             */
-/*   Updated: 2022/03/22 15:47:38 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/03/23 13:50:57 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@
 #include "../iterators/random_access_iterator.hpp"
 #include "../utils/utils_iterator.hpp"
 #include "../iterators/reverse_iterator.hpp"
+
+/*TO DELETE*/
+#include <vector>
+
 
 namespace	ft {
 
@@ -41,12 +45,12 @@ namespace	ft {
     * rend:                 Return reverse iterator to reverse end ✅
     *
     * - Capacity:
-    * size:                 Return size
-    * max_size:             Return maximum size
+    * size:                 Return size ✅
+    * max_size:             Return maximum size ✅
     * resize:               Change size
-    * capacity:             Return size of allocated storage capacity
+    * capacity:             Return size of allocated storage capacity ✅
     * empty:                Test whether vector is empty
-    * reserve:              Request a change in capacity
+    * reserve:              Request a change in capacity 
     *
     * - Element access:
     * operator[]:           Access element
@@ -145,10 +149,7 @@ namespace	ft {
 				_alloc(alloc),
 				_start(0),
 				_end(0),
-				_capacity(0) 
-			{
-				std::cout << "ALOHA VECTOR - empty constructor" << std::endl;
-			}
+				_capacity(0) {};
 
 			/**
 			 * @brief Construct a new vector object with elements.
@@ -160,9 +161,7 @@ namespace	ft {
 			 * assign(n, val);
 			 */
 			explicit vector (size_t n, const value_type& val = value_type(), 
-				const allocator_type& alloc = allocator_type()) : _alloc(alloc), _capacity(n)
-			{
-				std::cout << "ALOHA VECTOR - " << n << " elements constructor" << std::endl;
+				const allocator_type& alloc = allocator_type()) : _alloc(alloc), _capacity(n) {
 				_start = _alloc.allocate(n);
 				_end = _start;
 				while(n--)
@@ -170,6 +169,7 @@ namespace	ft {
 					_alloc.construct(_end, val);
 					_end++;
 				}	
+				// assign(n, val);
 			}
 			
 			/**
@@ -186,27 +186,25 @@ namespace	ft {
 				typename ft::enable_if< !ft::is_integral<InputIterator>::value, InputIterator>::type* = 0) 
 				: _alloc(alloc)
 				{
-					std::cout << "ALOHA VECTOR - range contructor " << std::endl;
-					InputIterator tmp(first);
-					while(tmp++ != last)
-						_size++;
-
-					_capacity = _size;
-					_start = _alloc.allocate(_capacity);
-					for (int i = 0; first != last; ++first, ++i)
-						_alloc.construct(&_start[i], * first);
+					difference_type n = last - first;
+					this->_start = this->_alloc.allocate(n);
+					this->_capacity = this->_size;
+					this->_end = this->_start;
+					while (n--) {
+							this->_alloc.construct(this->_end, *first);
+							this->_end++;
+							first++;
+						}
+						// assign(first, last);
 				}
 			
 			/**
 			 * @brief Construct a new vector object
 			 * 
 			 * @param x another vector object of the same type
-			 *
-			 * @todo ben l'implementer mdr
 			 */
 			vector (const vector& x) {
-				(void)x;
-				std::cout << "ALOHA VECTOR - copy constructor" << std::endl;
+
 			}
 
 			/**
@@ -227,9 +225,7 @@ namespace	ft {
 			 * @todo il faut desallouer la memoire
 			 * 
 			 */
-			~vector(void) { 
-				std::cout << "GOOD BYE VECTOR" << std::endl;
-			};
+			~vector(void) {};
 
 		/* ------------------------------------------------------------- */
 		/* ------------------------- ITERATORS ------------------------- */
@@ -295,23 +291,43 @@ namespace	ft {
 		size_t	size() const { 
 			return (_end - _start); };
 
+		/**
+		 * @brief  
+		 * 
+		 * @return size_t size maximum of a vector
+		 */
 		size_t	max_size() const {
 			return (_alloc.max_size()); };
 			
+		/**
+		 * @brief 
+		 * 
+		 */
 		//void	resize(size_t n, value_type val = value_type());
 
+		/**
+		 * @brief The actual capacity of the vector
+		 * 
+		 * @return size_t 
+		 */
 		size_t	capacity() const { 
 			return (this->_capacity);};
-			
-		//bool	empty() const {
-			//if (empty)
-				//return (true);
-			//return (false)};
+		
+		/**
+		 * @brief Permite to know if the vector is empty or not
+		 * 
+		 * @return bool 
+		 */
+		// bool	empty() const {
+		// 	if (empty)
+		// 		return (true);
+		// 	return (false)};
 
 		/**
 		 * @brief Requests that the vector capacity be at least enough to contain n elements.
 		 *
-		 * 
+		 * @param n minimum value to increase the capacity of the vector 
+		 * @todo peut etre revoir comment je gere la capacité
 		 */
 		void	reserve(size_t n) {
 			if (n > this->max_size())
@@ -400,7 +416,14 @@ namespace	ft {
 		 * @param val value of each element in the vector
 		 */
 		void assign (size_t n, const value_type& val) {
-			
+			// this->clear();
+			if (n != 0) {
+				this->reserve(n);
+				while(n--) {
+					this->_alloc.construct(this->_end, val);
+					this->_end++;
+				}
+			}
 		}
 
 		void push_back (const value_type& val) {
@@ -424,6 +447,23 @@ namespace	ft {
 			return (&_start[index]);				
 		}
 		
+		// size_type	insert_idx = ft::distance(this->begin(), position);
+
+		// 		this->reserve(computeCapacity(1));
+		// 		iterator new_pos = this->begin() + insert_idx;
+		// 		iterator it = this->end();
+		// 		size_type i = this->size();
+		// 		while (it != new_pos)
+		// 		{
+		// 			_alloc.construct(this->_start + i, this->_start[i - 1]);
+		// 			_alloc.destroy(this->_start + i - 1);
+		// 			i--;
+		// 			it--;
+		// 		}
+		// 		_alloc.construct(this->_start + i, val);
+		// 		this->_end++;
+		// 		return (iterator(this->_start + insert_idx));
+		
 		//FILL VERSION
 		/**
 		 * @brief the vector is extended by inserting new elements
@@ -431,42 +471,51 @@ namespace	ft {
 		 * @param position where the new elements are inserted.
 		 * @param n number of element to insert.
 		 * @param val value to be copied (or moved) to the inserted elements
+		 * @todo ajouter la fonction computeCapacity d'arthur
 		 */
-		void insert (iterator position, size_t n, const value_type& val) {
-			//if n == 0
-			//	return ;
-			difference_type	index = position - begin();
-			pointer 		_newcurr;
-
-			reserve(n);
-			
-		}
-
-		// pointer 			_new_curr;
-		// 	size_type 			new_elems = n;
-		// 	size_type 			i = 0;
-
-		// 	_new_curr = alloc_obj.allocate(_size + n); //on rajout n size en plus car n x t vont etre add 
-		// 	iterator it = iterator(_curr);
-		// 	for (size_type j = 0; j < _size + new_elems; j++)
-		// 	{
-		// 		// on copie sauf si on arrive a l'iterateur
-		// 		if (it != position) // test...
-		// 			_new_curr[j] = _curr[i];
-		// 		else
-		// 		{
-		// 			i -= 1;
-		// 			for (;n > 0; n--)
-		// 				_new_curr[j++] = x;
-		// 			j -= 1;
+		// void insert (iterator position, size_t n, const value_type& val) {
+		// 	if n != 0 {
+		// 		size_t		new_size = this->size() + n;
+		// 		pointer		new_curr = _alloc.allocate(new_size);
+		// 		for	(size_t i = 0 < this->size() + n; i++) {
+		// 			if (i =< this->size())
+		// 				new_curr[i]= 
+		// 				//si on a pas depasser la size de base, on copie ce qu'on a deja
+		// 			else
+		// 			new_curr[i] = val;
+		// 			//sinon on copie val jusqu'a arriver a la new size
 		// 		}
-		// 		it++;
-		// 		i++;
-		// 	}
-		// 	alloc_obj.deallocate(_curr, _capacity);
-		// 	_curr = _new_curr; // deallocate avant !!
-		// 	_size += new_elems;
-		// 	_capacity += new_elems; //revoir les calculs de cpacite 
+				
+		// 		//besoin de creer un nouveau vector de la nouvelle taille 
+		// 		//d'y remettre les infos qu'il possédait deja 
+		// 		//et d'y ajouter les nouvelles valeur 
+		// 		//faire pointer _end sur la fin
+		// 		reserve(n);
+		// 	}			
+		// }
+
+		// if (n == 0)
+		// 			return ;
+		// 		size_type	new_size = this->size() + n;
+		// 		size_type	insert_idx	= ft::distance(this->begin(), position);
+		// 		ptrdiff_t	i			= this->size() - 1;
+		// 		size_type	j;
+		// 		this->reserve(computeCapacity(n));
+		// 		while (i >= static_cast<ptrdiff_t>(insert_idx))
+		// 		{
+		// 			this->_alloc.construct(this->_start + n + i, this->_start[i]);
+		// 			this->_alloc.destroy(this->_start + i);
+		// 			i--;
+		// 		}
+		// 		j = 0;
+		// 		while (j < n)
+		// 		{
+		// 			this->_alloc.construct(this->_start + insert_idx + j, val);
+		// 			j++;
+		// 		}
+		// 		this->_end = this->_start + new_size;
+
+		
 
 		//RANGE VERSION
 
@@ -484,22 +533,41 @@ namespace	ft {
 			
 		}
 
+		
 		//POSITION
+		
+		/**
+		 * @brief Removes from the vector either a single element at the position.
+		 * 
+		 * @param position Iterator pointing to a single element to be removed from the vector.
+		 * @return iterator An iterator pointing to the new location of the element 
+		 */
 		// iterator erase (iterator position) {
-			// 
 		// }
+
 
 		//RANGE OF ELEMENTS
 		// iterator erase (iterator first, iterator last) {
-		// 
 		// }
 
-		// void swap (vector& x) {
-			// 
-		// }
+		/**
+		 * @brief 
+		 * 
+		 * @param x 
+		 */
+		void swap (vector& x) {
+			
+		}
+	
+		
 
+		/**
+		 * @brief Removes all elements from the vector (which are destroyed),
+		 * leaving the container with a size of 0.
+		 * 
+		 */
 		// void clear(){
-			// 
+		// 	this->erase(this->begin(), this->end());
 		// }
 
 		//template <class... Args>

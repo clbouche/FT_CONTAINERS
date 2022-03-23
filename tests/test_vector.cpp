@@ -20,6 +20,21 @@
 /*DELETE*/
 #include <iterator>
 
+template <typename T>
+void	printContent(ft::vector<T>& my_vector, std::vector<T>& std_vector)
+{
+	std::cout << "content of my default constructor : " << std::endl;
+	typename ft::vector<T>::iterator it1;
+	for	(it1 = my_vector.begin(); it1 != my_vector.end(); it1++)
+		std::cout << *it1 << " ";
+	std::cout << std::endl;
+	std::cout << "content of std default contructor : " << std::endl;
+	typename ft::vector<T>::iterator it2;
+	for	(it2 = my_vector.begin(); it2 != my_vector.end(); it2++)
+		std::cout << *it2 << " ";
+	std::cout << std::endl;
+}
+
 void	testConstructors(void)
 {
 
@@ -29,36 +44,37 @@ void	testConstructors(void)
 	ft::vector<int>		my_default_vector1;
 	std::vector<int>	std_default_vector1;
 
-	std::cout << "content of my default constructor : " << std::endl;
-	std::ostream_iterator<int> out_it1 (std::cout,", ");
-	std::copy ( my_default_vector1.begin(), my_default_vector1.end(), out_it1 );
+	printContent(my_default_vector1, std_default_vector1);
 	std::cout << std::endl;
-
-	std::cout << "content of std default contructor : " << std::endl;
-	std::ostream_iterator<int> out_it2 (std::cout,", ");
-	std::copy ( std_default_vector1.begin(), std_default_vector1.end(), out_it2 );
-	std::cout << std::endl;
-
 
 	std::cout << BLUE1 << "FILL CONSTRUCTOR" << END << std::endl;
 	std::cout << BLUE2 << "/* empty fill constructor */" << END << std::endl;
 	ft::vector<int>		my_fill_vector1(0);
-	// std::vector<int>	std_fill_vector1(0);
+	std::vector<int>	std_fill_vector1(0);
+
+	printContent(my_fill_vector1, std_fill_vector1);
 	std::cout << std::endl;
 
 	std::cout << BLUE2 << "/* sized fill constructor */" << END << std::endl;
 	ft::vector<int>		my_fill_vector2(6);
-	// std::vector<int> std_fill_vector2(6);
+	std::vector<int> 	std_fill_vector2(6);
+
+	printContent(my_fill_vector2, std_fill_vector2);
 	std::cout << std::endl;
 
 	std::cout << BLUE2 << "/* sized fill constructor with value */" << END << std::endl;
 	ft::vector<int>		my_fill_vector3(6, 4);
-	std::vector<int>	std_fill_vector2(6, 4);
+	std::vector<int>	std_fill_vector3(6, 4);
+
+	printContent(my_fill_vector3, std_fill_vector3);
 	std::cout << std::endl;
 
 	std::cout << BLUE1 << "RANGE CONSTRUCTOR" << END << std::endl;
 	ft::vector<int>		my_range_iterator(my_fill_vector3.begin() + 1, my_fill_vector3.end());
 	std::vector<int>	std_range_iterator;
+
+	printContent(my_range_iterator, std_range_iterator);
+	std::cout << std::endl;
 }
 
 void	testCapacity(void)
