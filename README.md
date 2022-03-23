@@ -69,8 +69,8 @@ Constructeur par remplissage     | ``explicit vector (size_t n, const value_type
 Constructeur par portée          | ``template <class InputIterator> vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()) `` | <ul><li>first = un iterateur sur la premiere valeur</li><li>last = un iterateur sur la derniere valeurli></ul> | Contruction d'un container avec autant d'éléments que l'intervalle entre first et last. | Les deux constructeurs pouvant se confondre puisqu'on envoie 2 arguments sans préciser correctement leur nature. 
 
  ##### a. Enable if      
-Comme on a vu juste avant, les deux derniers constructeurs prennent chacun 2 arguments. On peut penser que l'argument de modele InputIterator permettent de faire la différence mais que nenni ! InputIterator est un simple nom descriptif.
-→ [Pour comprendre l'utilité d'enable_if](https://eli.thegreenplace.net/2014/sfinae-and-enable_if/)
+Comme on a vu juste avant, les deux derniers constructeurs prennent chacun 2 arguments. On peut penser que l'argument de modele InputIterator permettent de faire la différence mais que nenni ! InputIterator est un simple nom descriptif.        
+→ [Pour comprendre l'utilité d'enable_if](https://eli.thegreenplace.net/2014/sfinae-and-enable_if/)      
 En gros il faut comprendre que notre compilateur c'est un gros feignant. S'il peut éviter de faire une conversion, il prendra toujours cette option, sauf si on lui précise de faire l'inverse. En l'occurence, lorsqu'on envoie,
 
 ```
