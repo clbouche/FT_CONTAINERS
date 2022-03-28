@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 11:14:49 by clbouche          #+#    #+#             */
-/*   Updated: 2022/03/14 10:21:49 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/03/28 10:19:08 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,35 @@ namespace	ft {
 		typedef const T&						reference;
 		typedef ft::random_access_iterator_tag	iterator_category;
 	};
+
+	template <typename Iterator>
+	typename ft::iterator_traits<Iterator>::difference_type
+	distance (Iterator first, Iterator last)
+	{
+		return (__distance(first, last, typename ft::iterator_traits<Iterator>::iterator_category()));
+	}
+
+	template <typename RandomAccessIterator>
+	typename ft::iterator_traits<RandomAccessIterator>::difference_type
+	__distance (RandomAccessIterator first, RandomAccessIterator last, ft::random_access_iterator_tag)
+	{
+		return (last - first);
+	}
+
+	template <typename InputIterator>
+	typename ft::iterator_traits<InputIterator>::difference_type
+	__distance (InputIterator first, InputIterator last, ft::input_iterator_tag)
+	{
+		typename ft::iterator_traits<InputIterator>::difference_type	diff;
+		for (diff = 0; first != last; ++first, ++diff) {
+			;
+		}
+		return (diff);
+	}
+
+
 }
+
+
 
 #endif

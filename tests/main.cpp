@@ -58,13 +58,13 @@ int main(void)
 	testVector();
 	std::cout << std::endl;
 
-	printTitle("stack");
-	testStack();
-	std::cout << std::endl;
+	// printTitle("stack");
+	// testStack();
+	// std::cout << std::endl;
 
-	printTitle("map");
-	testMap();
-	std::cout << std::endl;
+	// printTitle("map");
+	// testMap();
+	// std::cout << std::endl;
 
 	return (0);
 }
