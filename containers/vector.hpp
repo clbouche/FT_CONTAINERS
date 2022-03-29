@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 12:03:50 by clbouche          #+#    #+#             */
-/*   Updated: 2022/03/28 17:27:29 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/03/29 16:41:20 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 #include "../iterators/random_access_iterator.hpp"
 #include "../utils/utils_iterator.hpp"
 #include "../iterators/reverse_iterator.hpp"
+#include "../utils/utils_relational_operators.hpp"
 
 /*TO DELETE*/
 #include <vector>
@@ -54,11 +55,10 @@ namespace	ft {
     * reserve:              Request a change in capacity ✅
     *
     * - Element access:
-    * operator[]:           Access element 
-    * at:                   Access element
-    * front:                Access first element
-    * back:                 Access last element
-	* data:					Access data
+    * operator[]:           Access element ✅
+    * at:                   Access element ✅
+    * front:                Access first element ✅
+    * back:                 Access last element ✅
     *
     * - Modifiers:
     * assign:               Assign vector content
@@ -73,6 +73,12 @@ namespace	ft {
     *
     * - Non-member function overloads:
     * relational operators: Relational operators for vector
+	*		- operator==
+	*		- operator!=
+	*		- operator<
+	*		- operator<=
+	*		- operator>
+	*		- operator>=
     * swap:                 Exchange contents of two vectors
     * ------------------------------------------------------------- *
     */
@@ -248,42 +254,31 @@ namespace	ft {
 			/**
 			 * @return an iterator pointing to the first element in the vector
 			 */
-			iterator 	begin() const { return _start; };
+			iterator 	begin() { return _start; };
+
+			const_iterator begin() const { return _start; };
 
 			/**
 			 * @return an iterator pointing to the last element in the vector
 			 */
-			iterator	end() const { return _end; };
+			iterator	end() { return _end; };
+
+			const_iterator end() const { return _end; };
 
 			/**
 			 * @return an reverse_iterator pointing to the last element in the vector
 			 */
-			reverse_iterator	rbegin() const { return (reverse_iterator(_end)); };
+			reverse_iterator	rbegin() { return (reverse_iterator(_end)); };
+
+			const_reverse_iterator rbegin() const { return (reverse_iterator(_end)); };
 
 			/**
 			 * @return an reverse_iterator pointing to the first element in the vector
 			 */
-			reverse_iterator	rend() const { return (reverse_iterator(_start)); };
+			reverse_iterator	rend() { return (reverse_iterator(_end)); };
 
-			/**
-			 * @return a const_iterator pointing to the first element in the vector
-			 */
-			const_iterator	cbegin() const { return _start; }; 
+			const_reverse_iterator rend() const { return (reverse_iterator(_end)); };
 
-			/**
-			 * @return a const_iterator pointing to the last element in the vector
-			 */
-			const_iterator	cend() const { return _end;};
-				
-			/**
-			 * @return a const_reverse_iterator to the last element element in the vector
-			 */
-			const_reverse_iterator	crbegin() { return (reverse_iterator(_end));};
-				
-			/**
-			 * @return a const_reverse_iterator pointing to the first element in the vector
-			 */
-			const_reverse_iterator	crend() { return (reverse_iterator(_start)); };
 
 		/* ------------------------------------------------------------- */
 		/* ------------------------- CAPACITY -------------------------- */
@@ -363,42 +358,62 @@ namespace	ft {
 		/* ---------------------- ELEMENT ACCESS ----------------------- */
 		/* ------------------------------------------------------------- */
 
-			// reference	operator[] (size_type n) {
-			//	
-			// }
-			//	const_reference	operator[] (size_type n) const {
-			//	
-			// }
-
-			// 	reference at (size_type n) {
-			//	
-			// }
-			// const_reference at (size_type n) const {
-			//	
-			// }
-
-			//	reference front() {
-				
-			// }
-			// const_reference front() const {
-				
-			// }
-
-			// reference back() {
-				
-			// }
-			// const_reference back() const {
-				
-			// }
-
-			// value_type* data() noexcept {
-				
-			// }
-			// const value_type* data() const noexcept {
-				
-			// }
-
+			/**
+			 * @brief Returns a reference to the element at n position.
+			 * 
+			 * @param n position in the vector container to return
+			 * @return reference of the vector
+			 */
+			reference	operator[] (size_type n) {
+				return (static_cast<reference>(*(this->_start + n)));
+			}
 			
+			const_reference	operator[] (size_type n) const {
+					return (static_cast<const_reference>(*(this->_start + n)));
+			}
+
+			/**
+			 * @brief Returns a reference to the element at n position. 
+			 * diff w/ operator[] = exception if n > size.
+			 * 
+			 * @param n position in the vector container to return 
+			 * @return reference of the vector
+			 */
+			reference at (size_type n) {
+				if (n >= this->size())
+					throw std::out_of_range("vector::out_of_range");
+				return ((*this)[n]);
+			}
+			
+			const_reference at (size_type n) const {
+				if (n >= this->size())
+					throw std::out_of_range("vector::out_of_range");
+				return ((*this)[n]);
+			}
+
+			/**
+			 * @brief Return a reference to the first element of the vector.
+			 * 
+			 * @return reference of the vector
+			 */
+			reference front() {
+				return (*this->_start);
+			}
+			const_reference front() const {
+				return (*this->start);
+			}
+
+			/**
+			 * @brief Return a reference to the last element of the vector.
+			 * 
+			 * @return reference of the vector
+			 */
+			reference back() {
+				return (*(this->_end - 1));
+			}
+			const_reference back() const {
+				return (*(this->_end - 1));
+			}	
 
 		/* ------------------------------------------------------------- */
 		/* ------------------------- MODIFIERS ------------------------- */	
@@ -437,7 +452,8 @@ namespace	ft {
 			}
 
 			/**
-			 * @brief Adds a new element at the end of the vector, after its current last element. The content of val is copied (or moved) to the new element
+			 * @brief Adds a new element at the end of the vector, after its current last element. 
+			 * The content of val is copied (or moved) to the new element
 			 * 
 			 * @param val the new value to insert in the vector
 			 */
@@ -579,24 +595,50 @@ namespace	ft {
 				this->erase(this->begin(), this->end());
 			}
 
-			//template <class... Args>
-			// iterator emplace (const_iterator position, Args&&... args) {
-				// 
-			// }
-
-			// template <class... Args>
-			// void emplace_back (Args&&... args) {
-				//   
-			//   }
 
 		/* ------------------------------------------------------------- */
 		/* ----------------------- ALLOCATOR --------------------------- */
 		/* ------------------------------------------------------------- */
 
-			// allocator_type get_allocator() const {
-				// 
-			// }
+			/**
+			 * @brief Get the allocator object
+			 * 
+			 * @return allocator_type 
+			 */
+			allocator_type get_allocator() const {
+				return (this->_alloc);
+			}
 	};
+
+	template <class T, class Alloc>
+	bool operator== (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+		return (ft::equal(lhs.begin(), lhs.end(), rhs.begin()));
+	}
+
+	template <class T, class Alloc>
+	bool operator!= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+		return (!(lhs == rhs));
+	}
+
+	template <class T, class Alloc>
+	bool operator<  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+		return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), lhs.begin()));
+	}
+
+	template <class T, class Alloc>
+	bool operator<= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+		return (!(rhs < lhs));
+	}
+
+	template <class T, class Alloc>
+	bool operator>  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+		return (rhs < lhs);
+	}
+
+	template <class T, class Alloc>
+	bool operator>= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+		return (!(lhs < rhs));
+	}
 		
 }
 

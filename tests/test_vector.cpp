@@ -123,6 +123,47 @@ void	testReserve(void)
 	}
 }
 
+void	testElementAccess(void)
+{
+	std::cout << BLUE1 << "/*________________________ELEMENT ACCESS________________________*/"<< END << std::endl;
+	ft::vector<int>		my_vector(5, 3);
+	std::vector<int>	std_vector(5, 3);
+
+	std::cout << BLUE2 << "BEFORE ELEMENT ACCESS" << END << std::endl;
+	printContent(my_vector, std_vector);
+	printInfos(my_vector, std_vector);
+	std::cout << std::endl;
+
+	std::cout << BLUE3 << "/* operator[] */" << END << std::endl;
+	std::cout << "ft::vector[3] is : " << my_vector[3] << std::endl;
+	std::cout << "std::vector[3] is : " << std_vector[3] << std::endl;
+
+	ft::vector<int>::iterator it1 = my_vector.insert(my_vector.begin() + 1, 155);
+	std::vector<int>::iterator it2 = std_vector.insert(std_vector.begin() + 1, 155);
+	printContent(my_vector, std_vector);
+
+	std::cout << BLUE3 << "/* function at */" << END << std::endl;
+	std::cout << "ft::vector at position 2 is : " << my_vector.at(1) << std::endl;
+	std::cout << "std::vector at position 2 is : " << std_vector.at(1) << std::endl << std::endl;
+
+	it1 = my_vector.insert(my_vector.begin(), 12);
+	it2 = std_vector.insert(std_vector.begin(), 12);
+	printContent(my_vector, std_vector);
+
+	std::cout << BLUE3 << "/* function front */" << END << std::endl;
+	std::cout << "first element of my_vector : " << my_vector.front() << std::endl;
+	std::cout << "first element of std_vector : " << std_vector.front() << std::endl << std::endl;
+
+	it1 = my_vector.insert(my_vector.end(), 369);
+	it2 = std_vector.insert(std_vector.end(), 369);
+	printContent(my_vector, std_vector);
+
+	std::cout << BLUE3 << "/* function back */" << END << std::endl;
+	std::cout << "last element of my_vector : " << my_vector.back() << std::endl;
+	std::cout << "last element of std_vector : " << std_vector.back() << std::endl;
+
+}
+
 void	testResize(void)
 {
 	std::cout << BLUE1 << "/*________________________RESIZE________________________*/"<< END << std::endl;
@@ -275,8 +316,8 @@ void	testVector(void)
 	testReserve();
 	std::cout << std::endl;
 
-	// testElementAccess()
-	// std::cout << std::endl;
+	testElementAccess();
+	std::cout << std::endl;
 
 	// testAssign();
 	// std::cout << std::endl;

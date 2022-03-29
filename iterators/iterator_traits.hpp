@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 11:14:49 by clbouche          #+#    #+#             */
-/*   Updated: 2022/03/28 10:19:08 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/03/29 16:43:36 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ namespace	ft {
 		typedef typename	Iterator::difference_type	difference_type;
 		typedef typename	Iterator::value_type		value_type;
 		typedef typename	Iterator::pointer			pointer;
-		typedef typename	Iterator::reference			refenrece;
+		typedef typename	Iterator::reference			reference;
 		typedef typename	Iterator::iterator_category	iterator_category;
 	};
 
