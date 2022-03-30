@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 12:03:50 by clbouche          #+#    #+#             */
-/*   Updated: 2022/03/29 16:41:20 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/03/30 17:40:54 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,12 +73,12 @@ namespace	ft {
     *
     * - Non-member function overloads:
     * relational operators: Relational operators for vector
-	*		- operator==
-	*		- operator!=
-	*		- operator<
-	*		- operator<=
-	*		- operator>
-	*		- operator>=
+	*		- operator== ✅
+	*		- operator!= ✅
+	*		- operator< ✅
+	*		- operator<= ✅
+	*		- operator> ✅
+	*		- operator>= ✅
     * swap:                 Exchange contents of two vectors
     * ------------------------------------------------------------- *
     */
@@ -219,8 +219,8 @@ namespace	ft {
 			 * @param x another vector object of the same type
 			 */
 			vector (const vector& x) : _alloc(x.get_allocator()) {
-				this->_start = this->_alloc.allocate(x.size);
-				this->_capacity = this->_start + x.size;
+				this->_start = this->_alloc.allocate(x.size());
+				this->_capacity = this->_start + x.size();
 				this->_end = this->_start;
 				this->assign(x.begin(), x.end());
 			}
@@ -340,7 +340,7 @@ namespace	ft {
 			void	reserve(size_type n) {
 				if (n > this->max_size())
 					throw std::length_error("vector::reserve");
-				if (this->capacity() < this->_size + n) {
+				if (this->capacity() < this->size() + n) {
 					const size_type old_size = this->size();
 					pointer		tmp = this->_alloc.allocate(n, this->_start);
 					for	(size_type i = 0; i < this->size(); i++) {
@@ -400,7 +400,7 @@ namespace	ft {
 				return (*this->_start);
 			}
 			const_reference front() const {
-				return (*this->start);
+				return (*this->_start);
 			}
 
 			/**
@@ -610,8 +610,24 @@ namespace	ft {
 			}
 	};
 
+	/* ------------------------------------------------------------- */
+	/* ------------------ RELATIONAL OPERATORS --------------------- */
+	/* ------------------------------------------------------------- */
+	/**
+	 * @brief 
+	 *
+	 * operation	 equivalent operation
+	 *	a!=b			!(a==b)
+	 *	a>b				b<a
+	 *	a<=b			!(b<a)
+	 *	a>=b			!(a<b)
+	*
+	 */
+
 	template <class T, class Alloc>
 	bool operator== (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
+		if (lhs.size() != rhs.size())
+			return (false);
 		return (ft::equal(lhs.begin(), lhs.end(), rhs.begin()));
 	}
 
@@ -622,7 +638,7 @@ namespace	ft {
 
 	template <class T, class Alloc>
 	bool operator<  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
-		return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), lhs.begin()));
+		return (ft::lexicographical_compare(lhs.begin(), lhs.end(), rhs.begin(), rhs.end()));
 	}
 
 	template <class T, class Alloc>
@@ -638,6 +654,11 @@ namespace	ft {
 	template <class T, class Alloc>
 	bool operator>= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs) {
 		return (!(lhs < rhs));
+	}
+
+	template <class T, class Alloc>
+	void swap (vector<T,Alloc>& x, vector<T,Alloc>& y) {
+		x.swap(y);
 	}
 		
 }

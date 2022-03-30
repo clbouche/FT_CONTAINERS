@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 14:07:29 by clbouche          #+#    #+#             */
-/*   Updated: 2022/03/10 15:43:35 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/03/30 16:47:02 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,8 @@ namespace ft {
 		 * Default destructor
 		*/
 		~random_access_iterator() {}
-		
+
+
 		/* ------------------------------------------------------------- */
 		/* ------------------------- GETTERS --------------------------- */	
 		/* ------------------------------------------------------------- */
@@ -214,6 +215,11 @@ namespace ft {
 		reference	operator[](difference_type n) const {
 			return *(*this + n);
 		 }
+
+		 operator random_access_iterator<const T> () const
+			{
+				return (random_access_iterator<const T>(this->_ptr));
+			}
 
 	};
 

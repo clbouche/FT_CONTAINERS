@@ -164,6 +164,24 @@ void	testElementAccess(void)
 
 }
 
+void	testAssign(void)
+{
+	std::cout << BLUE1 << "/*________________________ASSIGN________________________*/"<< END << std::endl;
+	ft::vector<int>		my_vector;
+	std::vector<int>	std_vector;
+
+	std::cout << std::endl << BLUE3 << "BEFORE ASSIGN" << END << std::endl;
+	printContent(my_vector, std_vector);
+	printInfos(my_vector, std_vector);
+
+	std::cout << std::endl << BLUE3 << "AFTER ASSIGN" << END << std::endl;
+	my_vector.assign(6, 100);
+	std_vector.assign(6, 100);
+
+	printContent(my_vector, std_vector);
+	printInfos(my_vector, std_vector);
+}
+
 void	testResize(void)
 {
 	std::cout << BLUE1 << "/*________________________RESIZE________________________*/"<< END << std::endl;
@@ -279,6 +297,7 @@ void	testInsert(void)
 
 void	testSwap(void)
 {
+	std::cout << BLUE1 << "/*__________________________SWAP__________________________*/"<< END << std::endl;
 	ft::vector<int> my_vector (3,100);
 	std::vector<int> std_vector (3,100);	
 	ft::vector<int> my_new_vector (5,200); 	
@@ -298,40 +317,114 @@ void	testSwap(void)
 	std::cout << std::endl;
 }
 
+void	testRelationalOperators(void)
+{
+	ft::vector<int>		my_first_vector (20, 30);
+	ft::vector<int>		my_second_vector(20, 30);
+	ft::vector<int>		my_third_vector(10, 6);
+	ft::vector<int>		my_fourth_vector(50, 3);
+
+	std::vector<int>	std_first_vector (20, 30);
+	std::vector<int>	std_second_vector(20, 30);
+	std::vector<int>	std_third_vector(10, 6);
+	std::vector<int>	std_fourth_vector(50, 3);
+
+	std::cout << "__________FIRST VECTOR" << std::endl;
+	printContent(my_first_vector, std_first_vector);
+	std::cout << "__________SECOND VECTOR" << std::endl;
+	printContent(my_second_vector, std_second_vector);
+	std::cout << std::endl;
+
+	std::cout << BLUE2 << " MY OPERATOR== : " << END << (my_first_vector == my_second_vector);
+	std::cout << BLUE2 << " STD OPERATOR== : " << END  << (std_first_vector == std_second_vector) << std::endl;
+
+
+	std::cout << BLUE2 << " MY OPERATOR!= : " << END << (my_first_vector != my_second_vector);
+	std::cout << BLUE2 << " STD OPERATOR!= : " << END << (std_first_vector != std_second_vector) << std::endl;
+
+	std::cout << BLUE2 << " MY OPERATOR<  : " << END << (my_first_vector < my_second_vector);
+	std::cout << BLUE2 << " STD OPERATOR<  : " << END << (std_first_vector < std_second_vector) << std::endl;
+
+	std::cout << BLUE2 << " MY OPERATOR<  : " << END << (my_first_vector < my_third_vector);
+	std::cout << BLUE2 << " STD OPERATOR<  : " << END << (std_first_vector < std_third_vector) << std::endl;
+
+	std::cout << BLUE2 << " MY OPERATOR<  : " << END << (my_first_vector < my_fourth_vector);
+	std::cout << BLUE2 << " STD OPERATOR<  : " << END << (std_first_vector < std_fourth_vector) << std::endl;
+
+	std::cout << BLUE2 << " MY OPERATOR<= : " << END << (my_first_vector <= my_second_vector);
+	std::cout << BLUE2 << " STD OPERATOR<= : " << END << (std_first_vector <= std_second_vector) << std::endl;
+
+	std::cout << BLUE2 << " MY OPERATOR<= : " << END << (my_first_vector <= my_third_vector);
+	std::cout << BLUE2 << " STD OPERATOR<= : " << END << (std_first_vector <= std_third_vector) << std::endl;
+
+	std::cout << BLUE2 << " MY OPERATOR>  : " << END << (my_first_vector > my_second_vector);
+	std::cout << BLUE2 << " STD OPERATOR>  : " << END << (std_first_vector > std_second_vector) << std::endl;
+
+	std::cout << BLUE2 << " MY OPERATOR>  : " << END << (my_first_vector > my_third_vector);
+	std::cout << BLUE2 << " STD OPERATOR>  : " << END << (std_first_vector > std_third_vector) << std::endl;
+
+	std::cout << BLUE2 << " MY OPERATOR>  : " << END << (my_first_vector > my_fourth_vector);
+	std::cout << BLUE2 << " STD OPERATOR>  : " << END << (std_first_vector > std_fourth_vector) << std::endl;
+
+	std::cout << BLUE2 << " MY OPERATOR>= : " << END << (my_first_vector > my_second_vector);
+	std::cout << BLUE2 << " STD OPERATOR>= : " << END << (std_first_vector > std_second_vector) << std::endl;
+
+	std::cout << BLUE2 << " MY OPERATOR>= : " << END << (my_first_vector > my_third_vector);
+	std::cout << BLUE2 << " STD OPERATOR>= : " << END << (std_first_vector > std_third_vector) << std::endl;
+
+	std::cout << BLUE2 << " MY OPERATOR>= : " << END << (my_first_vector > my_fourth_vector);
+	std::cout << BLUE2 << " STD OPERATOR>= : " << END << (std_first_vector > std_fourth_vector) << std::endl;
+}
+
+void	testReverseIterator(void)
+{
+	ft::vector<int> vct;
+	ft::vector<int>::iterator it = vct.begin();
+	ft::vector<int>::iterator cit = vct.begin();
+
+	ft::vector<int>::reverse_iterator rit(it);
+
+	ft::vector<int>::const_reverse_iterator crit(rit);
+	ft::vector<int>::const_reverse_iterator crit_(it);
+	ft::vector<int>::const_reverse_iterator crit_2(cit);
+}
 void	testVector(void)
 {
 	/* ------------------------------------------------------------- */
 	/* -------------------------- VECTOR ---------------------------- */	
 	/* ------------------------------------------------------------- */
 	
-	testConstructors();
-	std::cout << std::endl;
-
-	//testIterators()
+	// testConstructors();
 	// std::cout << std::endl;
 
-	testResize();
-	std::cout << std::endl;
+	// testResize();
+	// std::cout << std::endl;
 	
-	testReserve();
-	std::cout << std::endl;
-
-	testElementAccess();
-	std::cout << std::endl;
-
-	// testAssign();
+	// testReserve();
 	// std::cout << std::endl;
 
-	testPop_Push_Back();
-	std::cout << std::endl;
-
-	testInsert();
-	std::cout << std::endl;
-
-	// testErase();
+	// testElementAccess();
 	// std::cout << std::endl;
 
-	testSwap();
-	std::cout << std::endl;
 
+	// testPop_Push_Back();
+	// std::cout << std::endl;
+
+	// testInsert();
+	// std::cout << std::endl;
+
+	// // testErase();
+	// // std::cout << std::endl;
+
+	// testSwap();
+	// std::cout << std::endl;
+
+	// testRelationalOperators();
+	// std::cout << std::endl;
+
+	// testReverseIterator();
+	// std::cout << std::endl;
+	
+	testAssign();
+	std::cout << std::endl;
 }
