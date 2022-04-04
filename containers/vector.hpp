@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 12:03:50 by clbouche          #+#    #+#             */
-/*   Updated: 2022/03/30 17:40:54 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/04/04 17:47:43 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,13 +218,22 @@ namespace	ft {
 			 * 
 			 * @param x another vector object of the same type
 			 */
-			vector (const vector& x) : _alloc(x.get_allocator()) {
+			// vector (const vector& x) : _alloc(x.get_allocator()) {
+			// 	this->_start = this->_alloc.allocate(x.size());
+			// 	this->_capacity = this->_start + x.size();
+			// 	this->_end = this->_start;
+			// 	this->assign(x.begin(), x.end());
+			// }
+
+			vector (const vector & x) :
+				_alloc(x.get_allocator())
+			{
 				this->_start = this->_alloc.allocate(x.size());
 				this->_capacity = this->_start + x.size();
 				this->_end = this->_start;
 				this->assign(x.begin(), x.end());
 			}
-			
+
 			/**
 			 * @brief Assignation operator
 			 * 
@@ -275,9 +284,9 @@ namespace	ft {
 			/**
 			 * @return an reverse_iterator pointing to the first element in the vector
 			 */
-			reverse_iterator	rend() { return (reverse_iterator(_end)); };
+			reverse_iterator	rend() { return (reverse_iterator(_start)); };
 
-			const_reverse_iterator rend() const { return (reverse_iterator(_end)); };
+			const_reverse_iterator rend() const { return (reverse_iterator(_start)); };
 
 
 		/* ------------------------------------------------------------- */
@@ -340,7 +349,7 @@ namespace	ft {
 			void	reserve(size_type n) {
 				if (n > this->max_size())
 					throw std::length_error("vector::reserve");
-				if (this->capacity() < this->size() + n) {
+				if (this->capacity() < n) {
 					const size_type old_size = this->size();
 					pointer		tmp = this->_alloc.allocate(n, this->_start);
 					for	(size_type i = 0; i < this->size(); i++) {
@@ -429,6 +438,7 @@ namespace	ft {
 			template <class InputIterator>
 			void assign (InputIterator first, InputIterator last,
 				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0) {
+					this->clear();
 					this->reserve(last - first);
 					this->empty();
 					_end = _start;
@@ -442,14 +452,28 @@ namespace	ft {
 			 * @param n numbers of elements in the vector
 			 * @param val value of each element in the vector
 			 */
-			void assign (size_type n, const value_type& val) {
+			// void assign (size_type n, const value_type& val) {
+			// 	this->clear();
+			// 	if (n != 0)  {
+			// 		this->reserve(n);
+			// 		for (; n != 0; n--, _end++)
+			// 			_alloc.construct(_end, val);
+			// 	}
+			// }
+
+			void		assign ( size_type n, const value_type& val )
+			{
 				this->clear();
-				if (n != 0) {
-					this->reserve(n);
-					for (; n != 0; n--, _end++)
-						_alloc.construct(_end, val);
+				if (n == 0)
+					return ;
+				this->reserve(n);
+				while (n--)
+				{
+					this->_alloc.construct(this->_end, val);
+					this->_end++;
 				}
 			}
+
 
 			/**
 			 * @brief Adds a new element at the end of the vector, after its current last element. 
@@ -458,7 +482,12 @@ namespace	ft {
 			 * @param val the new value to insert in the vector
 			 */
 			void push_back (const value_type& val) {
-				insert(this->end(), val);
+				if (this->_end == this->_capacity)
+				{
+					this->reserve(computeCapacity(1));
+				}
+				this->_alloc.construct(this->_end, val);
+				this->_end++;	
 			}
 
 			/**
@@ -467,7 +496,8 @@ namespace	ft {
 			 * @todo probleme avec la capacity
 			 */
 			void pop_back () {
-				erase(this->end());
+					--this->_end;
+				this->_alloc.destroy((this->_end));
 			}
 
 			/**
@@ -505,7 +535,7 @@ namespace	ft {
 					size_type new_size = this->size() + n;
 					size_type	insert_idx = ft::distance(this->begin(), position);
 					ptrdiff_t i = this->size() - 1;
-					this->reserve(this->size() + n);
+					this->reserve(computeCapacity(n));
 					while(i >= static_cast<ptrdiff_t>(insert_idx)) {
 						this->_alloc.construct(this->_start + n + i, this->_start[i]);
 						this->_alloc.destroy(this->_start + i);

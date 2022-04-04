@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 14:07:29 by clbouche          #+#    #+#             */
-/*   Updated: 2022/03/30 16:47:02 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/04/04 17:19:33 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -276,7 +276,7 @@ namespace ft {
 	template<typename T_L, typename T_R>
 	inline bool	operator>(const ft::random_access_iterator<T_L> lhs, 
 		const ft::random_access_iterator<T_R> rhs){
-			return (lhs.base() < rhs.base());
+			return (lhs.base() > rhs.base());
 		}
 	
 	/**
