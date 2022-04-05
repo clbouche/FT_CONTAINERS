@@ -36,7 +36,7 @@ void	printContent(ft::vector<T>& my_vector, std::vector<T>& std_vector)
 }
 
 template <typename T>
-void	printInfosVector(ft::vector<T>& my_vector, std::vector<T> std_vector)
+void	printInfosVector(ft::vector<T>& my_vector, std::vector<T>& std_vector)
 {
 	std::cout << BLUE3 << "infos of my vector : " << END << std::endl;
 	std::cout << "capacity : " << my_vector.capacity() << std::endl;
@@ -97,7 +97,7 @@ void	V_testReserve(void)
 	std::vector<int>		std_vector(3, 8);
 	std::cout << BLUE2 << "BEFORE RESERVE" << END << std::endl;
 	printInfosVector(my_vector, std_vector);
-	my_vector.reserve(46); //ERROR OF CAPACITY
+	my_vector.reserve(46);
 	std_vector.reserve(46);
 	std::cout << std::endl << BLUE2 << "AFTER RESERVE" << END << std::endl;
 	printInfosVector(my_vector, std_vector);
@@ -195,7 +195,7 @@ void	V_testResize(void)
 	std::cout << std::endl;
 
 	std::cout << BLUE3 << std::endl << "/* resize to less than size */" << END << std::endl;
-	my_vector.resize(5);
+	my_vector.resize(5); 
 	std_vector.resize(5);
 
 	printContent(my_vector, std_vector);
@@ -436,9 +436,6 @@ void	testVector(void)
 
 	V_testInsert();
 	std::cout << std::endl;
-
-	// testErase();
-	// std::cout << std::endl;
 
 	V_testSwap();
 	std::cout << std::endl;

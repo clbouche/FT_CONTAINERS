@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 12:04:42 by clbouche          #+#    #+#             */
-/*   Updated: 2022/04/05 14:27:18 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/04/05 15:43:40 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,23 @@ namespace	ft {
 	* 
 	* - Members functions:
 	* empty:				Test whether stack is empty ✅ 
-	* size:					return size ✅
+	* size:					Return size ✅
+	* top:					Return the last element inserted into the stack ✅
+	* push:					Inserts a new element at the top of the stack ✅
+	* pop: 					Removes the element on top of the stack ✅
+	*
+	* - Friends functions:
+	* 	operator== ✅
+	* 	operator<  ✅
+	* 
+	* - Non members functions:
+	* relational operators: Relational operators for vector
+	* 	operator== ✅
+	* 	operator!= ✅
+	* 	operator<  ✅
+	*	operator>  ✅
+	*	operator<= ✅
+	* 	operator>= ✅
 	* ------------------------------------------------------------- *
     */
 
@@ -53,7 +69,7 @@ namespace	ft {
 			typedef typename Container::size_type		size_type;		
 
 
-		private:
+		protected:
 			container_type								 _c;
 			
 		public:

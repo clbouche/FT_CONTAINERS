@@ -60,7 +60,7 @@ int main(void)
 
 	printTitle("stack");
 	testStack();
-	// std::cout << std::endl;
+	std::cout << std::endl;
 
 	// printTitle("map");
 	// testMap();
