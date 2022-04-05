@@ -27,7 +27,7 @@
 
 ### Vector
 On va commencer par construire notre premier container. Par élémination on va débuter par vector : 
-- stack est un vector sans iterateur. 
+- stack est plus ou moins un vector sans iterateur. 
 - map est le container le plus compliqué à implémenter, on le gardera pour la fin.   
 
 Pour se familiariser avec vector :     
@@ -147,11 +147,21 @@ Bon pour la suite, le processus est simple, on va commencer par finir l'impléme
     */
 
 Petit tips : 
-Avant de vous lancer dans l'implémentation des fonctions autres que les constructeurs une par une sans comprendre, je vous invite à vous balader dans [la doc des fonctions de vector](https://www.cplusplus.com/reference/vector/vector/). Vous comprendrez bien vite (normalement, si vous avez bien tout suivi jusqu'ici), que l'implementation d'insert et reserve est PRIMORDIALE.
-L'idée est donc de commencer par implémenter ses deux petits bébés pour que l'implémentation du reste soit plutot fluide. 
+- Avant de vous lancer dans l'implémentation des fonctions autres que les constructeurs une par une sans comprendre, je vous invite à vous balader dans [la doc des fonctions de vector](https://www.cplusplus.com/reference/vector/vector/). Vous comprendrez bien vite (normalement, si vous avez bien tout suivi jusqu'ici), que l'implementation d'insert et reserve est PRIMORDIALE.
+L'idée est donc de commencer par implémenter ses deux petits bébés pour que l'implémentation du reste soit plutot fluide.      
+      
+- Je vous conseille vivement de vous familiariser avec l'idee du [TDD](https://en.wikipedia.org/wiki/Test-driven_development) : tester avant d'implementer. Vous aurez une bien meilleure vision de l'utilité de la fonction et vous saurez repondre a cette utilité de maniere concrete.      
+     
+
+### Stack      
+     
+Pour se familiariser avec vector :     
+→ [std::stack](https://www.cplusplus.com/reference/stack/stack/?kw=stack)  
+     
+#### Le mot clef friend    
 
 
-### Stack
+
 
 ### Map
 
@@ -160,16 +170,8 @@ L'idée est donc de commencer par implémenter ses deux petits bébés pour que 
 ## Notes 
 
 ---
-
-## Ressources
-#### Vector
-
-
-#### Stack
-
-#### Map
-
----
-
-
+## Tests : 
+- https://github.com/Mazoise/42TESTERS-CONTAINERS
+- https://github.com/mli42/containers_test
+- https://github.com/5atchm1n/ft_containers-tester-42
 ---
