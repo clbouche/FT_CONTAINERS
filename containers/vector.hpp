@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 12:03:50 by clbouche          #+#    #+#             */
-/*   Updated: 2022/04/04 17:47:43 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/04/05 11:21:00 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -593,16 +593,19 @@ namespace	ft {
 
 			//RANGE OF ELEMENTS
 			iterator erase (iterator first, iterator last) {
-				pointer p_first = &(*first);
-				for (; &(*first) != &(*last); first++)
-					_alloc.destroy(&(*first));
-				for (int i = 0; i < _end - &(*last); i++)
-				{
-					_alloc.construct(p_first + i, *(&(*last) + i));
-					_alloc.destroy(&(*last) + i);
+				if (first != this->end() && first != last) {
+					pointer p_first = &(*first);
+					for (; &(*first) != &(*last); first++)
+						_alloc.destroy(&(*first));
+					for (int i = 0; i < _end - &(*last); i++)
+					{
+						_alloc.construct(p_first + i, *(&(*last) + i));
+						_alloc.destroy(&(*last) + i);
+					}
+					_end -= (&(*last) - p_first);
+					return (iterator(p_first));
 				}
-				_end -= (&(*last) - p_first);
-				return (iterator(p_first));
+				return (first);
 			}
 
 			/**
