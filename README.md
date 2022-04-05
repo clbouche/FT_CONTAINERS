@@ -155,7 +155,7 @@ L'idée est donc de commencer par implémenter ses deux petits bébés pour que 
 
 ### Stack      
      
-Pour se familiariser avec vector :     
+Pour se familiariser avec stack :     
 → [std::stack](https://www.cplusplus.com/reference/stack/stack/?kw=stack)  
      
 #### Le mot clef friend    
@@ -175,3 +175,10 @@ Pour se familiariser avec vector :
 - https://github.com/mli42/containers_test
 - https://github.com/5atchm1n/ft_containers-tester-42
 ---
+
+### 🎉 Final Grade 🎉    
+
+In progress 
+
+--- 
+🍄 ENJOY 🍄
