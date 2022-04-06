@@ -172,17 +172,26 @@ Pour se familiariser avec map :
 Une map est un conteneurs qui stockent des elements formes par une combinaison valeur/clef.    
 - La clef : permet de trier et identifier les elements.   
 - la valeur mappee stockent le contenu associe a cette clef.     
-	→ Ces deux informations sont regroupes dans le type membre value_type qui est un type de pair combinant les deux.     
+	→ Ces deux informations sont regroupes dans le type membre value_type qui est un type de paire combinant les deux.     
 
 ```
 typedef ft::pair<const Key, T> 		value_type;
 ```
 
 
-#### 2. Pair
+#### 2. ft::pair
 → [std::pair](https://www.cplusplus.com/reference/utility/pair/)      
+Cette classe permet de regrouper deux valeurs dans une meme information. 
+- T1 = premier element -> clef.
+- T2 = deuxieme element -> la valeur. 
+Cette classe est a reimplenter pour pouvoir l'utiliser dans map.
+
 
 #### 3. std::less
+→ [std::less](https://www.cplusplus.com/reference/functional/less/)      
+Cette classe est une classe d'operateur. Elle va nous permettre de trier nos informations, tel que dans les algorthme standard. Il faut comprendre ici que cette classe peut etre remplace par une autre classe d'operateur selon son objectif (ex : std::greater // std::negate // etc..). Tout depend de l'objectif. 
+
+
 
 #### 4. Red Black Tree
 
