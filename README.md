@@ -191,9 +191,33 @@ Cette classe est a reimplenter pour pouvoir l'utiliser dans map.
 → [std::less](https://www.cplusplus.com/reference/functional/less/)      
 Cette classe est une classe d'operateur. Elle va nous permettre de trier nos informations, tel que dans les algorthme standard. Il faut comprendre ici que cette classe peut etre remplace par une autre classe d'operateur selon son objectif (ex : std::greater // std::negate // etc..). Tout depend de l'objectif. 
 
+#### 4. Les arbres binaires 
+→ Un arbre binaire est une structure de donnee qui permet de stocker et d'organiser des elements de n'importe quel type.
+A titre de comparaison, on a liste chainee (qu'on maitrise normalement plutot pas mal a ce stade) qui comporte une suite d'elements. Pour ce qui est de l'arbre binaire, on va se retrouver avec deux suite d'elements : right et left.
+
+ ##### a. Les arbres binaires simples.
+Concernant les arbres binaires simples, on a donc deux suite d'elements. 
+Pour chaque noeud, on va se retrouver avec, a droite tous ce qui est plus grand ou egal et a gauche, tous ce qui est plus petit. Il faut donc comprendre que chaque noeud n'a donc que 2 branches, une branche a droite et une branche a gauche. L'interet de l'utilisation de l'arbre binaire plutot que d'une liste c'est : sa rapidite. 
+Sauf que l'arbre binaire presenter tel quel n'est parfois par forcement plus rapide.
+
+exemple:
+On souhaite stocker des nombres allant de 0 a 100, on va se retrouver avec quelque chose qui serait mieux tries dans une liste chainee que dans un arbre binaire finalement : 
+
+LISTE CHAINEE        
+![liste chainee](https://user-images.githubusercontent.com/57404773/162002447-d973743c-c1bb-4f0f-9a96-fec5085bdc07.png)
+
+ARBRE BINAIRE        
+![arbre-binaire](https://user-images.githubusercontent.com/57404773/162002869-6804a525-cffc-4f93-b055-e3d3048b7f7b.png)
+
+Je sais pas vous mais meme visuellement on voit bien que c'est pas opti. Pour regler ce probleme, plusieurs idees d'equilibrage ont alors ete developpees.
+ 
+ ##### b. AVL   
+
+ ##### c. Red Black Tree      
 
 
-#### 4. Red Black Tree
+
+
 
 ---
 
