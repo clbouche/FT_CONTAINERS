@@ -62,9 +62,9 @@ int main(void)
 	testStack();
 	std::cout << std::endl;
 
-	// printTitle("map");
-	// testMap();
-	// std::cout << std::endl;
+	printTitle("map");
+	testMap();
+	std::cout << std::endl;
 
 	return (0);
 }

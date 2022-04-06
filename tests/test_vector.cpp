@@ -272,7 +272,7 @@ void	V_testInsert(void)
 	
 	std::cout << BLUE3 << "/* function insert with 1 value */" << END;
 	ft::vector<int>::iterator it1 = my_vector.insert(my_vector.begin() + 1, 12);
-	std::vector<int>::iterator it2 = std_vector.insert(std_vector.begin() + 1, 12);
+	//std::vector<int>::iterator it2 = std_vector.insert(std_vector.begin() + 1, 12);
 
 	printContent(my_vector, std_vector);
 	printInfosVector(my_vector, std_vector);
