@@ -204,10 +204,10 @@ exemple:
 On souhaite stocker des nombres allant de 0 a 100, on va se retrouver avec quelque chose qui serait mieux tries dans une liste chainee que dans un arbre binaire finalement : 
 
 LISTE CHAINEE        
-![liste chainee](https://user-images.githubusercontent.com/57404773/162002447-d973743c-c1bb-4f0f-9a96-fec5085bdc07.png)
+![liste chainee](https://user-images.githubusercontent.com/57404773/162003377-5603e61d-dbaa-42a3-90e4-2ae382967d5c.png)
 
 ARBRE BINAIRE        
-![arbre-binaire](https://user-images.githubusercontent.com/57404773/162002869-6804a525-cffc-4f93-b055-e3d3048b7f7b.png)
+![arbre-binaire](https://user-images.githubusercontent.com/57404773/162003405-9aedb1c4-966c-4ac3-ac06-ed424b85a0ba.png)
 
 Je sais pas vous mais meme visuellement on voit bien que c'est pas opti. Pour regler ce probleme, plusieurs idees d'equilibrage ont alors ete developpees.
  
