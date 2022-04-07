@@ -197,11 +197,11 @@ A titre de comparaison, on a liste chainee (qu'on maitrise normalement plutot pa
 
  ##### a. L'arbre binaire simple (BST) ou binary search tree (ABR).
 Concernant les arbres binaires simples, on a donc deux suite d'elements. 
-Pour chaque noeud, on va se retrouver avec, a droite tous ce qui est plus grand ou egal et a gauche, tous ce qui est plus petit. Il faut donc comprendre que chaque noeud n'a donc que 2 branches, une branche a droite et une branche a gauche. L'interet de l'utilisation de l'arbre binaire plutot que d'une liste c'est : sa rapidite. 
-Sauf que l'arbre binaire presenter tel quel n'est parfois par forcement plus rapide.
+Pour chaque noeud, on va se retrouver avec, a droite tous ce qui est plus grand ou egal et a gauche, tous ce qui est plus petit. Il faut donc comprendre que chaque noeud n'a donc que 2 branches, une branche a droite et une branche a gauche (d'ou le mot "binaire" finalement). L'interet de l'utilisation de l'arbre binaire plutot que d'une liste c'est : sa rapidite. 
+Sauf que l'arbre binaire presente tel quel n'est parfois par forcement plus rapide.
 
 exemple:
-On souhaite stocker des nombres allant de 0 a 100, on va se retrouver avec quelque chose qui serait mieux tries dans une liste chainee que dans un arbre binaire finalement : 
+On souhaite stocker des nombres allant de 0 a 100, on va se retrouver avec quelque chose qui serait finalement plus interessant dans une liste chainee que dans un arbre binaire finalement : 
 
 LISTE CHAINEE        
 ![liste chainee](https://user-images.githubusercontent.com/57404773/162003377-5603e61d-dbaa-42a3-90e4-2ae382967d5c.png)
@@ -211,9 +211,13 @@ ARBRE BINAIRE
 
 Je sais pas vous mais meme visuellement on voit bien que c'est pas opti. Pour regler ce probleme, plusieurs idees d'equilibrage ont alors ete developpees.
  
- ##### b. L'arbre binaire equilibre, l'AVL   
-Dans cette option, on part de la meme base et on va travailler en plus l'equilibre, l'insertion et la suppression. 
-https://visualgo.net/en/bst 
+ ##### b. L'arbre binaire equilibre, l'AVL       
+Dans cette option, on part de la meme base et on va travailler en plus l'equilibre. La regle qui regit l'arbre AVL est que :        
+→ la différence des hauteurs des deux sous-arbres ne dépasse pas 1.       
+            
+Pour permettre cette equilibre, chaque insertion va impliquer des [calculs savants](https://cours.etsmtl.ca/SEG/FHenri/inf145/Suppl%C3%A9ments/arbres%20AVL.htm) que je ne maitrisent pas et que je vous laisse decouvrir.      
+Mais dans l'idee, on va remonter de noeud en noeud en verifiant que la regle qui regit l'AVL soit respectee. Si ce n'est pas le cas, on va effectuer une rotation a gauche, une rotation a droite ou une double rotation.    
+→ Pour plus de [visibilite](https://visualgo.net/en/bst) et d'explication concernant l'AVL. 
 
 
  ##### c. L'arbre rouge et noir ou Red Black Tree (RBT) 
