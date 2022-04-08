@@ -170,14 +170,17 @@ Pour se familiariser avec map :
 
 #### 1. Map     
 Une map est un conteneurs qui stockent des elements formes par une combinaison valeur/clef.    
-- La clef : permet de trier et identifier les elements.   
-- la valeur mappee stockent le contenu associe a cette clef.     
+- La clef : permet de trier et identifier les elements, c'est toujours une donnée simple. Cette clef doit être unique.  
+- la valeur mappee stocke le contenu associe a cette clef, elle peut être une donnee complexe comme une liste ou bien un int, une string, etc. Elle peut egalement ne pas être unique, contrairement à la clef.      
 	→ Ces deux informations sont regroupes dans le type membre value_type qui est un type de paire combinant les deux.     
+- La map s'affiche toujours par ordre alphabetique ou numerique. Il existe aussi une map desordonnee mais ce n'est pas ce qu'on va utiliser ici.    
+- L'operator[] n'a besoin d'acceder qu'a la clef, pas la valeur.     
 
 ```
 typedef ft::pair<const Key, T> 		value_type;
 ```
 
+→ Pour plus de visibilite sur l'utilisation des fonctions de map : https://www.youtube.com/watch?v=aEgG4pidcKU / https://code-examples.net/fr/q/33b8d0
 
 #### 2. ft::pair
 → [std::pair](https://www.cplusplus.com/reference/utility/pair/)      
@@ -218,23 +221,19 @@ Dans cette option, on part de la meme base et on va travailler en plus l'equilib
 Pour permettre cette equilibre, chaque insertion va impliquer des [calculs savants](https://cours.etsmtl.ca/SEG/FHenri/inf145/Suppl%C3%A9ments/arbres%20AVL.htm) que je ne maitrisent pas et que je vous laisse decouvrir.      
 Mais dans l'idee, on va remonter de noeud en noeud en verifiant que la regle qui regit l'AVL soit respectee. Si ce n'est pas le cas, on va effectuer une rotation a gauche, une rotation a droite ou une double rotation.    
 → Pour plus de [visibilite](https://visualgo.net/en/bst) et d'explication concernant l'AVL. 
+→ Pour comprendre le système de l'[AVL](https://www.youtube.com/watch?v=Jj9Mit24CWk&list=PLlsmxlJgn1HJRYU7YIf8DSEg8_DGwSV29&index=3) et un exemple d'implémentation.
+
+Pour implémenter map, je vais donc partir sur l'arbre AVL. 
+
+#### 4. L'implémentation 
+Dans un premier temps, j'ai choisi d'implementer un arbre binaire classique. Une version simple, pas forcément des plus optimale comme on l'a vu (surtout dans le cas d'un set de données croissant) mais qui confirmera mais connaissances et ma capacité d'implémentation des arbres binaires. 
+Si les performances minimales demandées par le sujet ne sont pas suffisantes, j'implémenterais alors un AVL. Pour obtenir d'encore meilleure performance, je vous conseille d'envisager d'implémenter l'arbre rouge et noir. 
 
 
- ##### c. L'arbre rouge et noir ou Red Black Tree (RBT) 
-Pour cette derniere option, on va avoir une nouvelle donnee qui sera la couleur du noeud (noir ou rouge donc). 
-- La couleur noir designe le noeud parent. 
-
-la clef est toujours une donnee simple alors que la value peut etre une donnee complexe pourrait etre une liste, un int, une string ou autre
-La map s'affiche toujours par ordre alphabetique ou numerique. Il existe aussi une map desordonnee mais ce n'est pas ce qu'on va utiliser ici. 
-
-La clef doit etre unique, pas forcement la valeur. 
-
-L'operator[] n'a besoin d'acceder qu'a la clef, pas la valeur. 
-
-Pour plus de visibilite sur l'utilisation des fonctions de map : https://www.youtube.com/watch?v=aEgG4pidcKU 
 
 
-https://code-examples.net/fr/q/33b8d0
+
+
 
 ---
 
