@@ -224,8 +224,17 @@ Mais dans l'idee, on va remonter de noeud en noeud en verifiant que la regle qui
 Pour cette derniere option, on va avoir une nouvelle donnee qui sera la couleur du noeud (noir ou rouge donc). 
 - La couleur noir designe le noeud parent. 
 
+la clef est toujours une donnee simple alors que la value peut etre une donnee complexe pourrait etre une liste, un int, une string ou autre
+La map s'affiche toujours par ordre alphabetique ou numerique. Il existe aussi une map desordonnee mais ce n'est pas ce qu'on va utiliser ici. 
+
+La clef doit etre unique, pas forcement la valeur. 
+
+L'operator[] n'a besoin d'acceder qu'a la clef, pas la valeur. 
+
+Pour plus de visibilite sur l'utilisation des fonctions de map : https://www.youtube.com/watch?v=aEgG4pidcKU 
 
 
+https://code-examples.net/fr/q/33b8d0
 
 ---
 
