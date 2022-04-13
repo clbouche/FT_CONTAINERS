@@ -236,7 +236,21 @@ Pour comprendre le systeme de coloration et de rotation du RBT, voici quelques r
 Comme dans un arbre dans la vrai vie, on va creer des feuilles, nos nodes. 
 
  ##### a. RBTree_node 
+ Pour pouvoir commencer l'implementation de notre RBT, on commence par l'implementation des nodes.
+ Ces nodes ont besoin de plusieurs informations : 
+ 	- une couleur : rouge ou noir.
+	- le node principal (root)
+	- le node parent (si root, parent = NULL)
+	- le node de gauche
+	- le node de droite
+	- une valeur
+Ces membres types vont nous permettre d'implementer dans cette meme classe des surcharges d'operateurs. 
+
+ ##### b. RBTree
+ Une fois nos feuilles bien organisées, on peut commencer l'implementation de l'arbre qui va nous permettre d'effectuer l'insertion, la suppression et la rotation des nodes selon certaines conditions. 
  
+ 
+
 
 
 
