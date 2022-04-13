@@ -169,10 +169,10 @@ Pour se familiariser avec map :
 → [std::map](https://cplusplus.com/reference/map/map/?kw=map)      
 
 #### 1. Map     
-Une map est un conteneurs qui stockent des elements formes par une combinaison valeur/clef.    
+Une map est un conteneur qui stocke des elements formés par une combinaison valeur/clef.    
 - La clef : permet de trier et identifier les elements, c'est toujours une donnée simple. Cette clef doit être unique.  
-- la valeur mappee stocke le contenu associe a cette clef, elle peut être une donnee complexe comme une liste ou bien un int, une string, etc. Elle peut egalement ne pas être unique, contrairement à la clef.      
-	→ Ces deux informations sont regroupes dans le type membre value_type qui est un type de paire combinant les deux.     
+- la valeur mappée stocke le contenu associe a cette clef, elle peut être une donnee complexe comme une liste ou bien un int, une string, etc. Elle peut egalement ne pas être unique, contrairement à la clef.      
+	→ Ces deux informations sont regroupées dans le type membre value_type qui est un type de paire combinant les deux.     
 - La map s'affiche toujours par ordre alphabetique ou numerique. Il existe aussi une map desordonnee mais ce n'est pas ce qu'on va utiliser ici.    
 - L'operator[] n'a besoin d'acceder qu'a la clef, pas la valeur.     
 
@@ -192,16 +192,16 @@ Cette classe est a reimplenter pour pouvoir l'utiliser dans map.
 
 #### 3. std::less
 → [std::less](https://www.cplusplus.com/reference/functional/less/)      
-Cette classe est une classe d'operateur. Elle va nous permettre de trier nos informations, tel que dans les algorthme standard. Il faut comprendre ici que cette classe peut etre remplace par une autre classe d'operateur selon son objectif (ex : std::greater // std::negate // etc..). Tout depend de l'objectif. 
+Cette classe est une classe d'operateur. Elle va nous permettre de trier nos informations, tel que dans les algorithme standard. Il faut comprendre ici que cette classe peut etre remplacée par une autre classe d'operateur selon son objectif (ex : std::greater // std::negate // etc..). Tout depend de l'objectif. 
 
 #### 4. Les arbres binaires 
 → Un arbre binaire est une structure de donnee qui permet de stocker et d'organiser des elements de n'importe quel type.
-A titre de comparaison, on a liste chainee (qu'on maitrise normalement plutot pas mal a ce stade) qui comporte une suite d'elements. Pour ce qui est de l'arbre binaire, on va se retrouver avec deux suite d'elements : right et left.
+A titre de comparaison, on a la liste chainee (qu'on maitrise normalement plutot pas mal a ce stade) qui comporte une suite d'elements. Pour ce qui est de l'arbre binaire, on va se retrouver avec deux suite d'elements : right et left.
 
  ##### a. L'arbre binaire simple (BST) ou binary search tree (ABR).
 Concernant les arbres binaires simples, on a donc deux suite d'elements. 
 Pour chaque noeud, on va se retrouver avec, a droite tous ce qui est plus grand ou egal et a gauche, tous ce qui est plus petit. Il faut donc comprendre que chaque noeud n'a donc que 2 branches, une branche a droite et une branche a gauche (d'ou le mot "binaire" finalement). L'interet de l'utilisation de l'arbre binaire plutot que d'une liste c'est : sa rapidite. 
-Sauf que l'arbre binaire presente tel quel n'est parfois par forcement plus rapide.
+Sauf que l'arbre binaire presenté tel quel n'est parfois par forcement plus rapide.
 
 exemple:
 On souhaite stocker des nombres allant de 0 a 100, on va se retrouver avec quelque chose qui serait finalement plus interessant dans une liste chainee que dans un arbre binaire finalement : 
@@ -223,11 +223,20 @@ Mais dans l'idee, on va remonter de noeud en noeud en verifiant que la regle qui
 → Pour plus de [visibilite](https://visualgo.net/en/bst) et d'explication concernant l'AVL. 
 → Pour comprendre le système de l'[AVL](https://www.youtube.com/watch?v=Jj9Mit24CWk&list=PLlsmxlJgn1HJRYU7YIf8DSEg8_DGwSV29&index=3) et un exemple d'implémentation.
 
-Pour implémenter map, je vais donc partir sur l'arbre AVL. 
+ ##### c. Le Red Black Tree (RBT)
+ → [code source](http://cs.brown.edu/people/jwicks/libstdc++/html_user/stl__tree_8h-source.html)
+ On se trouve ici dans l'algo qu'a choisi d'utiliser la stl pour implementer map. C'est le plus rapide en terme d'insertion et de suppression. Dans l'idée, il va reprendre l'idée de base de l'AVL mais va ajouter d'autres cas qui vont impliquer parfois une non rotation. 
+S'ajoute egalement un membres types : la couleur. 
+Pour comprendre le systeme de coloration et de rotation du RBT, voici quelques ressources : 
+- https://www.happycoders.eu/algorithms/red-black-tree-java/ 
+- https://www.programiz.com/dsa/red-black-tree 
 
 #### 4. L'implémentation 
-Dans un premier temps, j'ai choisi d'implementer un arbre binaire classique. Une version simple, pas forcément des plus optimale comme on l'a vu (surtout dans le cas d'un set de données croissant) mais qui confirmera mais connaissances et ma capacité d'implémentation des arbres binaires. 
-Si les performances minimales demandées par le sujet ne sont pas suffisantes, j'implémenterais alors un AVL. Pour obtenir d'encore meilleure performance, je vous conseille d'envisager d'implémenter l'arbre rouge et noir. 
+→ Pour une question d'optimisation on va partir sur un arbre rouge et noir. 
+Comme dans un arbre dans la vrai vie, on va creer des feuilles, nos nodes. 
+
+ ##### a. RBTree_node 
+ 
 
 
 
