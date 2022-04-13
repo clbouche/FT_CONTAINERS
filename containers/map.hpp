@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 12:04:20 by clbouche          #+#    #+#             */
-/*   Updated: 2022/04/06 14:46:19 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/04/13 14:52:22 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,8 @@
 #include <iostream>
 #include <memory>
 #include "../utils/utils_pair.hpp"
-
+#include "../RBTree/RBTree.hpp"
+#include "../RBTree/RBTree_node.hpp"
 namespace	ft {
 	/** ✅
     * ------------------------ FT::MAP ------------------------- *

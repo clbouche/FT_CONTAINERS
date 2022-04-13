@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 11:04:21 by clbouche          #+#    #+#             */
-/*   Updated: 2022/04/13 14:15:11 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/04/13 14:55:51 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 # define  RBTREE_NODE_HPP 
 
 # include <memory>
-# define BLACK	0
-# define RED	1
+# define BLACK_node	0
+# define RED_node	1
 
 namespace ft { 
 
-	/** ✅
+	/**
     * ------------------------ FT::RBT_node ------------------------- *
     *
     * - Coplien form:
     * constructor:        	Construct node 
-	* 		- empty constructor 
+	* 		- empty constructor ✅
 	*		- parent constructor
 	*		- child constructor
 	*		- copy constructor
@@ -71,7 +71,7 @@ namespace ft {
 		 * @brief Default contructor
 		 * 
 		 */
-		RBT_node (void) : color(RED), value(T()), parent(0), left(0), right(0) 
+		RBT_node (void) : color(RED_node), value(T()), parent(0), left(0), right(0) 
 			{}; 
 
 		/**
@@ -79,7 +79,7 @@ namespace ft {
 		 *
 		 */
 		RBT_node ( RBT_node *parent, RBT_node *left, RBT_node *right) :
-			color(RED), value(T()), parent(parent), left(left), right(right)
+			color(RED_node), value(T()), parent(parent), left(left), right(right)
 			{};
 			
 		/**
@@ -88,7 +88,7 @@ namespace ft {
 		 */
 		RBT_node (const value_type &value, RBT_node *parent, RBT_node *left, 
 				RBT_node *right) : 
-				color(RED), value(value), parent(parent), left(left), right(right)
+				color(RED_node), value(value), parent(parent), left(left), right(right)
 			{};
 
 		/**
@@ -138,6 +138,7 @@ namespace ft {
 		// 	return (RBT_node<const T>(this));
 		// }
 
-};
+	};
+}
 
 #endif 
