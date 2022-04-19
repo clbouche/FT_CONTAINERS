@@ -1,12 +1,7 @@
 #include "test.hpp"
-#include "../containers/map.hpp"
 #include "../utils/utils_pair.hpp"
-
-// #include "../containers/vector.hpp"
-// #include "../iterators/iterator_traits.hpp"
-// #include "../iterators/random_access_iterator.hpp"
-// #include "../iterators/reverse_iterator.hpp"
-// #include "../utils/utils_iterator.hpp"
+#include "../RBTree/RBTree.hpp"
+#include "../containers/map.hpp"
 
 #include <map>
 
@@ -132,19 +127,46 @@ void	M_testMakePair(void)
 	M_printContent(my_pair, std_pair);
 }
 
+void	M_testRBTconstructors(void)
+{
+	// ft::RBTree my_rbt;
+	ft::RBTree< ft::pair<int,int> > my_rbt;
+}
+
+void	M_testRBTInsert(void)
+{
+	ft::RBTree< ft::pair<int,int> > my_rbt;
+
+	my_rbt.insert(ft::pair < int, int>(3, 3) );
+}
+
 void	testMap(void)
 {
 	/* ------------------------------------------------------------- */
-	/* --------------------------- MAP ----------------------------- */	
+	/* --------------------------- PAIR ---------------------------- */	
 	/* ------------------------------------------------------------- */
 
-	M_testPairConstructors();
+	// M_testPairConstructors();
+	// std::cout << std::endl;
+
+	// M_testPairComparaisons();
+	// std::cout << std::endl;
+
+	// M_testMakePair();
+	// std::cout << std::endl;
+
+	/* ------------------------------------------------------------- */
+	/* --------------------------- RBTree -------------------------- */	
+	/* ------------------------------------------------------------- */
+
+	M_testRBTconstructors();
 	std::cout << std::endl;
 
-	M_testPairComparaisons();
+	M_testRBTInsert();
 	std::cout << std::endl;
 
-	M_testMakePair();
-	std::cout << std::endl;
+	/* ------------------------------------------------------------- */
+	/* --------------------------- MAP ----------------------------- */	
+	/* ------------------------------------------------------------- */
 
 }
