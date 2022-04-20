@@ -6,6 +6,7 @@
 #include "../utils/utils_iterator.hpp"
 
 #include <vector>
+#include <list>
 
 # define RED "\x1B[31m"
 # define GREEN "\x1B[32m"
@@ -419,6 +420,7 @@ void	testVector(void)
 	/* -------------------------- VECTOR ---------------------------- */	
 	/* ------------------------------------------------------------- */
 	
+	
 	V_testConstructors();
 	std::cout << std::endl;
 
@@ -448,5 +450,4 @@ void	testVector(void)
 	
 	V_testAssign();
 	std::cout << std::endl;
-
-}
+} 

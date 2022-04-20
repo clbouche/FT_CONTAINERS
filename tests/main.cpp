@@ -54,13 +54,13 @@ static void	printTitle(std::string title)
 int main(void)
 {
 
-	printTitle("vector");
-	testVector();
-	std::cout << std::endl;
+	// printTitle("vector");
+	// testVector();
+	// std::cout << std::endl;
 
-	printTitle("stack");
-	testStack();
-	std::cout << std::endl;
+	// printTitle("stack");
+	// testStack();
+	// std::cout << std::endl;
 
 	printTitle("map");
 	testMap();

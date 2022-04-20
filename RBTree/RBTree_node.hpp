@@ -3,19 +3,21 @@
 /*                                                        :::      ::::::::   */
 /*   RBTree_node.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: claclou <claclou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 11:04:21 by clbouche          #+#    #+#             */
-/*   Updated: 2022/04/13 14:55:51 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/04/18 15:43:07 by claclou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RBTREE_NODE_HPP
 # define  RBTREE_NODE_HPP 
 
-# include <memory>
 # define BLACK_node	0
 # define RED_node	1
+
+# include <memory>
+#include <iostream>
 
 namespace ft { 
 
@@ -25,12 +27,12 @@ namespace ft {
     * - Coplien form:
     * constructor:        	Construct node 
 	* 		- empty constructor ✅
-	*		- parent constructor
-	*		- child constructor
-	*		- copy constructor
-    * destructor:         	Destruct node 
+	*		- constructor whitout value ✅
+	*		- constructor with value ✅
+	*		- copy constructor ✅
+    * destructor:         	Destruct node ✅
 	* 
-	* - Operators:
+	* - Operators for node:
     * operator=:            Assign node
 	* operator==:			Check equality
 	* operator!=:			Check inequality
@@ -39,6 +41,14 @@ namespace ft {
 	* operator>=:			Check if equal or inferior
 	* operator<=:			Check if equal or superior
 	* 
+	* - Operators for value:
+	* operator=:            Assign node
+	* operator==:			Check equality
+	* operator!=:			Check inequality
+	* operator>:			Check inferiority
+	* operator<:			Check superiority
+	* operator>=:			Check if equal or inferior
+	* operator<=:			Check if equal or superior
     * ------------------------------------------------------------- *
     */
 
@@ -71,7 +81,7 @@ namespace ft {
 		 * @brief Default contructor
 		 * 
 		 */
-		RBT_node (void) : color(RED_node), value(T()), parent(0), left(0), right(0) 
+		RBT_node (void) : color(RED_node), value(T()), root(0), parent(0), left(0), right(0) 
 			{}; 
 
 		/**
@@ -79,7 +89,7 @@ namespace ft {
 		 *
 		 */
 		RBT_node ( RBT_node *parent, RBT_node *left, RBT_node *right) :
-			color(RED_node), value(T()), parent(parent), left(left), right(right)
+			color(RED_node), value(T()), root(parent.root), parent(parent), left(left), right(right)
 			{};
 			
 		/**
@@ -88,14 +98,14 @@ namespace ft {
 		 */
 		RBT_node (const value_type &value, RBT_node *parent, RBT_node *left, 
 				RBT_node *right) : 
-				color(RED_node), value(value), parent(parent), left(left), right(right)
+				color(RED_node), value(value), root(parent.root), parent(parent), left(left), right(right)
 			{};
 
 		/**
 		 * @brief Construct a new RBT_node object with copy
  		 * 
 		 */
-		RBT_node ( const RBT_node &node ) : value(node.value), parent(node.parent), 
+		RBT_node ( const RBT_node &node ) : value(node.value), root(node.root), parent(node.parent), 
 				left(node.left), right(node.right)
 			{};
 
@@ -111,9 +121,10 @@ namespace ft {
 			{
 				this->value = rhs.value;
 				this->color = rhs.color;
+				this->root = rhs.root;
+				this->parent = rhs.parent;
 				this->left = rhs.left;
 				this->right = rhs.right;
-				this->parent = rhs.parent;
 			}
 			return (*this);
 		}
@@ -139,6 +150,18 @@ namespace ft {
 		// }
 
 	};
+
+template <class T>
+std::ostream &operator<<(std::ostream &out, ft::RBT_node<T> &node)
+{
+	if (&node != nullptr)
+	{
+		std::string colors;
+		node.color == ft::RBT_node<T>::BLACK ? colors = "⚫" : colors = "🔴";
+		out << "Node " << node.value << " " << colors;
+	}
+	return out;
+}
 }
 
 #endif 

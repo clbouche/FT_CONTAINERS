@@ -1,6 +1,8 @@
 #include "test.hpp"
 #include "../containers/map.hpp"
 #include "../utils/utils_pair.hpp"
+#include "../RBTree/RBTree_node.hpp"
+#include "../RBTree/RBTree.hpp"
 
 // #include "../containers/vector.hpp"
 // #include "../iterators/iterator_traits.hpp"
@@ -21,7 +23,7 @@
 # define END "\033[0m"
 
 template <typename T1, typename T2>
-void	M_printContent(ft::pair<T1, T2>& my_pair, std::pair<T1, T2>& std_pair)
+void	M_printContentPair(ft::pair<T1, T2>& my_pair, std::pair<T1, T2>& std_pair)
 {
 	std::cout << BLUE3 << "content of my pair : " << END << std::endl;
 	std::cout << "first element is : " << my_pair.first << std::endl;
@@ -39,7 +41,7 @@ void	M_printContent(ft::pair<T1, T2>& my_pair, std::pair<T1, T2>& std_pair)
 
 void	M_testPairConstructors(void) 
 {
-	std::cout << BLUE1 << "/*__________________________Constructors__________________________*/" << END << std::endl;
+	std::cout << BLUE1 << "/*__________________________Constructors pair __________________________*/" << END << std::endl;
 
 	std::cout << BLUE3 << "Constructors: " << END << std::endl;
 	ft::pair < std::string, std::string > my_pair1;				//default constructor
@@ -50,11 +52,11 @@ void	M_testPairConstructors(void)
 	std::pair < std::string, int > std_pair2("temperature", 25);	//value init
 	std::pair < std::string, int > std_pair3(std_pair2);			//copy constructor
 
-	M_printContent(my_pair1, std_pair1);
+	M_printContentPair(my_pair1, std_pair1);
 	std::cout << "___________________________________" << std::endl;
-	M_printContent(my_pair2, std_pair2);
+	M_printContentPair(my_pair2, std_pair2);
 	std::cout << "___________________________________" << std::endl;
-	M_printContent(my_pair3, std_pair3);
+	M_printContentPair(my_pair3, std_pair3);
 
 	std::cout << BLUE3 << "Operator= : " << END << std::endl;
 	ft::pair <std::string, int> my_pair4;
@@ -63,7 +65,7 @@ void	M_testPairConstructors(void)
 	std::pair <std::string, int> std_pair4;
 	std_pair4 = std_pair3;
 
-	M_printContent(my_pair4, std_pair4);
+	M_printContentPair(my_pair4, std_pair4);
 
 }
 
@@ -129,8 +131,29 @@ void	M_testMakePair(void)
 	my_pair = ft::make_pair(10, 20);
 	std_pair = std::make_pair(10, 20);
 
-	M_printContent(my_pair, std_pair);
+	M_printContentPair(my_pair, std_pair);
 }
+
+void	M_testConstructorsRBT(void)
+{
+	std::cout << BLUE1 << "/*_______________________ Constructors RBT _______________________*/" << END << std::endl;
+
+	std::cout << BLUE3 << "Constructors: " << END << std::endl;
+	ft::RBTree < ft::pair< int, std::string >, std::greater<int> >	my_rbt;
+
+	my_rbt.insert(ft::make_pair< int, std::string >(1, "un"));
+}
+
+void	M_testInsertionRBT(void)
+{
+
+}
+
+void	M_testDeletionRBT(void)
+{
+
+}
+
 
 void	testMap(void)
 {
@@ -138,6 +161,7 @@ void	testMap(void)
 	/* --------------------------- MAP ----------------------------- */	
 	/* ------------------------------------------------------------- */
 
+	/*____________________________ ft::pair ____________________________ */
 	M_testPairConstructors();
 	std::cout << std::endl;
 
@@ -146,5 +170,19 @@ void	testMap(void)
 
 	M_testMakePair();
 	std::cout << std::endl;
+
+	/*____________________________ ft::RBTree ____________________________ */
+
+	M_testConstructorsRBT();
+	std::cout << std::endl;
+
+	M_testInsertionRBT();
+	std::cout << std::endl;
+
+	M_testDeletionRBT();
+	std::cout << std::endl;
+
+	/*____________________________ ft::map ____________________________ */
+
 
 }
