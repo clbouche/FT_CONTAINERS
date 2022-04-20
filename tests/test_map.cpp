@@ -1,14 +1,7 @@
 #include "test.hpp"
-#include "../containers/map.hpp"
 #include "../utils/utils_pair.hpp"
-#include "../RBTree/RBTree_node.hpp"
 #include "../RBTree/RBTree.hpp"
-
-// #include "../containers/vector.hpp"
-// #include "../iterators/iterator_traits.hpp"
-// #include "../iterators/random_access_iterator.hpp"
-// #include "../iterators/reverse_iterator.hpp"
-// #include "../utils/utils_iterator.hpp"
+#include "../containers/map.hpp"
 
 #include <map>
 
@@ -144,45 +137,42 @@ void	M_testConstructorsRBT(void)
 	my_rbt.insert(ft::make_pair< int, std::string >(1, "un"));
 }
 
-void	M_testInsertionRBT(void)
+void	M_testRBTInsert(void)
 {
+	ft::RBTree< ft::pair<int,int> > my_rbt;
 
+	my_rbt.insert(ft::pair < int, int>(3, 3) );
 }
-
-void	M_testDeletionRBT(void)
-{
-
-}
-
 
 void	testMap(void)
 {
 	/* ------------------------------------------------------------- */
-	/* --------------------------- MAP ----------------------------- */	
+	/* --------------------------- PAIR ---------------------------- */	
 	/* ------------------------------------------------------------- */
 
 	/*____________________________ ft::pair ____________________________ */
-	M_testPairConstructors();
-	std::cout << std::endl;
 
-	M_testPairComparaisons();
-	std::cout << std::endl;
+	// M_testPairConstructors();
+	// std::cout << std::endl;
 
-	M_testMakePair();
-	std::cout << std::endl;
+	// M_testPairComparaisons();
+	// std::cout << std::endl;
 
-	/*____________________________ ft::RBTree ____________________________ */
+	// M_testMakePair();
+	// std::cout << std::endl;
+
+	/* ------------------------------------------------------------- */
+	/* --------------------------- RBTree -------------------------- */	
+	/* ------------------------------------------------------------- */
 
 	M_testConstructorsRBT();
 	std::cout << std::endl;
 
-	M_testInsertionRBT();
+	M_testRBTInsert();
 	std::cout << std::endl;
 
-	M_testDeletionRBT();
-	std::cout << std::endl;
-
-	/*____________________________ ft::map ____________________________ */
-
+	/* ------------------------------------------------------------- */
+	/* --------------------------- MAP ----------------------------- */	
+	/* ------------------------------------------------------------- */
 
 }

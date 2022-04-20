@@ -6,7 +6,7 @@
 /*   By: claclou <claclou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 11:04:21 by clbouche          #+#    #+#             */
-/*   Updated: 2022/04/18 15:43:07 by claclou          ###   ########.fr       */
+/*   Updated: 2022/04/20 08:57:16 by claclou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ namespace ft {
 	/* --------------------------- ALIAS --------------------------- */	
 	/* ------------------------------------------------------------- */
 
+		// contain the key and the pair
 		typedef T 		value_type;
 
 	/* ------------------------------------------------------------- */
@@ -67,7 +68,7 @@ namespace ft {
 	/* ------------------------------------------------------------- */
 
 		int				color;
-		value_type		value;
+		value_type		pair; 
 		RBT_node		*root;
 		RBT_node		*parent;
 		RBT_node		*left;
@@ -81,31 +82,31 @@ namespace ft {
 		 * @brief Default contructor
 		 * 
 		 */
-		RBT_node (void) : color(RED_node), value(T()), root(0), parent(0), left(0), right(0) 
+		RBT_node (void) : color(RED_node), pair(T()), parent(0), left(0), right(0) 
 			{}; 
 
 		/**
-		 * @brief Construct a new RBT_node object whitout value
+		 * @brief Construct a new RBT_node object whitout pair
 		 *
 		 */
 		RBT_node ( RBT_node *parent, RBT_node *left, RBT_node *right) :
-			color(RED_node), value(T()), root(parent.root), parent(parent), left(left), right(right)
+			color(RED_node), pair(T()), parent(parent), left(left), right(right)
 			{};
 			
 		/**
-		 * @brief Construct a new RBT_node object with value
+		 * @brief Construct a new RBT_node object with pair
 		 * 
 		 */
-		RBT_node (const value_type &value, RBT_node *parent, RBT_node *left, 
+		RBT_node (const value_type &pair, RBT_node *parent, RBT_node *left, 
 				RBT_node *right) : 
-				color(RED_node), value(value), root(parent.root), parent(parent), left(left), right(right)
+				color(RED_node), pair(pair), parent(parent), left(left), right(right)
 			{};
 
 		/**
 		 * @brief Construct a new RBT_node object with copy
  		 * 
 		 */
-		RBT_node ( const RBT_node &node ) : value(node.value), root(node.root), parent(node.parent), 
+		RBT_node ( const RBT_node &node ) : pair(node.pair), parent(node.parent), 
 				left(node.left), right(node.right)
 			{};
 
@@ -119,7 +120,7 @@ namespace ft {
 		RBT_node	&operator= ( const RBT_node &rhs ) {
 			if (rhs != *this)
 			{
-				this->value = rhs.value;
+				this->pair = rhs.pair;
 				this->color = rhs.color;
 				this->root = rhs.root;
 				this->parent = rhs.parent;
@@ -130,7 +131,7 @@ namespace ft {
 		}
 
 		bool		operator== ( const RBT_node &rhs ) {
-			return (this->value == rhs.value && this->parent == rhs.parent);
+			return (this->pair == rhs.pair && this->parent == rhs.parent);
 		}
 
 		bool		operator!= ( const RBT_node &rhs ) {
@@ -138,11 +139,11 @@ namespace ft {
 		}
 
 		bool		operator>( const RBT_node &rhs) {
-			return (this->value > rhs.value && this->parent > rhs.parent);
+			return (this->pair > rhs.pair && this->parent > rhs.parent);
 		}
 
 		bool		operator<( const RBT_node &rhs) {
-			return (this->value < rhs.value && this->parent < rhs.parent);
+			return (this->pair < rhs.pair && this->parent < rhs.parent);
 		}
 
 		// operator RBt_node<const T> () const{
