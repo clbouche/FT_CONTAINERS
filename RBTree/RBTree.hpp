@@ -6,7 +6,7 @@
 /*   By: claclou <claclou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 11:05:54 by clbouche          #+#    #+#             */
-/*   Updated: 2022/04/20 08:53:51 by claclou          ###   ########.fr       */
+/*   Updated: 2022/04/20 18:24:55 by claclou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 #include <string>
 
 namespace ft {
-	/**
 	/**
     * ------------------------ FT::RBTree ------------------------- *
     *
@@ -113,9 +112,9 @@ namespace ft {
 		 * 
 		 */
 		~RBTree() {
-			clear();
-			_alloc.destroy(this->_empty);
-			_alloc.deallocate(this->_empty, 1);
+			//clear();
+			//_alloc.destroy(this->_empty);
+			//_alloc.deallocate(this->_empty, 1);
 		};
 		
 		/* ------------------------------------------------------------- */

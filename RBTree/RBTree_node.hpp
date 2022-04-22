@@ -6,7 +6,7 @@
 /*   By: claclou <claclou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 11:04:21 by clbouche          #+#    #+#             */
-/*   Updated: 2022/04/20 08:57:16 by claclou          ###   ########.fr       */
+/*   Updated: 2022/04/21 11:59:56 by claclou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,13 +102,13 @@ namespace ft {
 				color(RED_node), pair(pair), parent(parent), left(left), right(right)
 			{};
 
-		/**
-		 * @brief Construct a new RBT_node object with copy
- 		 * 
-		 */
-		RBT_node ( const RBT_node &node ) : pair(node.pair), parent(node.parent), 
-				left(node.left), right(node.right)
-			{};
+		// /**
+		//  * @brief Construct a new RBT_node object with copy
+ 		//  * 
+		//  */
+		// RBT_node ( const RBT_node &node ) : pair(node.pair), parent(node.parent), 
+		// 		left(node.left), right(node.right)
+		// 	{};
 
 		~RBT_node( void ) 
 			{};
@@ -117,51 +117,58 @@ namespace ft {
 	/* ------------------------ OPERATORS -------------------------- */	
 	/* ------------------------------------------------------------- */
 
-		RBT_node	&operator= ( const RBT_node &rhs ) {
-			if (rhs != *this)
-			{
-				this->pair = rhs.pair;
-				this->color = rhs.color;
-				this->root = rhs.root;
-				this->parent = rhs.parent;
-				this->left = rhs.left;
-				this->right = rhs.right;
-			}
-			return (*this);
-		}
-
-		bool		operator== ( const RBT_node &rhs ) {
-			return (this->pair == rhs.pair && this->parent == rhs.parent);
-		}
-
-		bool		operator!= ( const RBT_node &rhs ) {
-			return (!(this == rhs));
-		}
-
-		bool		operator>( const RBT_node &rhs) {
-			return (this->pair > rhs.pair && this->parent > rhs.parent);
-		}
-
-		bool		operator<( const RBT_node &rhs) {
-			return (this->pair < rhs.pair && this->parent < rhs.parent);
-		}
-
-		// operator RBt_node<const T> () const{
-		// 	return (RBT_node<const T>(this));
+		// RBT_node	&operator= ( const RBT_node &rhs ) {
+		// 	if (rhs != *this)
+		// 	{
+		// 		this->pair = rhs.pair;
+		// 		this->color = rhs.color;
+		// 		this->root = rhs.root;
+		// 		this->parent = rhs.parent;
+		// 		this->left = rhs.left;
+		// 		this->right = rhs.right;
+		// 	}
+		// 	return (*this);
 		// }
+
+		// bool		operator== ( const RBT_node &rhs ) {
+		// 	return (this->pair == rhs.pair && this->parent == rhs.parent);
+		// }
+
+		// bool		operator!= ( const RBT_node &rhs ) {
+		// 	return (!(this == rhs));
+		// }
+
+		// bool		operator>( const RBT_node &rhs) {
+		// 	return (this->pair > rhs.pair && this->parent > rhs.parent);
+		// }
+
+		// bool		operator<( const RBT_node &rhs) {
+		// 	return (this->pair < rhs.pair && this->parent < rhs.parent);
+		// }
+
+		// // operator RBt_node<const T> () const{
+		// // 	return (RBT_node<const T>(this));
+		// // }
 
 	};
 
-template <class T>
-std::ostream &operator<<(std::ostream &out, ft::RBT_node<T> &node)
+	// template <class T>
+	// std::ostream &operator<<(std::ostream &out, ft::RBT_node<T> &node)
+	// {
+	// 	if (&node != nullptr)
+	// 	{
+	// 		std::string colors;
+	// 		node.color == ft::RBT_node<T>::BLACK ? colors = "⚫" : colors = "🔴";
+	// 		out << "Node " << node.value << " " << colors;
+	// 	}
+	// 	return out;
+	// }
+
+template <typename T1, typename T2>
+std::ostream& operator<<(std::ostream& os, const ft::pair<T1,T2>& p)
 {
-	if (&node != nullptr)
-	{
-		std::string colors;
-		node.color == ft::RBT_node<T>::BLACK ? colors = "⚫" : colors = "🔴";
-		out << "Node " << node.value << " " << colors;
-	}
-	return out;
+    os << p.first << ": \"" << p.second << "\"";
+    return os;
 }
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.hpp                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: claclou <claclou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 12:04:20 by clbouche          #+#    #+#             */
-/*   Updated: 2022/04/13 14:52:22 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/04/21 16:23:13 by claclou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,10 @@
 #include <iostream>
 #include <memory>
 #include "../utils/utils_pair.hpp"
-#include "../RBTree/RBTree.hpp"
-#include "../RBTree/RBTree_node.hpp"
+// #include "../RBTree/RBTree.hpp"
+#include "../RBTree/RBT.hpp"
+
+// #include "../RBTree/RBTree_node.hpp"
 namespace	ft {
 	/** ✅
     * ------------------------ FT::MAP ------------------------- *

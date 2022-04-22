@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_pair.hpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
+/*   By: claclou <claclou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 11:46:27 by clbouche          #+#    #+#             */
-/*   Updated: 2022/04/06 14:41:32 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/04/21 16:58:01 by claclou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ namespace ft {
 			}
 
 		};
+
 		template <class T1, class T2>
 		bool operator== (const pair<T1,T2>& lhs, const pair<T1,T2>& rhs)
 		{ return lhs.first==rhs.first && lhs.second==rhs.second; }

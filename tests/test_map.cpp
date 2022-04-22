@@ -1,6 +1,8 @@
 #include "test.hpp"
 #include "../utils/utils_pair.hpp"
-#include "../RBTree/RBTree.hpp"
+// #include "../RBTree/RBTree.hpp"
+// #include "../RBTree/RBT.hpp"
+#include "../RBTree/RBT.hpp"
 #include "../containers/map.hpp"
 
 #include <map>
@@ -132,16 +134,23 @@ void	M_testConstructorsRBT(void)
 	std::cout << BLUE1 << "/*_______________________ Constructors RBT _______________________*/" << END << std::endl;
 
 	std::cout << BLUE3 << "Constructors: " << END << std::endl;
-	ft::RBTree < ft::pair< int, std::string >, std::greater<int> >	my_rbt;
+	// ft::RBT < ft::pair< int, std::string >, std::greater<int> >	my_rbt;
 
-	my_rbt.insert(ft::make_pair< int, std::string >(1, "un"));
+	// my_rbt.insert(ft::make_pair< int, std::string >(1, "un"));
 }
 
 void	M_testRBTInsert(void)
 {
-	ft::RBTree< ft::pair<int,int> > my_rbt;
+	ft::RBT < ft::pair<int,int> > my_rbt;
 
-	my_rbt.insert(ft::pair < int, int>(3, 3) );
+	// my_rbt.erase(ft::pair < int, int> (6, 2));
+	my_rbt.insert(ft::make_pair < int, int>(10, 10) );
+	my_rbt.insert(ft::make_pair < int, int> (15, 15) );
+	my_rbt.insert(ft::make_pair < int, int> (5, 5) );
+	// my_rbt.insert(ft::pair < int, int> (6, 2) );
+	// my_rbt.insert(ft::pair < int, int> (6, 2) );
+
+	my_rbt.printTree();
 }
 
 void	testMap(void)
@@ -165,8 +174,8 @@ void	testMap(void)
 	/* --------------------------- RBTree -------------------------- */	
 	/* ------------------------------------------------------------- */
 
-	M_testConstructorsRBT();
-	std::cout << std::endl;
+	// M_testConstructorsRBT();
+	// std::cout << std::endl;
 
 	M_testRBTInsert();
 	std::cout << std::endl;
