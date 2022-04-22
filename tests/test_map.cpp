@@ -139,18 +139,32 @@ void	M_testConstructorsRBT(void)
 	// my_rbt.insert(ft::make_pair< int, std::string >(1, "un"));
 }
 
-void	M_testRBTInsert(void)
+void	M_testRBTInsertAndErase(void)
 {
 	ft::RBT < ft::pair<int,int> > my_rbt;
 
-	// my_rbt.erase(ft::pair < int, int> (6, 2));
-	my_rbt.insert(ft::make_pair < int, int>(10, 10) );
+	// my_rbt.insert(ft::make_pair < int, int>(10, 10) );
 	my_rbt.insert(ft::make_pair < int, int> (15, 15) );
 	my_rbt.insert(ft::make_pair < int, int> (5, 5) );
-	// my_rbt.insert(ft::pair < int, int> (6, 2) );
-	// my_rbt.insert(ft::pair < int, int> (6, 2) );
+	my_rbt.insert(ft::make_pair < int, int> (6, 2) );
+	my_rbt.insert(ft::make_pair < int, int> (6, 2) );
+	my_rbt.insert(ft::make_pair < int, int> (7, 7) );
+	my_rbt.insert(ft::make_pair < int, int> (18, 18) );
+	my_rbt.insert(ft::make_pair < int, int> (45, 45) );
+	my_rbt.insert(ft::make_pair < int, int> (3, 3) );
 
+	std::cout << "INSERT" << std::endl;
 	my_rbt.printTree();
+
+	// my_rbt.erase(ft::make_pair < int, int> (6, 2));
+	// my_rbt.erase(ft::make_pair < int, int> (15, 15));
+	// my_rbt.erase(ft::make_pair < int, int> (3, 3));
+	// my_rbt.erase(ft::make_pair < int, int> (18, 18));
+	// my_rbt.erase(ft::make_pair < int, int> (9, 9));
+
+	std::cout << std::endl << "ERASE" << std::endl;
+	my_rbt.printTree();
+
 }
 
 void	testMap(void)
@@ -177,7 +191,7 @@ void	testMap(void)
 	// M_testConstructorsRBT();
 	// std::cout << std::endl;
 
-	M_testRBTInsert();
+	M_testRBTInsertAndErase();
 	std::cout << std::endl;
 
 	/* ------------------------------------------------------------- */

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RBTree_node.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: claclou <claclou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/13 11:04:21 by clbouche          #+#    #+#             */
-/*   Updated: 2022/04/21 11:59:56 by claclou          ###   ########.fr       */
+/*   Updated: 2022/04/22 13:47:14 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,18 +97,18 @@ namespace ft {
 		 * @brief Construct a new RBT_node object with pair
 		 * 
 		 */
-		RBT_node (const value_type &pair, RBT_node *parent, RBT_node *left, 
-				RBT_node *right) : 
+		RBT_node (const value_type &pair, RBT_node *parent = 0, RBT_node *left = 0, 
+				RBT_node *right = 0) : 
 				color(RED_node), pair(pair), parent(parent), left(left), right(right)
 			{};
 
-		// /**
-		//  * @brief Construct a new RBT_node object with copy
- 		//  * 
-		//  */
-		// RBT_node ( const RBT_node &node ) : pair(node.pair), parent(node.parent), 
-		// 		left(node.left), right(node.right)
-		// 	{};
+		/**
+		 * @brief Construct a new RBT_node object with copy
+ 		 * 
+		 */
+		RBT_node ( const RBT_node &node ) : pair(node.pair), parent(node.parent), 
+				left(node.left), right(node.right)
+			{};
 
 		~RBT_node( void ) 
 			{};
