@@ -253,7 +253,13 @@ Ces membres types vont nous permettre d'implementer dans cette meme classe des s
 
 
 
+https://github.com/Bibeknam/algorithmtutorprograms/blob/master/data-structures/red-black-trees/RedBlackTree.cpp
 
+https://www.geeksforgeeks.org/c-program-red-black-tree-insertion/
+
+https://www.sanfoundry.com/cpp-program-implement-red-black-tree/
+
+https://www.coders-hub.com/2015/07/red-black-tree-rb-tree-using-c.html
 
 
 
