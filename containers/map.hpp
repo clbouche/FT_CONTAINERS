@@ -6,7 +6,7 @@
 /*   By: claclou <claclou@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 12:04:20 by clbouche          #+#    #+#             */
-/*   Updated: 2022/04/21 16:23:13 by claclou          ###   ########.fr       */
+/*   Updated: 2022/04/26 14:05:47 by claclou          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include <memory>
 #include "../utils/utils_pair.hpp"
 // #include "../RBTree/RBTree.hpp"
-#include "../RBTree/RBT.hpp"
+#include "../RBTree/algo.hpp"
 
 // #include "../RBTree/RBTree_node.hpp"
 namespace	ft {

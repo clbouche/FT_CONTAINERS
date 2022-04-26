@@ -1,8 +1,6 @@
 #include "test.hpp"
 #include "../utils/utils_pair.hpp"
-// #include "../RBTree/RBTree.hpp"
-// #include "../RBTree/RBT.hpp"
-#include "../RBTree/RBT.hpp"
+#include "../RBTree/algo.hpp"
 #include "../containers/map.hpp"
 
 #include <map>
@@ -129,29 +127,15 @@ void	M_testMakePair(void)
 	M_printContentPair(my_pair, std_pair);
 }
 
-void	M_testConstructorsRBT(void)
-{
-	std::cout << BLUE1 << "/*_______________________ Constructors RBT _______________________*/" << END << std::endl;
-
-	std::cout << BLUE3 << "Constructors: " << END << std::endl;
-	// ft::RBT < ft::pair< int, std::string >, std::greater<int> >	my_rbt;
-
-	// my_rbt.insert(ft::make_pair< int, std::string >(1, "un"));
-}
-
 void	M_testRBTInsertAndErase(void)
 {
-	ft::RBT < ft::pair<int,int> > my_rbt;
+	//ft::RBTree<int>	test;
+	ft::RBTree<int, ft::pair<int, std::string> >	my_rbt;
 
-	// my_rbt.insert(ft::make_pair < int, int>(10, 10) );
-	my_rbt.insert(ft::make_pair < int, int> (15, 15) );
-	my_rbt.insert(ft::make_pair < int, int> (5, 5) );
-	my_rbt.insert(ft::make_pair < int, int> (6, 2) );
-	my_rbt.insert(ft::make_pair < int, int> (6, 2) );
-	my_rbt.insert(ft::make_pair < int, int> (7, 7) );
-	my_rbt.insert(ft::make_pair < int, int> (18, 18) );
-	my_rbt.insert(ft::make_pair < int, int> (45, 45) );
-	my_rbt.insert(ft::make_pair < int, int> (3, 3) );
+	my_rbt.insert(ft::make_pair<int, std::string>(1, "un"));
+	my_rbt.insert(ft::make_pair<int, std::string>(2, "deux"));
+	my_rbt.insert(ft::make_pair<int, std::string>(3, "trois"));
+	my_rbt.insert(ft::make_pair<int, std::string>(4, "quatre"));	
 
 	std::cout << "INSERT" << std::endl;
 	my_rbt.printTree();
@@ -162,8 +146,8 @@ void	M_testRBTInsertAndErase(void)
 	// my_rbt.erase(ft::make_pair < int, int> (18, 18));
 	// my_rbt.erase(ft::make_pair < int, int> (9, 9));
 
-	std::cout << std::endl << "ERASE" << std::endl;
-	my_rbt.printTree();
+	// std::cout << std::endl << "ERASE" << std::endl;
+	// my_rbt.printTree();
 
 }
 
@@ -187,9 +171,6 @@ void	testMap(void)
 	/* ------------------------------------------------------------- */
 	/* --------------------------- RBTree -------------------------- */	
 	/* ------------------------------------------------------------- */
-
-	// M_testConstructorsRBT();
-	// std::cout << std::endl;
 
 	M_testRBTInsertAndErase();
 	std::cout << std::endl;
