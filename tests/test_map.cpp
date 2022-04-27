@@ -127,28 +127,78 @@ void	M_testMakePair(void)
 	M_printContentPair(my_pair, std_pair);
 }
 
-void	M_testRBTInsertAndErase(void)
+void	M_testRBTInsertAndDelete(void)
 {
-	//ft::RBTree<int>	test;
-	ft::RBTree<int, ft::pair<int, std::string> >	my_rbt;
 
-	my_rbt.insert(ft::make_pair<int, std::string>(1, "un"));
-	my_rbt.insert(ft::make_pair<int, std::string>(2, "deux"));
-	my_rbt.insert(ft::make_pair<int, std::string>(3, "trois"));
-	my_rbt.insert(ft::make_pair<int, std::string>(4, "quatre"));	
+	std::cout << BLUE1 << "/*_________________________ INSERTION _________________________*/" << END << std::endl;
 
-	std::cout << "INSERT" << std::endl;
-	my_rbt.printTree();
+	ft::RBTree<int, ft::pair<int, std::string> >	my_rbt1;
+	ft::RBTree<int, ft::pair<int, int> >			my_rbt2;
 
-	// my_rbt.erase(ft::make_pair < int, int> (6, 2));
-	// my_rbt.erase(ft::make_pair < int, int> (15, 15));
-	// my_rbt.erase(ft::make_pair < int, int> (3, 3));
-	// my_rbt.erase(ft::make_pair < int, int> (18, 18));
-	// my_rbt.erase(ft::make_pair < int, int> (9, 9));
 
-	// std::cout << std::endl << "ERASE" << std::endl;
-	// my_rbt.printTree();
+	std::cout << BLUE3 << std::endl << "/* increasing insertion with int and string*/" << END << std::endl;
+	my_rbt1.insert(ft::make_pair<int, std::string> (1, "un"));
+	my_rbt1.insert(ft::make_pair<int, std::string>(2, "deux"));
+	my_rbt1.insert(ft::make_pair<int, std::string>(3, "trois"));	
+	my_rbt1.insert(ft::make_pair<int, std::string>(4, "quatre"));
+	
+	std::cout << "INSERT - my_rbt1" << std::endl;
+	my_rbt1.printTree();
 
+	std::cout << BLUE3 << std::endl << "/* insertion with pair of int */" << END << std::endl;
+	my_rbt2.insert(ft::make_pair<int, int>(1, 1));
+	// my_rbt2.insert(ft::make_pair<int, int>(12, 12));
+	my_rbt2.insert(ft::make_pair<int, int>(5, 5));
+	// my_rbt2.insert(ft::make_pair<int, int>(44, 44));
+
+
+	std::cout << "INSERT - my_rbt2" << std::endl;
+	my_rbt2.printTree();
+	/**
+	 * @todo change to : delete_tree
+	 * 
+	 */
+	my_rbt2.delete_node(ft::make_pair <int, int>(1, 1));
+	my_rbt2.delete_node(ft::make_pair <int, int>(5, 5));
+	std::cout << "check if empty : ";
+	my_rbt2.printTree(); //check if empty 
+
+	std::cout << BLUE3 << std::endl << std::endl << "/* re insertion in the same tree (but empty) */" << END << std::endl;
+	my_rbt2.insert(ft::make_pair<int, int>(3, 3));
+	my_rbt2.insert(ft::make_pair<int, int>(4, 4));
+
+	my_rbt2.printTree();
+
+	std::cout << BLUE1 << std::endl << std::endl << "/*_________________________ DELETION _________________________*/" << END << std::endl;
+
+	std::cout << BLUE3 << std::endl << "/* delete node with pair value */" << END << std::endl;
+	my_rbt1.delete_node(ft::make_pair <int, std::string> (2, "deux"));
+
+	std::cout << "DELETE NODE - my_rbt1" << std::endl;
+	my_rbt1.printTree();
+
+	std::cout << BLUE3 << std::endl << "/* delete all node of the tree without using delete_tree */" << END << std::endl;
+	my_rbt2.printTree();
+	my_rbt2.delete_node(ft::make_pair <int, int> (3, 3));
+	my_rbt2.delete_node(ft::make_pair <int, int> (4, 4));
+	std::cout << "check if empty :";
+	my_rbt2.printTree();
+
+	std::cout << std::endl << std::endl << BLUE3 << "/* delete node with unexistante value */" << END << std::endl;
+	my_rbt1.delete_node(ft::make_pair <int, std::string> (5, "cinq"));
+
+
+	// std::cout << std::endl << BLUE3 << "/* delete node with node value */" << END << std::endl;
+	/**
+	 * @todo use delete_node with node value
+	 * 
+	 */
+	//my_rbt1.delete_node();
+
+	// std::cout << BLUE3 << std::endl << "/* delete_tree */" << END << std::endl;
+	// my_rbt1.delete_tree();
+	// std::cout << "check if empty : ";
+	// my_rbt1.printTree();
 }
 
 void	testMap(void)
@@ -172,7 +222,7 @@ void	testMap(void)
 	/* --------------------------- RBTree -------------------------- */	
 	/* ------------------------------------------------------------- */
 
-	M_testRBTInsertAndErase();
+	M_testRBTInsertAndDelete();
 	std::cout << std::endl;
 
 	/* ------------------------------------------------------------- */
