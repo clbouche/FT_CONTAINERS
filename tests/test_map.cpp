@@ -1,9 +1,12 @@
 #include "test.hpp"
 #include "../utils/utils_pair.hpp"
 #include "../RBTree/algo.hpp"
+#include "../RBTree/RBT_node.hpp"
 #include "../containers/map.hpp"
 
 #include <map>
+#include <cstdlib>
+
 
 # define RED "\x1B[31m"
 # define GREEN "\x1B[32m"
@@ -186,19 +189,77 @@ void	M_testRBTInsertAndDelete(void)
 
 	std::cout << std::endl << std::endl << BLUE3 << "/* delete node with unexistante value */" << END << std::endl;
 	my_rbt1.delete_node(ft::make_pair <int, std::string> (5, "cinq"));
+}
+
+void	M_testRBTFixInsertionAndFixDeletion() 
+{
+	std::cout << BLUE1 << std::endl << std::endl << "/*_________________________ FIX INSERTION _________________________*/" << END << std::endl;
+
+	std::cout << std::endl << std::endl << BLUE3 << "/* test with croissant value (int) */" << END << std::endl;
+	ft::RBTree<int, ft::pair<int, int> >	my_rbt1;
+	int		int_array1[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
+	int		int_array2[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
+
+	for (int i = 0; i < 20; i++) {
+		my_rbt1.insert(ft::make_pair(int_array1[i], int_array2[i]));
+	}
+	my_rbt1.printTree();
+
+	std::cout << std::endl << std::endl << BLUE3 << "/* test with random value (int) */" << END << std::endl;
+	ft::RBTree<int, ft::pair<int, int> >	my_rbt2;
+
+	int	int_array3[30];
+	int	int_array4[30];
+	srand(time(NULL));
+	for (int i=0 ; i < 30; i++) {
+		int_array3[i] = rand() % 100;
+		int_array4[i] = rand() % 100;
+	}
+
+	for (int i = 0; i < 29; i++) {
+		my_rbt2.insert(ft::make_pair(int_array3[i], int_array4[i]));
+	}
+	my_rbt2.printTree();
+
+	std::cout << std::endl << std::endl << BLUE3 << "/* test with random value (int & std::string) */" << END << std::endl;
+	ft::RBTree<int, ft::pair<int, std::string> >	my_rbt3;
+
+	std::string	std_array1[5] = {"bonjour", "bonsoir", "salut", "hola", "hello"};
+
+	for (int i = 0; i < 5; i++)
+		my_rbt3.insert(ft::make_pair(int_array3[i], std_array1[i]));
+	
+	my_rbt3.printTree();
+
+	std::cout << BLUE1 << std::endl << std::endl << "/*_________________________ FIX DELETION _________________________*/" << END << std::endl;
+
+	my_rbt1.delete_node(ft::make_pair(7, 7));
+	my_rbt1.printTree();
+}
+
+void		M_testRBTFindNode(void)
+{
+	std::cout << BLUE1 << std::endl << std::endl << "/*_________________________ FIND NODE _________________________*/" << END << std::endl;
+
+	ft::RBTree<int, ft::pair<int, int> > my_rbt;
+	int	int_array1[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+	int	int_array2[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+	for (int i = 0; i < 10; i++) {
+		my_rbt.insert(ft::make_pair(int_array1[i], int_array2[i]));
+	}
+	my_rbt.printTree();
+
+	std::cout << std::endl << std::endl << BLUE3 << "/* find node with value */" << END << std::endl;
+
+	ft::RBT_node<ft::pair<int, int> > *tmp = my_rbt.find_node();
+
+	std::cout << "check if I find the node : " << tmp->pair.first << std::endl;
 
 
-	// std::cout << std::endl << BLUE3 << "/* delete node with node value */" << END << std::endl;
-	/**
-	 * @todo use delete_node with node value
-	 * 
-	 */
-	//my_rbt1.delete_node();
+	std::cout << std::endl << std::endl << BLUE3 << "/* find node with key */" << END << std::endl;
 
-	// std::cout << BLUE3 << std::endl << "/* delete_tree */" << END << std::endl;
-	// my_rbt1.delete_tree();
-	// std::cout << "check if empty : ";
-	// my_rbt1.printTree();
+
 }
 
 void	testMap(void)
@@ -222,7 +283,13 @@ void	testMap(void)
 	/* --------------------------- RBTree -------------------------- */	
 	/* ------------------------------------------------------------- */
 
-	M_testRBTInsertAndDelete();
+	// M_testRBTInsertAndDelete();
+	// std::cout << std::endl;
+
+	// M_testRBTFixInsertionAndFixDeletion();
+	// std::cout << std::endl;
+
+	M_testRBTFindNode();
 	std::cout << std::endl;
 
 	/* ------------------------------------------------------------- */

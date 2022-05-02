@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 12:51:42 by claclou           #+#    #+#             */
-/*   Updated: 2022/04/27 17:45:34 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/05/02 16:14:23 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,55 @@
 # define ALGO_HPP
 
 #include "RBT_node.hpp"
+#include "../iterators/RBT_iterator.hpp"
 #include "../utils/utils_pair.hpp"
 
 #include <string>
 #include <iostream>
 
+# define BLACK_n	0
+# define RED_n	1
+
 namespace ft {
 	
+	/**
+    * ------------------------ FT::RBT ------------------------- *
+    *
+    * - Coplien form:
+    * default constructor ✅
+	* Copy constructor 
+	* Assign constructor ✅
+	* Destructor ✅
+	* 
+	* - Members functions:
+	* max:					Return the higher value of the tree ✅
+	* min:					Return the smallest value of the tree ✅
+	* insert:				Insert a new node in the tree ✅ 
+	* delete_node:			Delete a node with key, value or position 
+	* delete_tree:			Delete the entire tree ✅
+	* fixInsert: 			Change the organisation of the tree to follow the rules of the RBT ✅
+	* fixDelete:			Idem ✅
+	* Rotation:
+	*	rightRotate
+	*	leftRotate
+	* clear:				delete and clear the tree ✅
+	* findNode:				search and find a node in the tree with pair or key
+	* swap: 
+	*
+	* - Friends functions:
+	* 	operator== 
+	* 	operator<  
+	* 
+	* - Non members functions:
+	* relational operators: Relational operators for RBT
+	* 	operator== 
+	* 	operator!= 
+	* 	operator<  
+	*	operator>  
+	*	operator<= 
+	* 	operator>= 
+	* ------------------------------------------------------------- *
+    */
 	template <class K, class T, class Compare = std::less<K>, class Alloc = std::allocator<T> >
 	class RBTree {
 
@@ -97,7 +139,7 @@ namespace ft {
 		 */
 		~RBTree (void)
 		{
-			//deleteTree(this->_root);
+			delete_tree(this->_root);
 			_node_alloc.destroy(this->_empty);
 			_node_alloc.deallocate(this->_empty, 1);
 			_node_alloc.destroy(this->_leaf_left);
@@ -117,12 +159,12 @@ namespace ft {
 			return (false);
 		}
 
-		bool _comp(value_type a, value_type b, Compare u = Compare())
+		bool	_comp(value_type a, value_type b, Compare u = Compare())
 		{
 			return u(a.first, b.first);
 		}
 
-		void NodesTransplant(Node *i, Node *j) 
+		void	NodesTransplant(Node *i, Node *j) 
 		{
 			if (i->parent == NULL)
 				this->_root = j;
@@ -131,6 +173,15 @@ namespace ft {
 			else
 				i->parent->right = j;
 			j->parent = i->parent;
+		}
+		
+		void	clear ( void )
+		{
+			delete_tree(this->_root);
+			this->_root = NULL;
+			this->_size = 0;
+			this->_leaf_left->parent = NULL;
+			this->_leaf_right->parent = NULL;
 		}
 
 		/* ------------------------------------------------------------- */
@@ -170,6 +221,11 @@ namespace ft {
 			return (position);
 		}
 		
+		/**
+		 * @todo
+		 * remplacer par iterator(insert_pos) le return 
+		 *  
+		 */
 		Node	*insert ( value_type to_insert )
 		{
 			Node	new_node(to_insert, NULL, this->_empty, this->_empty);
@@ -208,7 +264,7 @@ namespace ft {
 				return (insert_pos);
 			}
 			//this->setHeader();
-			// fixRBTPropertiesAfterInsert(insert_pos);
+			fixRBTPropertiesAfterInsert(insert_pos);
 			return (insert_pos);
 		}
 
@@ -272,8 +328,8 @@ namespace ft {
 			this->_node_alloc.destroy(NodeToBeDeleted);
 			this->_node_alloc.deallocate(NodeToBeDeleted, 1);
 			this->_size--;
-			// if (original_color == BLACK)
-				// fixRBTPropertiesAfterDelete(parent);
+			if (originalColor == BLACK_n)
+				fixRBTPropertiesAfterDelete(new_parent);
 			// if (!isLeaf(this->_root))
 			// 	this->setHeader();
 			// else
@@ -285,40 +341,145 @@ namespace ft {
 		 * @brief Delete node with key value
 		 * 
 		 */
-		// void	delete_node(key_type key)
-		// {
-		// 	//use function find to find the position
-		// 	//use delete_node with the node_position;
-		// }
+		void	delete_node(key_type key)
+		{
+			Node	*tmp;
+
+			tmp = find_node(key);
+			if (tmp != this->end())
+				delete_node(tmp);
+		}
 
 		/**
 		 * @brief Delete tree - recursive
 		 * 
 		 */
-		void	delete_tree ( Node *node )
+		void	delete_tree ( Node *root )
+		{
+			if (root != NULL)
 			{
-				if (node != NULL)
-				{
-					delete_tree(node->left);
-					delete_tree(node->right);
-				}
-				if (node != this->_empty && node != NULL) //&& node != this->_leaf_left && node != this->_leaf_right)
-				{
-					this->_node_alloc.destroy(node);
-					this->_node_alloc.deallocate(node, 1);
-				}
+				delete_tree(root->left);
+				delete_tree(root->right);
 			}
+			if (root != this->_empty && root != NULL && root != this->_leaf_left && root != this->_leaf_right)
+			{
+				this->_node_alloc.destroy(root);
+				this->_node_alloc.deallocate(root, 1);
+			}
+		}
+
 		/* ------------------------------------------------------------- */
 		/* ------------------------ FIX RULES -------------------------- */	
 		/* ------------------------------------------------------------- */
 
-		// void	fixRBTPropertiesAfterInsert(){
-			
-		// }
+		void	fixRBTPropertiesAfterInsert(Node *node)
+		{
+			Node	*tmp;
 
-		// void	fixRBTPropertiesAfterDelete() {
-			
-		// }
+			while(node->parent->color == RED_n) {
+				if (node->parent == node->parent->parent->right) {
+					tmp = node->parent->parent->left;
+					if (tmp && tmp->color == RED_n) {
+						tmp->color = BLACK_n;
+						node->parent->color = BLACK_n;
+						node->parent->parent->color = RED_n;
+						node = node->parent->parent;
+					}
+					else {
+						if (node == node->parent->left) {
+							node = node->parent;
+							rightRotate(node);
+						}
+						node->parent->color = BLACK_n;
+						node->parent->parent->color = RED_n;
+						leftRotate(node->parent->parent);
+					}
+				}
+				else {
+					tmp = node->parent->parent->right;
+					if (tmp && tmp->color == RED_n) {
+						tmp->color = BLACK_n;
+						node->parent->color = BLACK_n;
+						node->parent->parent->color = RED_n;
+						node = node->parent->parent;
+					}
+					else {
+						if (node == node->parent->right) {
+							node = node->parent;
+							leftRotate(node);
+						}
+						node->parent->color = BLACK_n;
+						node->parent->parent->color = RED_n;
+						rightRotate(node->parent->parent);
+					}
+				}
+				if (node == this->_root) 
+					break;
+			}	
+			this->_root->color = BLACK_n;
+		}
+
+
+		void	fixRBTPropertiesAfterDelete(Node *node) 
+		{
+			Node	*tmp;
+
+			while(node != this->_root && node->color == BLACK_n) {
+				if (node == node->parent->left) {
+					tmp = node->parent->right;
+					if (tmp->color == RED_n) {
+						tmp->color = BLACK_n;
+						node->parent->color = RED_n;
+						leftRotate(node->parent);
+						tmp = node->parent->right;
+					}
+					if (tmp->left->color == BLACK_n && tmp->right->color == BLACK_n) {
+						tmp->color = RED_n;
+						node = node->parent;
+					}
+					else {
+						if (tmp->right->color == BLACK_n) {
+							tmp->left->color = BLACK_n;
+							tmp->color = RED_n;
+							rightRotate(tmp);
+							tmp = node->parent->right;
+						}
+						tmp->color = node->parent->color;
+						node->parent->color = BLACK_n;
+						tmp->right->color = BLACK_n;
+						leftRotate(node->parent);
+						node = this->_root;
+					}
+				}
+				else {
+					tmp = node->parent->left;
+					if (tmp->color == RED_n) {
+						tmp->color = BLACK_n;
+						node->parent->color = RED_n;
+						rightRotate(node->parent);
+						tmp = node->parent->left;
+					}
+					if (tmp->right->color == BLACK_n) {
+						tmp->color = RED_n;
+						node = node->parent;
+					}
+					else {
+						if (tmp->left->color == BLACK_n) {
+							tmp->right->color = BLACK_n;
+							tmp->color = RED_n;
+							rightRotate(node->parent);
+							tmp = node->parent->left;
+						}
+						tmp->color = node->parent->color;
+						node->parent->color = BLACK_n;
+						tmp->left->color = BLACK_n;
+						rightRotate(node->parent);
+						node = this->_root;
+					}
+				}
+			}
+			node->color = BLACK_n;	
+		}
 
 		/* ------------------------------------------------------------- */
 		/* ------------------------ ROTATIONS -------------------------- */	
@@ -357,7 +518,7 @@ namespace ft {
 				tmp->right->parent = node;
 			tmp->parent = node->parent;
 			if (node->parent == NULL)
-				this->root = tmp;
+				this->_root = tmp;
 			else if (node == node->parent->right)
 				node->parent->right = tmp;
 			else
@@ -366,26 +527,60 @@ namespace ft {
 			node->parent = tmp;
 		}
 
+		/* ------------------------------------------------------------- */
+		/* ---------------------------- FIND --------------------------- */	
+		/* ------------------------------------------------------------- */
+
 		/**
-		 * @brief 
-		 * 
-		 * @param node 
+		 * @todo
+		 * REMPLACER PAR ITERATOR et return this->end() si tmp == NULL
 		 */
-		void	leftRightRotate(Node *node ) {
-			(void)node;			
+
+		Node	*find_node(key_type key) const
+		{
+			Node	*tmp = this->_root;
+			if (tmp != NULL) {
+				return (find_nodeHelper(tmp, key));
+			}
+			return (tmp);
 		}
 
 		/**
-		 * @brief 
+		 * @brief find a node compare to the key_value
 		 * 
-		 * @param node 
+		 * @param node at the begginning, this node is root
+		 * @param key the key_value to compare to the other node
+		 * @return Node* Return the node who is not responding to the key_compare comparaison
 		 */
-		void	rightLeftRotate(Node *node ) {
-			(void)node;			
+		Node	*find_nodeHelper(Node *node, key_type key) const
+		{
+			if (node == NULL || isLeaf(node))
+				return (NULL);
+			if (!key_compare()(node->pair.first, key) && !key_compare()(key, node->pair.first))
+				return (node);
+			if (key_compare()(key, node->pair.first))
+				return (find_nodeHelper(node->left, key));
+			return (find_nodeHelper(node->right, key));
 		}
 
-		void	recolor(Node *node ) {
-			(void)node;
+		Node	*find_node(value_type pair) const
+		{
+			Node	*tmp = this->_root;
+			
+			if (tmp != NULL)
+				return (find_nodeHelper(tmp, pair));
+			return (tmp);
+		}
+
+		Node	*find_nodeHelper(Node *node, value_type pair) const 
+		{
+			if (node == NULL || isLeaf(node))
+				return (NULL);
+			if (!key_compare()(node->pair.first, pair.first) && !key_compare()(pair.first, node->pair.first))
+				return (node);
+			if (key_compare()(pair.first, node->pair.first))
+				return (find_nodeHelper(node->left, pair));
+			return (find_nodeHelper(node->right, pair));
 		}
 
 		/* ------------------------------------------------------------- */
