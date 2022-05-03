@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 12:51:42 by claclou           #+#    #+#             */
-/*   Updated: 2022/05/02 16:14:23 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/05/03 16:43:11 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 #include "RBT_node.hpp"
 #include "../iterators/RBT_iterator.hpp"
 #include "../utils/utils_pair.hpp"
+#include "../utils/utils_relational_operators.hpp"
 
 #include <string>
 #include <iostream>
@@ -30,7 +31,7 @@ namespace ft {
     *
     * - Coplien form:
     * default constructor ✅
-	* Copy constructor 
+	* Copy constructor ✅ 
 	* Assign constructor ✅
 	* Destructor ✅
 	* 
@@ -38,29 +39,29 @@ namespace ft {
 	* max:					Return the higher value of the tree ✅
 	* min:					Return the smallest value of the tree ✅
 	* insert:				Insert a new node in the tree ✅ 
-	* delete_node:			Delete a node with key, value or position 
+	* delete_node:			Delete a node with key, value or position ✅
 	* delete_tree:			Delete the entire tree ✅
 	* fixInsert: 			Change the organisation of the tree to follow the rules of the RBT ✅
 	* fixDelete:			Idem ✅
 	* Rotation:
-	*	rightRotate
-	*	leftRotate
+	*	rightRotate ✅
+	*	leftRotate 	✅
 	* clear:				delete and clear the tree ✅
-	* findNode:				search and find a node in the tree with pair or key
-	* swap: 
+	* findNode:				search and find a node in the tree with pair or key ✅
+	* swap: 				
 	*
 	* - Friends functions:
-	* 	operator== 
-	* 	operator<  
+	* 	operator== ✅
+	* 	operator<  ✅
 	* 
 	* - Non members functions:
 	* relational operators: Relational operators for RBT
-	* 	operator== 
-	* 	operator!= 
-	* 	operator<  
-	*	operator>  
-	*	operator<= 
-	* 	operator>= 
+	* 	operator== ✅
+	* 	operator!= ✅
+	* 	operator<  ✅
+	*	operator>  ✅
+	*	operator<= ✅
+	* 	operator>= ✅
 	* ------------------------------------------------------------- *
     */
 	template <class K, class T, class Compare = std::less<K>, class Alloc = std::allocator<T> >
@@ -76,10 +77,10 @@ namespace ft {
 		typedef 			Alloc						allocator_type;
 		typedef				ft::RBT_node<T>				Node;
 		typedef				Compare						key_compare;
-
-		
 		typedef typename	allocator_type::template
 							rebind<Node>::other			node_allocator;
+		typedef				ft::RBT_iterator<T>			iterator;
+
 
 		private:
 		/* ------------------------------------------------------------- */
@@ -121,20 +122,32 @@ namespace ft {
 
 		/**
 		 * @brief Copy constructor
-		 * @todo inserer tous les nodes de la copy dans le nouvel arbre 
-		 * @todo implementer insert + iterator
 		 * 
 		 */
-		// RBTree (const RBTree& copy) 
-		// {
-		// 	this->_root = NULL;
+		RBTree (const RBTree& copy) 
+		{
+			Node		tmp;
+			iterator	it;
 			
-		// }
+			this->_empty = _node_alloc.allocate(1);
+			_node_alloc.construct(this->_empty, tmp);
+			this->_leaf_left = _node_alloc.allocate(1);
+			_node_alloc.construct(this->_leaf_left, tmp);
+			this->_leaf_right = _node_alloc.allocate(1);
+			_node_alloc.construct(this->_leaf_right, tmp);
+			this->_root = NULL;	
+			this->_size = 0;
+			
+			it = copy.begin();
+			while(it != copy.end())	
+			{
+				insert(*it);
+				it++;
+			}
+		}
 
 		/**
 		 * @brief Destructor. 
-		 * @todo supprimer l'arbre 
-		 * @todo leaks : desallouer tous les nodes alloues.
 		 * 
 		 */
 		~RBTree (void)
@@ -184,6 +197,28 @@ namespace ft {
 			this->_leaf_right->parent = NULL;
 		}
 
+		void		swap ( RBTree &x )
+		{
+			x.unsetLeafs();
+			this->unsetLeafs();
+			std::swap(this->_root, x._root);
+			std::swap(this->_leaf_left, x._leaf_left);
+			std::swap(this->_leaf_right, x._leaf_right);
+			std::swap(this->_empty, x._empty);
+			std::swap(this->_node_count, x._node_count);
+			if (this->_root)
+				this->setLeafs();
+			if (x._root)
+				x.setLeafs();
+			std::swap(this->_node_alloc, x._node_alloc);
+		}
+
+		size_t			max_size ( void ) const
+		{
+			return (node_allocator().max_size());
+		}
+
+
 		/* ------------------------------------------------------------- */
 		/* ------------------------- MIN / MAX ------------------------- */	
 		/* ------------------------------------------------------------- */
@@ -200,6 +235,30 @@ namespace ft {
 			while(node->left != this->_empty)
 				node = node->left;
 			return (node);
+		}
+
+		/* ------------------------------------------------------------- */
+		/* --------------------------- LEAFS --------------------------- */	
+		/* ------------------------------------------------------------- */
+
+		void	setLeafs( void )
+		{
+			Node	*most_right = this->maximum(this->_root);
+			Node	*most_left = this->minimum(this->_root);
+
+			this->_leaf_right->parent = most_right;
+			this->_leaf_right->parent->right = this->_leaf_right;
+			this->_leaf_left->parent = most_left;
+			this->_leaf_left->parent->left = this->_leaf_left;
+			this->_empty->parent = 0;
+		}
+
+		void	unsetLeafs( void )
+		{
+			if (this->_leaf_right->parent)
+				this->_leaf_right->parent->right = this->_empty;
+			if (this->_leaf_left->parent)
+				this->_leaf_left->parent->left = this->_empty;
 		}
 
 		/* ------------------------------------------------------------- */
@@ -221,18 +280,13 @@ namespace ft {
 			return (position);
 		}
 		
-		/**
-		 * @todo
-		 * remplacer par iterator(insert_pos) le return 
-		 *  
-		 */
-		Node	*insert ( value_type to_insert )
+		iterator	insert ( value_type to_insert )
 		{
 			Node	new_node(to_insert, NULL, this->_empty, this->_empty);
 			Node	*insert_pos = NULL;
 
+			this->unsetLeafs();
 			Node *position = FindPositionToInsert(&new_node);
-			//this->unsetHeader();
 			new_node.parent = position;
 			if (position == NULL)
 			{
@@ -254,18 +308,18 @@ namespace ft {
 			this->_size++;
 			if (insert_pos->parent == NULL)
 			{
-				//this->setHeader();
+				this->setLeafs();
 				insert_pos->color = BLACK_n;
-				return (insert_pos);
+				return (iterator(insert_pos));
 			}
 			if (insert_pos->parent->parent == NULL)
 			{
-				//this->setHeader();
-				return (insert_pos);
+				this->setLeafs();
+				return (iterator(insert_pos));
 			}
-			//this->setHeader();
+			this->setLeafs();
 			fixRBTPropertiesAfterInsert(insert_pos);
-			return (insert_pos);
+			return (iterator(insert_pos));
 		}
 
 		/* ------------------------------------------------------------- */
@@ -298,7 +352,7 @@ namespace ft {
 			Node	*new_parent;
 			int originalColor = tmp->color;
 			
-			// this->unsetHeader();
+			this->unsetLeafs();
 			if (NodeToBeDeleted->left == this->_empty) {
 				new_parent = NodeToBeDeleted->right;
 				NodesTransplant(NodeToBeDeleted, NodeToBeDeleted->right);
@@ -330,10 +384,10 @@ namespace ft {
 			this->_size--;
 			if (originalColor == BLACK_n)
 				fixRBTPropertiesAfterDelete(new_parent);
-			// if (!isLeaf(this->_root))
-			// 	this->setHeader();
-			// else
-			// 	this->_root = NULL;
+			if (!isLeaf(this->_root))
+				this->setLeafs();
+			else
+				this->_root = NULL;
 		}
 
 
@@ -367,7 +421,6 @@ namespace ft {
 				this->_node_alloc.deallocate(root, 1);
 			}
 		}
-
 		/* ------------------------------------------------------------- */
 		/* ------------------------ FIX RULES -------------------------- */	
 		/* ------------------------------------------------------------- */
@@ -531,18 +584,12 @@ namespace ft {
 		/* ---------------------------- FIND --------------------------- */	
 		/* ------------------------------------------------------------- */
 
-		/**
-		 * @todo
-		 * REMPLACER PAR ITERATOR et return this->end() si tmp == NULL
-		 */
-
-		Node	*find_node(key_type key) const
+		iterator	find_node(key_type key) const
 		{
-			Node	*tmp = this->_root;
-			if (tmp != NULL) {
-				return (find_nodeHelper(tmp, key));
+			if (this->_root != NULL) {
+				return (find_nodeHelper(this->_root, key));
 			}
-			return (tmp);
+			return (this->end());
 		}
 
 		/**
@@ -552,36 +599,51 @@ namespace ft {
 		 * @param key the key_value to compare to the other node
 		 * @return Node* Return the node who is not responding to the key_compare comparaison
 		 */
-		Node	*find_nodeHelper(Node *node, key_type key) const
+		iterator	find_nodeHelper(Node *node, key_type key) const
 		{
 			if (node == NULL || isLeaf(node))
-				return (NULL);
+				return (this->end());
 			if (!key_compare()(node->pair.first, key) && !key_compare()(key, node->pair.first))
-				return (node);
+				return (iterator(node));
 			if (key_compare()(key, node->pair.first))
 				return (find_nodeHelper(node->left, key));
 			return (find_nodeHelper(node->right, key));
 		}
 
-		Node	*find_node(value_type pair) const
-		{
-			Node	*tmp = this->_root;
-			
-			if (tmp != NULL)
-				return (find_nodeHelper(tmp, pair));
-			return (tmp);
+		iterator	find_node(value_type pair) const
+		{			
+			if (this->_root != NULL)
+				return (find_nodeHelper(this->_root, pair));
+			return (this->end());
 		}
 
-		Node	*find_nodeHelper(Node *node, value_type pair) const 
+		iterator	find_nodeHelper(Node *node, value_type pair) const 
 		{
 			if (node == NULL || isLeaf(node))
-				return (NULL);
+				return (this->end());
 			if (!key_compare()(node->pair.first, pair.first) && !key_compare()(pair.first, node->pair.first))
-				return (node);
+				return (iterator(node));
 			if (key_compare()(pair.first, node->pair.first))
 				return (find_nodeHelper(node->left, pair));
 			return (find_nodeHelper(node->right, pair));
 		}
+
+		/* ------------------------------------------------------------- */
+		/* ------------------------- ITERATORS ------------------------- */	
+		/* ------------------------------------------------------------- */
+
+		iterator		end ( void ) const
+		{
+			return (iterator(this->_leaf_right));
+		}
+
+		iterator		begin ( void ) const
+		{
+			if (this->_root == NULL)
+				return (this->end());
+			return (iterator(this->_leaf_left->parent));
+		}
+
 
 		/* ------------------------------------------------------------- */
 		/* --------------------------- PRINT --------------------------- */	
@@ -615,9 +677,50 @@ namespace ft {
 				printTreeHelper(node->right, indent, true);
 			}
 		}
+		
+		/* ------------------------------------------------------------- */
+		/* ------------------------- OPERATORS ------------------------- */	
+		/* ------------------------------------------------------------- */
+		
+		template <class T1, class T2, class T3, class T4>
+		friend inline bool	operator== (	const RBTree<T1, T2, T3, T4> &x,
+											const RBTree<T1, T2, T3, T4> &y );
 
+		template <class T1, class T2, class T3, class T4>
+		friend inline bool	operator< (	const RBTree<T1, T2, T3, T4> &x,
+										const RBTree<T1, T2, T3, T4> &y );
 
 	};
+
+	template< class K, class T, class Compare, class Alloc >
+	inline bool	operator== ( const RBTree<K, T, Compare, Alloc> &x,
+								const RBTree<K, T, Compare, Alloc> &y )
+	{ return (x.size == y.size && ft::equal(x.begin(), x.end(), y.begin())); }
+
+	template< class K, class T, class Compare, class Alloc > 
+	inline bool operator!= (const RBTree<K, T, Compare, Alloc> &x, 
+								const RBTree<K, T, Compare, Alloc> &y)
+	{ return (!(x == y)); }
+
+	template< class K, class T, class Compare, class Alloc >
+	inline bool	operator< (const RBTree<K, T, Compare, Alloc> &x, 
+							const RBTree<K, T, Compare, Alloc> &y)
+	{ return (ft::lexicographical_compare(x.begin(), x.end(), y.begin(), y.end())); }
+
+	template< class K, class T, class Compare, class Alloc >
+	inline bool	operator> (const RBTree<K, T, Compare, Alloc> &x, 
+							const RBTree<K, T, Compare, Alloc> &y)
+	{ return (y < x ); }
+
+	template< class K, class T, class Compare, class Alloc >
+	inline bool	operator<= (const RBTree<K, T, Compare, Alloc> &x, 
+							const RBTree<K, T, Compare, Alloc> &y)
+	{ return (!(y < x)); }
+
+	template< class K, class T, class Compare, class Alloc >
+	inline bool	operator>= (const RBTree<K, T, Compare, Alloc> &x, 
+							const RBTree<K, T, Compare, Alloc> &y)
+	{ return (!(x < y)); }
 }
 
 

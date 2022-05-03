@@ -252,15 +252,30 @@ void		M_testRBTFindNode(void)
 
 	std::cout << std::endl << std::endl << BLUE3 << "/* find node with value */" << END << std::endl;
 
-	ft::RBT_node<ft::pair<int, int> > *tmp = my_rbt.find_node();
+	// ft::RBT_node<ft::pair<int, int> > *tmp = my_rbt.find_node();
 
-	std::cout << "check if I find the node : " << tmp->pair.first << std::endl;
+	// std::cout << "check if I find the node : " << tmp->pair.first << std::endl;
 
 
 	std::cout << std::endl << std::endl << BLUE3 << "/* find node with key */" << END << std::endl;
-
-
 }
+
+void	M_testRBTiterators(void)
+{
+	ft::RBTree<int, ft::pair<int, int> >	my_rbt;
+
+	for (int i = 0; i < 10; i++)
+		my_rbt.insert(ft::make_pair(i, i));
+	
+	std::cout << "RBTree : " << std::endl;
+	my_rbt.printTree();
+
+	ft::RBTree<int, ft::pair<int, int> > my_copy_rbt(my_rbt);
+
+	std::cout << "RBTree copy : " << std::endl;
+	my_copy_rbt.printTree();
+}
+
 
 void	testMap(void)
 {
@@ -289,7 +304,10 @@ void	testMap(void)
 	// M_testRBTFixInsertionAndFixDeletion();
 	// std::cout << std::endl;
 
-	M_testRBTFindNode();
+	// M_testRBTFindNode();
+	// std::cout << std::endl;
+
+	M_testRBTiterators();
 	std::cout << std::endl;
 
 	/* ------------------------------------------------------------- */
@@ -297,3 +315,21 @@ void	testMap(void)
 	/* ------------------------------------------------------------- */
 
 }
+
+// int main(void)
+// {
+
+// 	// printTitle("vector");
+// 	// testVector();
+// 	// std::cout << std::endl;
+
+// 	// printTitle("stack");
+// 	// testStack();
+// 	// std::cout << std::endl;
+
+// 	// printTitle("map");
+// 	testMap();
+// 	std::cout << std::endl;
+
+// 	return (0);
+// }
