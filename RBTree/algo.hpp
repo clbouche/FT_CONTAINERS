@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 12:51:42 by claclou           #+#    #+#             */
-/*   Updated: 2022/05/03 16:43:11 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/05/05 18:38:58 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,19 +205,13 @@ namespace ft {
 			std::swap(this->_leaf_left, x._leaf_left);
 			std::swap(this->_leaf_right, x._leaf_right);
 			std::swap(this->_empty, x._empty);
-			std::swap(this->_node_count, x._node_count);
+			std::swap(this->_size, x._size);
 			if (this->_root)
 				this->setLeafs();
 			if (x._root)
 				x.setLeafs();
 			std::swap(this->_node_alloc, x._node_alloc);
 		}
-
-		size_t			max_size ( void ) const
-		{
-			return (node_allocator().max_size());
-		}
-
 
 		/* ------------------------------------------------------------- */
 		/* ------------------------- MIN / MAX ------------------------- */	
@@ -317,8 +311,8 @@ namespace ft {
 				this->setLeafs();
 				return (iterator(insert_pos));
 			}
-			this->setLeafs();
 			fixRBTPropertiesAfterInsert(insert_pos);
+			this->setLeafs();
 			return (iterator(insert_pos));
 		}
 
@@ -478,7 +472,8 @@ namespace ft {
 			Node	*tmp;
 
 			while(node != this->_root && node->color == BLACK_n) {
-				if (node == node->parent->left) {
+				if (node == node->parent->left) 
+				{
 					tmp = node->parent->right;
 					if (tmp->color == RED_n) {
 						tmp->color = BLACK_n;
@@ -546,10 +541,10 @@ namespace ft {
 		void	leftRotate(Node *node) {
 			Node	*tmp = node->right;
 			node->right = tmp->left;
-			if (tmp->left != NULL)
+			if (tmp->left != NULL && tmp->left != this->_empty)
 				tmp->left->parent = node;
 			tmp->parent = node->parent;
-			if (node->parent == NULL) 
+			if (node->parent == NULL || node->parent == this->_empty) 
 				this->_root = tmp;
 			else if (node == node->parent->left)
 				node->parent->left = tmp;
@@ -567,10 +562,10 @@ namespace ft {
 		void	rightRotate(Node *node) {
 			Node *tmp = node->left;
 			node->left = tmp->right;
-			if (tmp->right != NULL)
+			if (tmp->right != NULL && tmp->right != this->_empty)
 				tmp->right->parent = node;
 			tmp->parent = node->parent;
-			if (node->parent == NULL)
+			if (node->parent == NULL || node->parent == this->_empty)
 				this->_root = tmp;
 			else if (node == node->parent->right)
 				node->parent->right = tmp;
@@ -644,6 +639,20 @@ namespace ft {
 			return (iterator(this->_leaf_left->parent));
 		}
 
+		/* ------------------------------------------------------------- */
+		/* --------------------------- GETTER -------------------------- */	
+		/* ------------------------------------------------------------- */
+
+		size_t		size( void ) const 
+		{
+			return (this->_size);
+		}
+
+		size_t			max_size ( void ) const
+		{
+			return (node_allocator().max_size());
+		}
+
 
 		/* ------------------------------------------------------------- */
 		/* --------------------------- PRINT --------------------------- */	
@@ -695,7 +704,7 @@ namespace ft {
 	template< class K, class T, class Compare, class Alloc >
 	inline bool	operator== ( const RBTree<K, T, Compare, Alloc> &x,
 								const RBTree<K, T, Compare, Alloc> &y )
-	{ return (x.size == y.size && ft::equal(x.begin(), x.end(), y.begin())); }
+	{ return (x.size() == y.size() && ft::equal(x.begin(), x.end(), y.begin())); }
 
 	template< class K, class T, class Compare, class Alloc > 
 	inline bool operator!= (const RBTree<K, T, Compare, Alloc> &x, 

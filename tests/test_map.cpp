@@ -7,7 +7,6 @@
 #include <map>
 #include <cstdlib>
 
-
 # define RED "\x1B[31m"
 # define GREEN "\x1B[32m"
 # define YELLOW "\x1B[33m"
@@ -237,29 +236,6 @@ void	M_testRBTFixInsertionAndFixDeletion()
 	my_rbt1.printTree();
 }
 
-void		M_testRBTFindNode(void)
-{
-	std::cout << BLUE1 << std::endl << std::endl << "/*_________________________ FIND NODE _________________________*/" << END << std::endl;
-
-	ft::RBTree<int, ft::pair<int, int> > my_rbt;
-	int	int_array1[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-	int	int_array2[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
-
-	for (int i = 0; i < 10; i++) {
-		my_rbt.insert(ft::make_pair(int_array1[i], int_array2[i]));
-	}
-	my_rbt.printTree();
-
-	std::cout << std::endl << std::endl << BLUE3 << "/* find node with value */" << END << std::endl;
-
-	// ft::RBT_node<ft::pair<int, int> > *tmp = my_rbt.find_node();
-
-	// std::cout << "check if I find the node : " << tmp->pair.first << std::endl;
-
-
-	std::cout << std::endl << std::endl << BLUE3 << "/* find node with key */" << END << std::endl;
-}
-
 void	M_testRBTiterators(void)
 {
 	ft::RBTree<int, ft::pair<int, int> >	my_rbt;
@@ -276,6 +252,269 @@ void	M_testRBTiterators(void)
 	my_copy_rbt.printTree();
 }
 
+void	M_testConstructors(void)
+{
+	std::cout << BLUE1 << std::endl << std::endl << "/*_________________________ CONSTRUCTORS _________________________*/" << END << std::endl;
+
+	std::cout << std::endl << std::endl << BLUE3 << "/* default constructor */" << END << std::endl;
+
+	ft::map<int, int> 	my_map;
+
+	std::cout << std::endl << std::endl << BLUE3 << "/* range constructor */" << END << std::endl;
+
+	int		int_array[5] = {1, 2, 3, 4, 5};
+
+  	for (int i = 0; i < 5; i++) {
+		my_map.insert(ft::make_pair(int_array[i], int_array[i]));
+	}
+
+	std::cout << "My MAP 1 : " << std::endl;
+	my_map.printMap();
+  	ft::map<int,int> my_map2 (my_map.begin(),my_map.end());
+
+	std::cout << "My MAP 2 : " << std::endl;
+	my_map2.printMap();
+
+	std::cout << std::endl << std::endl << BLUE3 << "/* copy constructor */" << END << std::endl;
+
+	my_map2.insert(ft::make_pair<int, int>(6, 6));
+
+	std::cout << "My MAP 2 + 1 node: " << std::endl;
+
+	my_map2.printMap();
+
+
+	ft::map<int, int> my_map3(my_map2);
+
+	std::cout << "My MAP 3 : " << std::endl;
+	my_map3.printMap(); 
+
+	std::cout << std::endl << std::endl << BLUE3 << "/* assign operator */" << END << std::endl;
+
+	my_map3.insert(ft::make_pair<int, int> (7, 7));
+
+	std::cout << "My MAP 3 + 1 node : " << std::endl;
+	my_map3.printMap(); 
+	
+	ft::map<int, int> my_map4;
+	
+	my_map4 = my_map3;
+
+	std::cout << "My MAP 4 : " << std::endl;
+	my_map4.printMap(); 
+
+}
+
+
+void	M_testElementAccess(void)
+{
+	std::cout << BLUE1 << std::endl << std::endl << "/*_________________________ ELEMENT ACCESS _________________________*/" << END << std::endl;
+
+	ft::map<char, int> my_map;
+
+	char	char_array[10] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j'};
+	int		int_array[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+
+	for(int i = 0; i < 10; i++)
+		my_map.insert(ft::make_pair<char, int> (char_array[i], int_array[i]));
+	
+	my_map.printMap();
+
+	std::cout << std::endl << std::endl << BLUE3 << "/* operator[] - print element */" << END << std::endl;
+
+	std::cout << "my_map['a'] is " << my_map['a'] << std::endl;
+	std::cout << "my_map['b'] is " << my_map['b'] << std::endl;
+	std::cout << "my_map['c'] is " << my_map['c'] << std::endl;
+	std::cout << "my_map['d'] is " << my_map['d'] << std::endl;
+
+	std::cout << std::endl << std::endl << BLUE3 << "/* operator[] - insert element if it doesn't exist*/" << END << std::endl;
+
+	std::cout << "my_map['k'] is " << my_map['k'] << std::endl << std::endl;
+
+	my_map['l'] = 12;
+
+	my_map.printMap();
+}
+
+void	M_testCapacity(void)
+{
+	std::cout << BLUE1 << std::endl << std::endl << "/*_________________________ CAPACITY _________________________*/" << END << std::endl;
+
+	ft::map<std::string, std::string>	my_map;
+	ft::map<int, int> my_empty_map;
+
+	std::string		string_array1[5] = {"bonjour", "hello", "hola", "hallo", "ciao"};
+	std::string		string_array2[5] = {"FR", "EN", "ES", "GE", "IT"};
+
+	for (int i = 0; i < 5; i++)
+		my_map.insert(ft::make_pair(string_array1[i], string_array2[i]));
+
+	my_map.printMap();
+
+	std::cout << std::endl << std::endl << BLUE3 << "/* check if empty */" << END << std::endl;
+	
+	if (my_map.empty() == 0)
+		std::cout << "map not empty" << std::endl;
+	else 
+		std::cout << "map empty" << std::endl;
+
+	if (my_empty_map.empty() == 0)
+		std::cout << "map not empty" << std::endl;
+	else 
+		std::cout << "map empty" << std::endl;
+
+	std::cout << std::endl << std::endl << BLUE3 << "/* check size */" << END << std::endl;
+
+	std::cout << "size of my_map : " << my_map.size() << std::endl;
+	std::cout << "size of my_empty_map : " << my_empty_map.size() << std::endl;
+
+	std::cout << std::endl << std::endl << BLUE3 << "/* check max_size */" << END << std::endl;
+	
+	std::cout << "max_size of my_map : " << my_map.max_size() << std::endl;
+	std::cout << "max_size of my_empty_map : " << my_empty_map.max_size() << std::endl;
+}
+
+void	M_testInsertAndErase(void)
+{
+	std::cout << BLUE1 << std::endl << std::endl << "/*_________________________ INSERT _________________________*/" << END << std::endl;
+
+	ft::map<int, int> my_map;
+
+	std::cout << std::endl << std::endl << BLUE3 << "/* insert with value */" << END << std::endl;
+
+	my_map.insert(ft::make_pair<int, int>(1, 1));
+	my_map.insert(ft::make_pair<int, int>(2, 2));
+	my_map.insert(ft::make_pair<int, int>(3, 3));
+	my_map.insert(ft::make_pair<int, int>(4, 4));
+	my_map.insert(ft::make_pair<int, int>(5, 5));
+
+	my_map.printMap();
+
+	std::cout << std::endl << std::endl << BLUE3 << "/* insert range */" << END << std::endl;
+
+	ft::map<int, int> my_map2(my_map.begin(), my_map.end());
+
+	my_map2.printMap();
+
+	std::cout << std::endl << std::endl << BLUE3 << "/* insert with value & position*/" << END << std::endl;
+
+	ft::map<int, int> my_map3;
+
+	my_map3.insert (my_map.begin(), ft::make_pair<int,int>(6, 6)); 
+	my_map3.insert (my_map.begin(), ft::make_pair<int,int>(7, 7)); 
+
+	my_map3.printMap();
+
+	std::cout << BLUE1 << std::endl << std::endl << "/*_________________________ ERASE _________________________*/" << END << std::endl;
+
+	std::cout << std::endl << std::endl << BLUE3 << "/* erase with position */" << END << std::endl;
+
+	std::cout << "first print : " << std::endl;
+	my_map.printMap();
+
+	std::cout << std::endl << "erase of my_map.begin() " << std::endl;
+	my_map.erase(my_map.begin());
+
+	std::cout << std::endl << "second print : " << std::endl;
+	my_map.printMap();
+
+	std::cout << std::endl << std::endl << BLUE3 << "/* erase range */" << END << std::endl;
+
+	ft::map<int, int>::iterator it = my_map2.begin();
+
+	it++;
+	it++;
+	std::cout << "first print : " << std::endl;
+	my_map2.printMap();
+
+	std::cout << std::endl << "erase of range between my_map.begin() & my_mapbegin()++ " << std::endl;
+	my_map2.erase(my_map2.begin(), it);
+
+	std::cout << std::endl << "second print : " << std::endl;
+	my_map2.printMap();
+
+
+	std::cout << std::endl << std::endl << BLUE3 << "/* erase with key */" << END << std::endl;
+
+	std::cout << "first print : " << std::endl;
+	my_map3.printMap();
+
+	std::cout << std::endl << "erase of 6" << std::endl;
+	my_map3.erase(6);
+
+	std::cout << std::endl << "second print : " << std::endl;
+	my_map3.printMap();
+
+}
+
+void	M_testSwap(void)
+{
+	std::cout << BLUE1 << std::endl << std::endl << "/*_________________________ SWAP _________________________*/" << END << std::endl;
+
+	ft::map<char, char> my_map1;
+	ft::map<char, char> my_map2;
+
+	char	char_array1_1[] = {'b', 'o', 'n', 'j', 'o', 'u', 'r'};
+	char	char_array1_2[] = {'b', 'o', 'n', 'j', 'o', 'u', 'r'};
+	char	char_array2_1[] = {'s', 'a', 'l', 'u', 't', 'y', 'o'};
+	char	char_array2_2[] = {'s', 'a', 'l', 'u', 't', 'y', 'o'};
+
+	for(int i = 0; i < 7; i++) {
+		my_map1.insert(ft::make_pair(char_array1_1[i], char_array1_2[i]));
+		my_map2.insert(ft::make_pair(char_array2_1[i], char_array2_2[i]));
+	}
+
+	std::cout << "print my_map1 :" << std::endl;
+	my_map1.printMap();
+	std::cout << std::endl << "print my_map2 :" << std::endl;
+	my_map2.printMap();
+
+	my_map1.swap(my_map2);
+
+	std::cout << std::endl << "print my_map1 :" << std::endl;
+	my_map1.printMap();
+	std::cout << std::endl << "print my_map2 :" << std::endl;
+	my_map2.printMap();
+}
+
+void	M_testRelationalOperators(void)
+{
+	std::cout << BLUE1 << std::endl << std::endl << "/*_________________________ RELATIONAL OPERATORS _________________________*/" << END << std::endl;
+
+	ft::map<char, int> my_map1;
+	ft::map<char, int> my_map2;
+	ft::map<char, int> my_map3;
+
+
+	my_map1['a'] = 2; my_map1['b'] = 3; my_map1['c'] = 4; my_map1['d'] = 5;
+	my_map2['a'] = 2; my_map2['b'] = 3; my_map2['c'] = 4; my_map2['d'] = 5;
+	my_map3['a'] = 2;  my_map3['b'] = 3; my_map3['c'] = 4; my_map3['e'] = 6;
+
+	std::cout << std::endl << std::endl << BLUE3 << "/* operator== */" << END << std::endl;
+	std::cout << "(my_map1 == my_map2) = " << (my_map1 == my_map2) << std::endl;
+	std::cout << "(my_map1 == my_map3) = " << (my_map1 == my_map3) << std::endl;
+	
+	std::cout << std::endl << std::endl << BLUE3 << "/* operator!= */" << END << std::endl;
+	std::cout << "(my_map1 != my_map2) = " << (my_map1 != my_map2) << std::endl;
+	std::cout << "(my_map1 != my_map3) = " << (my_map1 != my_map3) << std::endl;
+
+	std::cout << std::endl << std::endl << BLUE3 << "/* operator< */" << END << std::endl;
+	std::cout << "(my_map1 < my_map2) = " << (my_map1 < my_map2) << std::endl;
+
+	std::cout << std::endl << std::endl << BLUE3 << "/* operator<= */" << END << std::endl;
+	std::cout << "(my_map1 <= my_map2) = " << (my_map1 <= my_map2) << std::endl;
+
+	std::cout << std::endl << std::endl << BLUE3 << "/* operator> */" << END << std::endl;
+	std::cout << "(my_map1 > my_map2) = " << (my_map1 > my_map2) << std::endl;
+
+	std::cout << std::endl << std::endl << BLUE3 << "/* operator>= */" << END << std::endl;
+	std::cout << "(my_map1 >= my_map2)  = " << (my_map1 >= my_map2) << std::endl;
+}
+
+void		M_testObservers(void)
+{
+
+}
 
 void	testMap(void)
 {
@@ -304,32 +543,55 @@ void	testMap(void)
 	// M_testRBTFixInsertionAndFixDeletion();
 	// std::cout << std::endl;
 
-	// M_testRBTFindNode();
+	// M_testRBTiterators();
 	// std::cout << std::endl;
-
-	M_testRBTiterators();
-	std::cout << std::endl;
 
 	/* ------------------------------------------------------------- */
 	/* --------------------------- MAP ----------------------------- */	
 	/* ------------------------------------------------------------- */
 
+	M_testConstructors();
+	std::cout << std::endl;
+
+	M_testElementAccess();
+	std::cout << std::endl;
+
+	M_testCapacity();
+	std::cout << std::endl;
+
+	M_testInsertAndErase();
+	std::cout << std::endl;
+
+	M_testSwap();
+	std::cout << std::endl;
+
+	M_testRelationalOperators();
+	std::cout << std::endl;
+
+	M_testObservers();
+	std::cout << std::endl;
+
+// 	V_testReverseIterator();
+// 	std::cout << std::endl;
+	
+// 	V_testAssign();
+// 	std::cout << std::endl;
 }
 
-// int main(void)
-// {
+int main(void)
+{
 
-// 	// printTitle("vector");
-// 	// testVector();
-// 	// std::cout << std::endl;
+	// printTitle("vector");
+	// testVector();
+	// std::cout << std::endl;
 
-// 	// printTitle("stack");
-// 	// testStack();
-// 	// std::cout << std::endl;
+	// printTitle("stack");
+	// testStack();
+	// std::cout << std::endl;
 
-// 	// printTitle("map");
-// 	testMap();
-// 	std::cout << std::endl;
+	// printTitle("map");
+	testMap();
+	std::cout << std::endl;
 
-// 	return (0);
-// }
+	return (0);
+}

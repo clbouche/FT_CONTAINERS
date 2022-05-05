@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_pair.hpp                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: claclou <claclou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 11:46:27 by clbouche          #+#    #+#             */
-/*   Updated: 2022/04/21 16:58:01 by claclou          ###   ########.fr       */
+/*   Updated: 2022/05/05 10:52:00 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ namespace ft {
 			 * @brief Construct a new pair object with its elements value_initialized
 			 * 
 			 */
-			pair() : first(), second() { };
+			pair() : first(_T1()), second(_T2()) { };
 
 			/**
 			 * @brief Construct a new pair object with the contents of the pair object.
@@ -86,7 +86,7 @@ namespace ft {
 		/* ------------------------- OPERATORS ------------------------- */	
 		/* ------------------------------------------------------------- */
 			pair& operator= (const pair& pr) {
-				if (this != &pr) {
+				if (*this != pr) {
 					this->first = pr.first;
 					this->second = pr.second;
 				}

@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/03 12:59:50 by clbouche          #+#    #+#             */
-/*   Updated: 2022/05/03 14:17:25 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/05/05 18:14:40 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ namespace ft {
 		else if (x->left != 0 && !is_leaf(x->left))
 		{
 			ft::RBT_node<T>*	y = x->left;
-			while(y->right != 0 && !is_leaf(x->right))
+			while(y->right != 0 && !is_leaf(y->right))
 				y = y->right;
 			x = y;
 		}

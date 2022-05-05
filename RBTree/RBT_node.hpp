@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   RBT_node.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: claclou <claclou@student.42.fr>            +#+  +:+       +#+        */
+/*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/25 08:31:22 by claclou           #+#    #+#             */
-/*   Updated: 2022/04/26 15:09:26 by claclou          ###   ########.fr       */
+/*   Updated: 2022/05/05 14:01:44 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,9 @@ namespace ft
 		/* ------------------------------------------------------------- */
 		/* --------------------------- ALIAS --------------------------- */	
 		/* ------------------------------------------------------------- */
-			typedef	RBT_node<T>*	node_pointer;
-			typedef	T				value_type;
+			typedef			RBT_node<T>*	node_pointer;
+			typedef const	RBT_node<T>*	const_node_pointer;
+			typedef			T				value_type;
 
 		/* ------------------------------------------------------------- */
 		/* -------------------------- MEMBERS -------------------------- */	
@@ -77,9 +78,13 @@ namespace ft
 			 * @brief Construct a new rbtree node object with copy
 			 * 
 			 */
-			RBT_node(RBT_node const &copy) {
-				*this = copy;
-			}
+			RBT_node(RBT_node const &copy) :
+				parent(copy.parent),
+				left(copy.left),
+				right(copy.right),
+				color(copy.color),
+				pair(copy.pair)
+			{}
 
 			/**
 			 * @brief Assign node

@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/02 15:37:35 by clbouche          #+#    #+#             */
-/*   Updated: 2022/05/03 14:09:46 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/05/05 18:16:58 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,14 +81,14 @@ namespace ft {
 
 		_Self&		operator--( void) 
 		{
-			_node = ft::RBT_increment(_node);
+			_node = ft::RBT_decrement(_node);
 			return *this;
 		}		
 
 		_Self 		operator--(int)
 		{
 			_Self tmp = *this;
-			_node = RBT_decrement(_node);
+			_node = ft::RBT_decrement(_node);
 			return tmp;
 		}
 
@@ -166,7 +166,7 @@ namespace ft {
 
 		_Self&		operator--( void) 
 		{
-			_node = ft::RBT_increment(_node);
+			_node = ft::RBT_decrement(_node);
 			return *this;
 		}		
 
@@ -184,7 +184,7 @@ namespace ft {
 
 		bool 		operator!=(const _Self x) const 
 		{
-			return _node != x.node;
+			return _node != x._node;
 		}	
 	};
 	

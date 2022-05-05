@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 10:55:01 by clbouche          #+#    #+#             */
-/*   Updated: 2022/04/04 17:27:46 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/05/05 18:02:45 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,7 +144,8 @@ namespace ft {
 			}
 
 			pointer	operator->() const {
-				return (this->_current);
+				return(&(operator*()));
+				//return (this->_current);
 			};
 
 			reference	operator[](difference_type n) const {
