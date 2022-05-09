@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 12:04:20 by clbouche          #+#    #+#             */
-/*   Updated: 2022/05/05 18:05:00 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/05/09 14:31:12 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,7 +200,7 @@ namespace	ft {
 		
 		const_reverse_iterator	rbegin() const
 		{
-			return (reverse_iterator(this->end()));
+			return (const_reverse_iterator(this->end()));
 		}
 
 		reverse_iterator	rend()
@@ -210,7 +210,7 @@ namespace	ft {
 		
 		const_reverse_iterator	rend() const
 		{
-			return (reverse_iterator(this->begin()));
+			return (const_reverse_iterator(this->begin()));
 		}
 
 		/* ------------------------------------------------------------- */
@@ -475,8 +475,8 @@ namespace	ft {
 	}
 
 	template<typename Key, typename Tp, typename Compare, typename Alloc>
-	inline void	swap( const map<Key, Tp, Compare, Alloc>& x,
-							const map<Key, Tp, Compare, Alloc>& y )
+	inline void	swap( map<Key, Tp, Compare, Alloc>& x,
+						map<Key, Tp, Compare, Alloc>& y )
 	{
 		x.swap(y);
 	}

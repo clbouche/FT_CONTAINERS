@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/26 12:51:42 by claclou           #+#    #+#             */
-/*   Updated: 2022/05/05 18:38:58 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/05/09 13:28:15 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -282,11 +282,11 @@ namespace ft {
 			this->unsetLeafs();
 			Node *position = FindPositionToInsert(&new_node);
 			new_node.parent = position;
+			new_node.color = (new_node.parent == NULL) ? BLACK_n : RED_n;
 			if (position == NULL)
 			{
 				this->_root = _node_alloc.allocate(1);
 				insert_pos = this->_root;
-				this->_root->color = BLACK_n;
 			}
 			else if (key_compare()(new_node.pair.first, position->pair.first))
 			{
@@ -665,27 +665,40 @@ namespace ft {
 		}
 
 		void	printTreeHelper ( Node *node, std::string indent, bool side ) const
-		{
-			if (!isLeaf(node))
 			{
-				std::cout << indent;
-				if (side)
+				if (node != this->_empty)
 				{
-					std::cout << "R----";
-					indent += "   ";
-				}
-				else
-				{
-					std::cout << "L----";
-					indent += "   ";
-				}
+					std::cout << indent;
+					if (node == this->_leaf_left)
+					{
+						std::cout << "L----";
+						std::cout << "Left leaf" << std::endl;
+					}
+					else if (node == this->_leaf_right)
+					{
+						std::cout << "R----";
+						std::cout << "r_leaf_right leaf" << std::endl;
+					}
+					else
+					{
+						if (side)
+						{
+							std::cout << "R----";
+							indent += "   ";
+						}
+						else
+						{
+							std::cout << "L----";
+							indent += "   ";
+						}
 
-				std::string sColor = node->color ? "🔴" : "⚫";
-				std::cout << "(" << node->pair.first << ") (" << sColor << ")" << std::endl;
-				printTreeHelper(node->left, indent, false);
-				printTreeHelper(node->right, indent, true);
+						std::string sColor = node->color ? "🔴" : "⚫";
+						std::cout << "(" << node->pair.first << ") (" << sColor << ")" << std::endl;
+						printTreeHelper(node->left, indent, false);
+						printTreeHelper(node->right, indent, true);
+					}
+				}
 			}
-		}
 		
 		/* ------------------------------------------------------------- */
 		/* ------------------------- OPERATORS ------------------------- */	
