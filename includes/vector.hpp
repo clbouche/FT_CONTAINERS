@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 12:03:50 by clbouche          #+#    #+#             */
-/*   Updated: 2022/05/09 10:04:31 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/05/09 14:43:24 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@
 #include <memory>
 #include <cstddef>
 #include <iostream>
-#include "../iterators/random_access_iterator.hpp"
-#include "../utils/utils_iterator.hpp"
-#include "../iterators/reverse_iterator.hpp"
-#include "../utils/utils_relational_operators.hpp"
+#include "iterators/random_access_iterator.hpp"
+#include "utils/utils_iterator.hpp"
+#include "iterators/reverse_iterator.hpp"
+#include "utils/utils_relational_operators.hpp"
 
 /*TO DELETE*/
 #include <vector>

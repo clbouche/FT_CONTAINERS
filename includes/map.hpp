@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 12:04:20 by clbouche          #+#    #+#             */
-/*   Updated: 2022/05/09 14:31:12 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/05/09 14:43:14 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,13 +15,13 @@
 
 #include <iostream>
 #include <memory>
-#include "../utils/utils_pair.hpp"
-#include "../RBTree/algo.hpp"
-#include "../RBTree/RBT_node.hpp"
-#include "../iterators/RBT_iterator.hpp"
-#include "../iterators/reverse_iterator.hpp"
-#include "../iterators/iterator_traits.hpp"
-#include "../utils/utils_iterator.hpp"
+#include "utils/utils_pair.hpp"
+#include "RBTree/algo.hpp"
+#include "RBTree/RBT_node.hpp"
+#include "iterators/RBT_iterator.hpp"
+#include "iterators/reverse_iterator.hpp"
+#include "iterators/iterator_traits.hpp"
+#include "utils/utils_iterator.hpp"
 
 namespace	ft {
 	/** ✅
