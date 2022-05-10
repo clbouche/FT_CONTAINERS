@@ -6,12 +6,12 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 11:46:27 by clbouche          #+#    #+#             */
-/*   Updated: 2022/05/10 13:28:29 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/05/10 13:40:47 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PAIR_HPP
-# define PAIR_HPP
+#ifndef UTILS_PAIR_HPP
+# define UTILS_PAIR_HPP
 
 #include <utility>
 #include <iostream>

@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/02 14:07:29 by clbouche          #+#    #+#             */
-/*   Updated: 2022/05/09 13:53:09 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/05/10 15:00:26 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,11 +67,19 @@ namespace ft {
 		/*
 		 * Assignation constructor : give a random access iterator who is a copy
 		*/
-		random_access_iterator &operator=(const random_access_iterator& other) {
-			if (this == &other)
+		// random_access_iterator &operator=(const random_access_iterator& other) {
+		// 	if (this == &other)
+		// 		return (*this);
+		// 	this->_ptr = other._ptr;
+		// 	return (*this);
+		// }
+
+
+		random_access_iterator  &operator=( const random_access_iterator & rhs )
+		{
+				if (this != &rhs)
+						this->_ptr = rhs.base();
 				return (*this);
-			this->_ptr = other._ptr;
-			return (*this);
 		}
 
 		/*
@@ -216,10 +224,9 @@ namespace ft {
 			return *(*this + n);
 		 }
 
-		 operator random_access_iterator<const T> () const
-			{
+		operator random_access_iterator<const T> () const {
 				return (random_access_iterator<const T>(this->_ptr));
-			}
+		}
 
 	};
 
@@ -310,22 +317,25 @@ namespace ft {
 	/*
 	** Addition (n + a): random access iterator where the element is pointed at this + "n" in memory. 
 	*/
-	template<typename T>
-    typename ft::random_access_iterator<T>::difference_type
-    operator+(const ft::random_access_iterator<T> lhs,
-              const ft::random_access_iterator<T> rhs) {
-        return (lhs.base() + rhs.base());
-    }
+	template <typename T>
+	inline typename ft::random_access_iterator<T>
+	operator+(	typename ft::random_access_iterator<T>::difference_type n,
+				const ft::random_access_iterator<T> rhs)
+	{
+		return ( ft::random_access_iterator<T>( rhs.base() + n) );
+	}
 
 	/*
 	** Substraction (n + a): random access iterator where the element is pointed at this - "n" in memory. 
 	*/
-	template<typename T>
-    typename ft::random_access_iterator<T>::difference_type
-    operator-(const ft::random_access_iterator<T> lhs,
-              const ft::random_access_iterator<T> rhs) {
-        return (lhs.base() - rhs.base());
-    }
+
+	template <typename T_L, typename T_R>
+	inline typename ft::random_access_iterator<T_L>::difference_type
+	operator-(	const ft::random_access_iterator<T_L> lhs,
+				const ft::random_access_iterator<T_R> rhs)
+	{
+		return ( lhs.base() - rhs.base() );
+	}
 }
 
 #endif

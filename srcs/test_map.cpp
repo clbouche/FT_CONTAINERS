@@ -153,67 +153,67 @@ void	M_testPairComparaisons(void)
 // 	rbt2.printTree();
 // }
 
-void	M_testRBTFixInsertionAndFixDeletion() 
-{
-	std::cout << BLUE1 << std::endl << std::endl << "/*_________________________ FIX INSERTION _________________________*/" << END << std::endl;
+// void	M_testRBTFixInsertionAndFixDeletion() 
+// {
+// 	std::cout << BLUE1 << std::endl << std::endl << "/*_________________________ FIX INSERTION _________________________*/" << END << std::endl;
 
-	std::cout << std::endl << std::endl << BLUE3 << "/* test with croissant value (int) */" << END << std::endl;
-	ft::RBTree<int, NS::pair<int, int> >	rbt1;
-	int		int_array1[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
-	int		int_array2[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
+// 	std::cout << std::endl << std::endl << BLUE3 << "/* test with croissant value (int) */" << END << std::endl;
+// 	ft::RBTree<int, NS::pair<int, int> >	rbt1;
+// 	int		int_array1[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
+// 	int		int_array2[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20};
 
-	for (int i = 0; i < 20; i++) {
-		rbt1.insert(NS::make_pair(int_array1[i], int_array2[i]));
-	}
-	rbt1.printTree();
+// 	for (int i = 0; i < 20; i++) {
+// 		rbt1.insert(NS::make_pair(int_array1[i], int_array2[i]));
+// 	}
+// 	rbt1.printTree();
 
-	std::cout << std::endl << std::endl << BLUE3 << "/* test with random value (int) */" << END << std::endl;
-	ft::RBTree<int, NS::pair<int, int> >	rbt2;
+// 	std::cout << std::endl << std::endl << BLUE3 << "/* test with random value (int) */" << END << std::endl;
+// 	ft::RBTree<int, NS::pair<int, int> >	rbt2;
 
-	int	int_array3[30];
-	int	int_array4[30];
-	srand(time(NULL));
-	for (int i=0 ; i < 30; i++) {
-		int_array3[i] = rand() % 100;
-		int_array4[i] = rand() % 100;
-	}
+// 	int	int_array3[30];
+// 	int	int_array4[30];
+// 	srand(time(NULL));
+// 	for (int i=0 ; i < 30; i++) {
+// 		int_array3[i] = rand() % 100;
+// 		int_array4[i] = rand() % 100;
+// 	}
 
-	for (int i = 0; i < 29; i++) {
-		rbt2.insert(NS::make_pair(int_array3[i], int_array4[i]));
-	}
-	rbt2.printTree();
+// 	for (int i = 0; i < 29; i++) {
+// 		rbt2.insert(NS::make_pair(int_array3[i], int_array4[i]));
+// 	}
+// 	rbt2.printTree();
 
-	std::cout << std::endl << std::endl << BLUE3 << "/* test with random value (int & std::string) */" << END << std::endl;
-	ft::RBTree<int, NS::pair<int, std::string> >	rbt3;
+// 	std::cout << std::endl << std::endl << BLUE3 << "/* test with random value (int & std::string) */" << END << std::endl;
+// 	ft::RBTree<int, NS::pair<int, std::string> >	rbt3;
 
-	std::string	std_array1[5] = {"bonjour", "bonsoir", "salut", "hola", "hello"};
+// 	std::string	std_array1[5] = {"bonjour", "bonsoir", "salut", "hola", "hello"};
 
-	for (int i = 0; i < 5; i++)
-		rbt3.insert(NS::make_pair(int_array3[i], std_array1[i]));
+// 	for (int i = 0; i < 5; i++)
+// 		rbt3.insert(NS::make_pair(int_array3[i], std_array1[i]));
 	
-	rbt3.printTree();
+// 	rbt3.printTree();
 
-	std::cout << BLUE1 << std::endl << std::endl << "/*_________________________ FIX DELETION _________________________*/" << END << std::endl;
+// 	std::cout << BLUE1 << std::endl << std::endl << "/*_________________________ FIX DELETION _________________________*/" << END << std::endl;
 
-	rbt1.delete_node(NS::make_pair(7, 7));
-	rbt1.printTree();
-}
+// 	rbt1.delete_node(NS::make_pair(7, 7));
+// 	rbt1.printTree();
+// }
 
-void	M_testRBTiterators(void)
-{
-	ft::RBTree<int, NS::pair<int, int> >	rbt;
+// void	M_testRBTiterators(void)
+// {
+// 	ft::RBTree<int, NS::pair<int, int> >	rbt;
 
-	for (int i = 0; i < 10; i++)
-		rbt.insert(NS::make_pair(i, i));
+// 	for (int i = 0; i < 10; i++)
+// 		rbt.insert(NS::make_pair(i, i));
 	
-	std::cout << "RBTree : " << std::endl;
-	rbt.printTree();
+// 	std::cout << "RBTree : " << std::endl;
+// 	rbt.printTree();
 
-	ft::RBTree<int, NS::pair<int, int> > copy_rbt(rbt);
+// 	ft::RBTree<int, NS::pair<int, int> > copy_rbt(rbt);
 
-	std::cout << "RBTree copy : " << std::endl;
-	copy_rbt.printTree();
-}
+// 	std::cout << "RBTree copy : " << std::endl;
+// 	copy_rbt.printTree();
+// }
 
 void	M_testConstructors(void)
 {
@@ -517,11 +517,11 @@ int	main(void)
 	// M_testRBTInsertAndDelete();
 	// std::cout << std::endl;
 
-	M_testRBTFixInsertionAndFixDeletion();
-	std::cout << std::endl;
+	// M_testRBTFixInsertionAndFixDeletion();
+	// std::cout << std::endl;
 
-	M_testRBTiterators();
-	std::cout << std::endl;
+	// M_testRBTiterators();
+	// std::cout << std::endl;
 
 	// /* ------------------------------------------------------------- */
 	// /* --------------------------- MAP ----------------------------- */	

@@ -1,0 +1,43 @@
+[35m====================================================
+======================= STACK ======================
+====================================================[0m
+
+[34m/*__________________________CONSTRUCTORS__________________________*/[0m
+[34;1minfos of stack : [0m
+size : 3
+
+[34m/*________________________FUNCTION EMPTY______________________*/[0m
+[34;1minfos of stack : [0m
+stack1 is empty
+[34;1minfos of stack : [0m
+stack2 is filled
+
+
+[34m/*________________________FUNCTION TOP______________________*/[0m
+[34;1mthe top of my_stack is 
+[0m5
+[34;1mthe top of std_stack is 
+[0m5
+
+
+[34m/*________________________FUNCTION PUSH_____________________*/[0m
+[34;1mthe top of stack is 
+[0m9
+[34;1mPopping out elements...[0m 9 8 7 6 5 4 3 2 1 0
+
+
+[34m/*________________________RELATIONAL OPERATORS_____________________*/[0m
+[36m_____EQUALITY[0m
+stack1 is the same than stack2
+[36m_____DIFFERENCE[0m
+stack1 is different than stack2
+[36m_____SMALLER[0m
+stack1 is smaller than stack2
+[36m_____BIGGER[0m
+stack2 is bigger than stack1
+[36m_____SMALLER OR EQUAL[0m
+stack1 is smaller or equal than stack2
+[36m_____BIGGER OR EQUAL[0m
+stack2 is bigger or equal than stack1
+
+

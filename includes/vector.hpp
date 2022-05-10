@@ -6,7 +6,7 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/02/17 12:03:50 by clbouche          #+#    #+#             */
-/*   Updated: 2022/05/09 14:43:24 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/05/10 14:52:59 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -183,12 +183,25 @@ namespace	ft {
 			 * @param n numbers of elements.
 			 * @param val (optionnal) value to fill the container with.
 			 */
-			explicit vector (size_type n, const value_type& val = value_type(), 
-				const allocator_type& alloc = allocator_type()) : _alloc(alloc) {
-				_start = _alloc.allocate(n);
-				_end = _start;
-				_capacity = this->_start + n;
-				assign(n, val);
+			// explicit vector (size_type n, const value_type& val = value_type(), 
+			// 	const allocator_type& alloc = allocator_type()) : _alloc(alloc) {
+			// 	_start = _alloc.allocate(n);
+			// 	_end = _start;
+			// 	_capacity = this->_start + n;
+			// 	assign(n, val);
+			// }
+
+			explicit vector (size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()) :
+                                _alloc(alloc)
+			{
+					this->_start = this->_alloc.allocate(n);
+					this->_end = this->_start;
+					this->_capacity = this->_start + n;
+					while(n--)
+					{
+							this->_alloc.construct(this->_end, val);
+							this->_end++;
+					}
 			}
 			
 			/**
@@ -200,34 +213,27 @@ namespace	ft {
 			 * @todo utiliser assign aussi mais pour les iterateurs.
 			 */
 			template <class InputIterator>
-         	vector (InputIterator first, InputIterator last, 
-				const allocator_type& alloc = allocator_type(),
-				typename ft::enable_if< !ft::is_integral<InputIterator>::value, InputIterator>::type* = 0) 
-				: _alloc(alloc) {
-				difference_type n = last - first;
+			vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type(),
+			typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0) :
+				_alloc(alloc)
+			{
+				difference_type	n = ft::distance(first, last);
 				this->_start = this->_alloc.allocate(n);
 				this->_capacity = this->_start + n;
 				this->_end = this->_start;
-				while (n--) {
-						this->_alloc.construct(this->_end, *first);
-						this->_end++;
-						first++;
-					}
-					// assign(first, last);
+				while (n--)
+				{
+					this->_alloc.construct(this->_end, *first);
+					first++;
+					this->_end++;
+				}
 			}
-			
+
 			/**
 			 * @brief Construct a new vector object
 			 * 
 			 * @param x another vector object of the same type
 			 */
-			// vector (const vector& x) : _alloc(x.get_allocator()) {
-			// 	this->_start = this->_alloc.allocate(x.size());
-			// 	this->_capacity = this->_start + x.size();
-			// 	this->_end = this->_start;
-			// 	this->assign(x.begin(), x.end());
-			// }
-
 			vector (const vector & x) :
 				_alloc(x.get_allocator())
 			{
@@ -439,30 +445,31 @@ namespace	ft {
 			 * @param last input iterators to the final position
 			 */
 			template <class InputIterator>
-			void assign (InputIterator first, InputIterator last,
-				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0) {
-					this->clear();
-					this->reserve(last - first);
-					this->empty();
-					_end = _start;
-					for(; first != last; first++, _end++)
-						_alloc.construct(_end, *first);
+			void		assign ( InputIterator first, InputIterator last,
+				typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0 )
+			{
+				size_type	dist = ft::distance(first, last);
+				this->clear();
+				if (this->capacity() >= dist)
+				{
+					for (; first != last; first++, this->_end++)
+					{
+						this->_alloc.construct(this->_end, *first);
+					}
+				}
+				else
+				{
+					this->reserve(dist);
+					this->assign(first, last);
+				}
 			}
-			
+
 			/**
 			 * @brief new contents are n elements, each initialized to a copy of val.
 			 * 
 			 * @param n numbers of elements in the vector
 			 * @param val value of each element in the vector
 			 */
-			// void assign (size_type n, const value_type& val) {
-			// 	this->clear();
-			// 	if (n != 0)  {
-			// 		this->reserve(n);
-			// 		for (; n != 0; n--, _end++)
-			// 			_alloc.construct(_end, val);
-			// 	}
-			// }
 
 			void		assign ( size_type n, const value_type& val )
 			{
@@ -510,12 +517,6 @@ namespace	ft {
 			 * @param val value to be copied (or moved) in the inserted element 
 			 * @return iterator that points to the first of the newly inserted element
 			 */
-			// iterator insert (iterator position, const value_type& val) {
-			// 	difference_type index = position - begin();
-			// 	insert(position, 1, val);
-			// 	return (&_start[index]);				
-			// }
-
 			iterator	insert ( iterator position, const value_type& val )
 			{
 				
