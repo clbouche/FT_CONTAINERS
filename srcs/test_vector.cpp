@@ -20,6 +20,10 @@
 # define BLUE3 "\x1B[34;1m"
 # define END "\033[0m"
 
+#ifndef NS
+# define NS	ft
+#endif
+
 using namespace NS;
 
 #define SIZE 52
@@ -229,7 +233,7 @@ void	V_testInsert(void)
 	std::cout << std::endl;
 	
 	std::cout << BLUE3 << "/* function insert with 1 value */" << END;
-	NS::vector<int>::iterator it1 = vector.insert(vector.begin() + 1, 12);
+	vector.insert(vector.begin() + 1, 12);
 
 	printContent(vector);
 	printInfosVector(vector);
@@ -254,7 +258,7 @@ void	V_testSwap(void)
 {
 	std::cout << BLUE1 << "/*__________________________SWAP__________________________*/"<< END << std::endl;
 	NS::vector<int> vector (3,100);
-	vector<int> new_vector (5,200); 	
+	NS::vector<int> new_vector (5,200); 	
 
 	std::cout << BLUE2 << "BEFORE SWAP" << END << std::endl;
 	printContent(vector);
@@ -273,9 +277,9 @@ void	V_testRelationalOperators(void)
 {
 	std::cout << BLUE1 << "/*__________________________RELATIONAL OPERATORS__________________________*/"<< END << std::endl;
 	NS::vector<int>		first_vector (20, 30);
-	NS:vector<int>		second_vector(20, 30);
-	NS:vector<int>		third_vector(10, 6);
-	NS:vector<int>		fourth_vector(50, 3);
+	NS::vector<int>		second_vector(20, 30);
+	NS::vector<int>		third_vector(10, 6);
+	NS::vector<int>		fourth_vector(50, 3);
 
 	std::cout << "__________FIRST VECTOR" << std::endl;
 	printContent(first_vector);
@@ -331,7 +335,7 @@ void	V_testReverseIterator(void)
 	for (rit1 = vector.rbegin(); rit1 != vector.rend(); ++rit1)
 	*rit1 = ++i;
 
-	printContent(myvector);
+	printContent(vector);
 
 }
 

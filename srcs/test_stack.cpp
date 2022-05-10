@@ -20,6 +20,10 @@
 # define BLUE3 "\x1B[34;1m"
 # define END "\033[0m"
 
+#ifndef NS
+# define NS	ft
+#endif
+
 using namespace NS;
 
 #define SIZE 52
