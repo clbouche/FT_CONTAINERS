@@ -6,12 +6,15 @@
 /*   By: clbouche <clbouche@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/06 11:46:27 by clbouche          #+#    #+#             */
-/*   Updated: 2022/05/05 10:52:00 by clbouche         ###   ########.fr       */
+/*   Updated: 2022/05/10 13:28:29 by clbouche         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PAIR_HPP
 # define PAIR_HPP
+
+#include <utility>
+#include <iostream>
 
 namespace ft {
 
@@ -131,6 +134,21 @@ namespace ft {
 		template <class T1, class T2>
 		pair<T1, T2> make_pair ( T1 x, T2 y )
 		{ return (pair<T1, T2>(x, y)); }
+
 }
+
+		template <typename T, typename U>
+		std::ostream &operator<<(std::ostream &os, const ft::pair<T, U> &pair)
+		{
+			os << "[" << pair.first << "]=\"" << pair.second << "\"";
+			return os;
+		}
+
+		template <typename T, typename U>
+		std::ostream &operator<<(std::ostream &os, const std::pair<T, U> &pair)
+		{
+			os << "[" << pair.first << "]=\"" << pair.second << "\"";
+			return os;
+		}
 
 #endif
