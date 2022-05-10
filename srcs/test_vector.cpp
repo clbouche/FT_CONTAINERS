@@ -243,15 +243,6 @@ void	V_testInsert(void)
 
 	printContent(vector);
 	printInfosVector(vector);
-
-	std::cout << BLUE3 << std::endl << "/* function insert with a range of values */" << END;
-
-	NS::vector<int>		input_iterator(5, 104);
-
-	vector.insert(vector.begin() + 3, input_iterator.begin(), input_iterator.end());
-
-	printContent(vector);
-	printInfosVector(vector);
 }
 
 void	V_testSwap(void)

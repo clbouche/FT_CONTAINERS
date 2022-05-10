@@ -133,12 +133,6 @@ size : 7
 [34;1minfos of vector : [0m
 capacity : 12
 size : 10
-[34;1m
-/* function insert with a range of values */[0m[34;1mcontent of vector : [0m
-30 30 30 104 104 104 104 104 10 12 10 10 10 10 10 
-[34;1minfos of vector : [0m
-capacity : 20
-size : 15
 
 [34m/*__________________________SWAP__________________________*/[0m
 [36mBEFORE SWAP[0m
